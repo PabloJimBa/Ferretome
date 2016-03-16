@@ -1,0 +1,2 @@
+<?php if (!defined('BASEPATH')) exit('Wir haben Sie nicht verstanden!'); ?>
+<p><a href="index.php?c=connectivity">Ferret brain</a> &nbsp; | &nbsp;  <a href="index.php?c=connectivity&m=cat_connectivity_with_ferret_brain"> Cat connectivity mapped into Ferret brain</a><p>
