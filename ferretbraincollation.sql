@@ -34,7 +34,10 @@ CREATE TABLE IF NOT EXISTS `architecture` (
   `architecture_pdc` int(11) NOT NULL DEFAULT '1',
   `parameters_id` int(11) unsigned NOT NULL DEFAULT '1',
   `parameters_value` text,
-  PRIMARY KEY (`architecture_id`)
+  PRIMARY KEY (`architecture_id`),
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`),
+  FOREIGN KEY (`brain_sites_id`) REFERENCES brain_sites (`brain_sites_id`),
+  FOREIGN KEY (`parameters_id`) REFERENCES parameters (`parameters_id`),
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=116 ;
 
 -- --------------------------------------------------------
@@ -67,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `brain_maps` (
   `citation` text,
   `comments` text,
   PRIMARY KEY (`brain_maps_id`),
-  UNIQUE KEY `literature_id` (`literature_id`)
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=40 AUTO_INCREMENT=32 ;
 
 -- --------------------------------------------------------
@@ -81,8 +84,12 @@ CREATE TABLE IF NOT EXISTS `brain_sites` (
   `brain_sites_index` varchar(255) DEFAULT NULL,
   `brain_sites_acronyms_id` int(11) NOT NULL,
   `brain_maps_id` int(11) DEFAULT NULL,
-  `brain_sites_type` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`brain_sites_id`)
+  `brain_sites_types_id` int(11) unsigned DEFAULT NULL,
+  `brain_sites_classes_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`brain_sites_id`),
+  FOREIGN KEY (`brain_sites_acronyms_id`) REFERENCES brain_sites_acronyms (`brain_sites_acronyms_id`),
+  FOREIGN KEY (`brain_sites_types_id`) REFERENCES brain_sites_types (`brain_sites_types_id`),
+  FOREIGN KEY (`brain_sites_classes_id`) REFERENCES brain_sites_classes (`brain_sites_classes_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=35 AUTO_INCREMENT=253 ;
 
 -- --------------------------------------------------------
@@ -113,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `brain_sites_types` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `brain_site_acronyms`
+-- Table structure for table `brain_sites_acronyms`
 --
 
 CREATE TABLE IF NOT EXISTS `brain_site_acronyms` (
