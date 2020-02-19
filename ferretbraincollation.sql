@@ -156,7 +156,8 @@ CREATE TABLE IF NOT EXISTS `connectivity_cache` (
   `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` int(11) NOT NULL DEFAULT '1',
   `content` longtext NOT NULL,
-  PRIMARY KEY (`record_id`)
+  PRIMARY KEY (`record_id`),
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
@@ -203,7 +204,8 @@ CREATE TABLE IF NOT EXISTS `ferretdb_log` (
   `log_previous_data` text,
   `log_parameter` int(11) NOT NULL DEFAULT '0',
   `log_comment` text,
-  PRIMARY KEY (`log_id`)
+  PRIMARY KEY (`log_id`),
+  FOREIGN KEY (`user_id`) REFERENCES ferretdb_users (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=25 AUTO_INCREMENT=971 ;
 
 -- --------------------------------------------------------
@@ -231,7 +233,8 @@ CREATE TABLE IF NOT EXISTS `ferretdb_news` (
   `news_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `news_state` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`news_id`)
+  PRIMARY KEY (`news_id`),
+  FOREIGN KEY (`user_id`) REFERENCES ferretdb_users (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
@@ -295,7 +298,9 @@ CREATE TABLE IF NOT EXISTS `ferretdb_workflow` (
   `job_state` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL DEFAULT '0',
   `record_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`job_id`)
+  PRIMARY KEY (`job_id`),
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`),
+  FOREIGN KEY (`user_id`) REFERENCES ferretdb_users (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=66 ;
 
 -- --------------------------------------------------------
@@ -310,20 +315,25 @@ CREATE TABLE IF NOT EXISTS `injections` (
   `methods_id` int(10) unsigned NOT NULL,
   `literature_id` varchar(255) DEFAULT NULL,
   `brain_sites_id` int(11) DEFAULT NULL,
-  `PDC_site` varchar(255) DEFAULT NULL,
+  `PDC_id` varchar(255) DEFAULT NULL,
   `site_type` varchar(255) DEFAULT NULL,
   `injections_citation` text,
   `injections_refText` varchar(255) DEFAULT NULL,
   `injections_refFigures` varchar(255) DEFAULT NULL,
   `injections_hemisphere` varchar(255) DEFAULT NULL,
-  `EC` int(11) unsigned DEFAULT NULL,
+  `extension_codes_id` int(11) unsigned DEFAULT NULL,
   `PDC_EC` int(11) unsigned DEFAULT NULL,
   `injection_volume` varchar(255) DEFAULT NULL,
   `injections_concentration` varchar(255) DEFAULT NULL,
   `injections_laminae` varchar(6) DEFAULT NULL,
   `PDC_laminae` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`injections_id`),
-  UNIQUE KEY `injection_index` (`injections_index`)
+  UNIQUE KEY `injection_index` (`injections_index`),
+  FOREIGN KEY (`methods_id`) REFERENCES methods (`methods_id`),
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`),
+  FOREIGN KEY (`brain_sites_id`) REFERENCES brain_sites (`brain_sites_id`),
+  FOREIGN KEY (`extension_codes_id`) REFERENCES extension_codes (`extension_codes_id`),
+  FOREIGN KEY (`PDC_id`) REFERENCES pdc (`PDC_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=964 AUTO_INCREMENT=40 ;
 
 -- --------------------------------------------------------
@@ -337,7 +347,10 @@ CREATE TABLE IF NOT EXISTS `injections_and_outcomes` (
   `injections_id` int(11) NOT NULL DEFAULT '0',
   `outcome_id` int(11) NOT NULL DEFAULT '0',
   `literature_id` int(11) NOT NULL,
-  PRIMARY KEY (`relation_id`)
+  PRIMARY KEY (`relation_id`),
+  FOREIGN KEY (`injections_id`) REFERENCES injections (`injections_id`),
+  FOREIGN KEY (`outcome_id`) REFERENCES labeling_outcome (`outcome_id`),
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
 
 -- --------------------------------------------------------
@@ -352,7 +365,10 @@ CREATE TABLE IF NOT EXISTS `injections_data` (
   `literature_id` int(11) NOT NULL,
   `parameters_id` int(11) NOT NULL DEFAULT '1',
   `parameters_value` text,
-  PRIMARY KEY (`data_id`)
+  PRIMARY KEY (`data_id`),
+  FOREIGN KEY (`injections_id`) REFERENCES injections (`injections_id`),
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`),
+  FOREIGN KEY (`parameters_id`) REFERENCES parameters (`parameters_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
@@ -379,7 +395,8 @@ CREATE TABLE IF NOT EXISTS `labeling_outcome` (
   `outcome_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `literature_id` int(11) NOT NULL,
   `outcome_type` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`outcome_id`)
+  PRIMARY KEY (`outcome_id`),
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 -- --------------------------------------------------------
@@ -393,8 +410,8 @@ CREATE TABLE IF NOT EXISTS `labelled_sites` (
   `outcome_id` int(11) unsigned DEFAULT NULL,
   `brain_sites_id` int(11) unsigned DEFAULT NULL,
   `labelled_sites_type` varchar(255) DEFAULT NULL,
-  `PDC_SITE` varchar(255) DEFAULT NULL,
-  `EC` int(11) unsigned DEFAULT NULL,
+  `PDC_id` varchar(255) DEFAULT NULL,
+  `extension_codes_id` int(11) unsigned DEFAULT NULL,
   `PDC_EC` int(11) unsigned DEFAULT NULL,
   `labelled_sites_density` int(11) DEFAULT NULL,
   `PDC_DENSITY` int(11) DEFAULT NULL,
@@ -402,7 +419,11 @@ CREATE TABLE IF NOT EXISTS `labelled_sites` (
   `percent_neurons_labeled` varchar(255) DEFAULT NULL,
   `labelled_sites_laminae` varchar(6) DEFAULT NULL,
   `PDC_LAMINAE` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`labelled_sites_id`)
+  PRIMARY KEY (`labelled_sites_id`),
+  FOREIGN KEY (`outcome_id`) REFERENCES labeling_outcome (`outcome_id`),
+  FOREIGN KEY (`brain_sites_id`) REFERENCES brain_sites (`brain_sites_id`),
+  FOREIGN KEY (`extension_codes_id`) REFERENCES extension_codes (`extension_codes_id`),
+  FOREIGN KEY (`PDC_id`) REFERENCES pdc (`PDC_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=40 AUTO_INCREMENT=203 ;
 
 -- --------------------------------------------------------
@@ -451,7 +472,9 @@ CREATE TABLE IF NOT EXISTS `literature_and_authors` (
   `lna_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `literature_id` int(11) DEFAULT NULL,
   `authors_id` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`lna_id`)
+  PRIMARY KEY (`lna_id`),
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`),
+  FOREIGN KEY (`authors_id`) REFERENCES authors (`authors_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=13 AUTO_INCREMENT=297 ;
 
 -- --------------------------------------------------------
@@ -471,7 +494,8 @@ CREATE TABLE IF NOT EXISTS `maps_relations` (
   `PDC_RELATION` int(11) DEFAULT NULL,
   `citation` text,
   `comments` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`maps_relations_id`)
+  PRIMARY KEY (`maps_relations_id`),
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AVG_ROW_LENGTH=52 AUTO_INCREMENT=56 ;
 
 -- --------------------------------------------------------
@@ -492,7 +516,9 @@ CREATE TABLE IF NOT EXISTS `methods` (
   `section_thickness` varchar(100) NOT NULL,
   `number_of_sections` varchar(255) NOT NULL,
   `comments` text NOT NULL,
-  PRIMARY KEY (`methods_id`)
+  PRIMARY KEY (`methods_id`),
+  FOREIGN KEY (`literature_id`) REFERENCES literature (`literature_id`),
+  FOREIGN KEY (`tracers_id`) REFERENCES tracers (`tracers_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 -- --------------------------------------------------------
