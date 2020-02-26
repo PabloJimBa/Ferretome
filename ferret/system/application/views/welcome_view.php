@@ -24,6 +24,10 @@
 	</td>
 	
 	<td>
+	<h2> </h2>
+	</td>
+	
+	<td>
 	<h2>Additional</h2>
 	</td>
 </tr>
@@ -31,7 +35,7 @@
 /* Main table content*/
 	
 <tr>
-	<td >
+	<td valign="top">
 
 
 	<h3>First step:</h3>
@@ -57,33 +61,37 @@
 
 	</td>
 	
-	<td>
+	<td valign="top">
 	
 	<h2>Literature:</h2>
-	<p><a href="index.php?c=literature&m=search">Find Literature </a></p>
-	<p><a href="index.php?c=authors&m=search">Find Author </a></p>
+	<p><a href="index.php?c=literature&m=search">Show Literature </a></p>
+	<p><a href="index.php?c=authors&m=search">Show Authors </a></p>
 	
 	<h2>Mapping data:</h2>	
-	<p><a href="index.php?c=brainmaps&m=search">Find Brain Maps </a></p>
-	<p><a href="index.php?c=acronyms&m=search">Find Acronym </a></p>
+	<p><a href="index.php?c=brainmaps&m=search">Show Brain Maps </a></p>
+	<p><a href="index.php?c=acronyms&m=search">Show Acronyms </a></p>
 	
 	<h2>Expirement data:</h2>
 	
-	<p><a href="index.php?c=injections&m=search">Find Injection </a></p>
+	<p><a href="index.php?c=injections&m=search">Show Injections </a></p>
 	
 	</td>
 	
 	<td>
+		
+	</td>
+		
+	<td valign="top">
 	
 	
-	<p>Special tables</p>
+	<h2>Special tables</h2>
 	<p><a href="index.php?c=menueditor">Main menu editor</a></p>
 	<p><a href="index.php?c=journal">Actions Journal</a></p>
 	<p><a href="index.php?c=codingrules">Coding rules</a></p>
-	<p>Additional tables for mapping studies</p>
+	<h2>Additional tables for mapping studies</h2>
 	<p><a href="index.php?c=abbreviations">Literature Abbr.</a></p>
 	<p><a href="index.php?c=parameters">Architecture parametrs </a></p>
-	<p>Additional tables for injection studies</p>
+	<h2>Additional tables for injection studies</h2>
 	<p><a href="index.php?c=tracers">Injection tracers</a></p>
 	<p><a href="index.php?c=injectionsparameters"> Injection parameter </a></p>
 	
