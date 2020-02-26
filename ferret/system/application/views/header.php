@@ -5,17 +5,22 @@
 
 <head>
 
-<?php if(!isset($extraTitle)):?>
- <title>Ferret Brain DB</title>
-<?php endif;?>
-<?php if (isset($extraTitle)):?>
- <title><?=$extraTitle?></title>
+/*If extraTitle is set, it will be shown. If not, "Ferret Brain DB" will be shown*/
+	
+<?php if(isset($extraTitle)):?>
+	<title><?=$extraTitle?></title>
+<?php else:?>
+ 	<title>Ferret Brain DB</title>
 <?php endif;?>
 
+/*If extraHeader is set, it will be shown.*/
+	
 <?php if(isset($extraHeader)):?>
- <?=$extraHeader?>
+ 	<?=$extraHeader?>
  <?php endif;?>
 
+/* Style sheet used: /ferret/js/prototype.js */
+	
 <link href="style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/prototype.js"></script>
 
@@ -27,46 +32,64 @@
 </head>
 <body>
 
+/*Main page header*/
+	
 <div id="header">
 <?php if(!isset($login_token)):?>
-<div id="header_left">
-<h3><a href="index.php?c=literature&m=search"> Main menu</a></h3>
-</div>
-<div id="header_right">
-
-<a href="index.php?c=workflow&type=input">Input queue <?php if(isset($input_queue_number)):?>(<?=$input_queue_number?>)<?php endif;?></a> &nbsp; | &nbsp; 
-<a href="index.php?c=workflow&type=proofreading">Proofreading queue <?php if(isset($proof_queue_number)):?>(<?=$proof_queue_number?>)<?php endif;?></a>  &nbsp; | &nbsp; 
-<strong>Ferret Brain Collation DB</strong>  &nbsp; | &nbsp; 
-<a href="index.php?c=login&m=signout"> Exit</a>
-</div>
+	
+	/*Left header*/
+	
+	<div id="header_left">
+	<h3><a href="index.php?c=literature&m=search"> Main menu</a></h3>
+	</div>
+	
+	/*Right header*/
+	
+	<div id="header_right">
+	<a href="index.php?c=workflow&type=input">Input queue <?php if(isset($input_queue_number)):?>(<?=$input_queue_number?>)<?php endif;?></a> &nbsp; | &nbsp; 
+	<a href="index.php?c=workflow&type=proofreading">Proofreading queue <?php if(isset($proof_queue_number)):?>(<?=$proof_queue_number?>)<?php endif;?></a>  &nbsp; | &nbsp; 
+	<strong>Ferret Brain Collation DB</strong>  &nbsp; | &nbsp; 
+	<a href="index.php?c=login&m=signout"> Exit</a>
+	</div>
+	
+/*Log in page header*/
+	
 <?php else:?>
 
-<div id="header_left">
-<h3>Ferret DB login page</h3>
+	<div id="header_left">
+	<h3>Ferret DB login page</h3>
 </div>
 
+
+/*End of log in page header*/
+	
 <?php endif;?>
 
 </div>
-
+	
 <br clear="all">
 
 <table id="main_contaner">
 <tr>
 <?php if(!isset($login_token)):?>
 	<td valign="top" >
-<div id="outer_left">
-
+	<div id="outer_left">
+	
+/*Side menu from main page*/
+	
 <?php if(isset($leftMenu)):?>
 
 	<?php foreach ($leftMenu->result() as $lmenu):?>
 					
+		/*Side menu headers*/
+	
 		<?php if($lmenu->item_type == '0'):?>
-		<p><strong><?=$lmenu->item_caption?></strong></p>
-		<?php endif;?>
-						
-		<?php if($lmenu->item_type == '1'):?>
-		<p><a href="<?=$lmenu->item_link?>"><?=$lmenu->item_caption?></a></p>
+			<p><strong><?=$lmenu->item_caption?></strong></p>
+				
+		/*Side menu links (options)*/
+	
+		<?php else($lmenu->item_type == '1'):?>
+			<p><a href="<?=$lmenu->item_link?>"><?=$lmenu->item_caption?></a></p>
 		<?php endif;?>
 					
 					
