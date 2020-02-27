@@ -1,10 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('Wir haben Sie nicht verstanden!'); ?>
 
-/*Load the header*/
+<!-- Load the header -->
 
 <?php  $this->load->view('header');  ?>
 
-/*Main page*/
+<!-- Main page -->
 
 <?php if($action == 'index'):?>
 
@@ -12,7 +12,7 @@
 
 <table>
 	
-/* Main table header*/
+<!-- Main table header -->
 	
 <tr>
 	<td>
@@ -32,7 +32,7 @@
 	</td>
 </tr>
 
-/* Main table content*/
+<!-- Main table content -->
 	
 <tr>
 	<td valign="top">
