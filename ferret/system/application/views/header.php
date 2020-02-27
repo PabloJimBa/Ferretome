@@ -5,7 +5,7 @@
 
 <head>
 
-/*If extraTitle is set, it will be shown. If not, "Ferret Brain DB" will be shown*/
+<!-- If extraTitle is set, it will be shown. If not, "Ferret Brain DB" will be shown*/ -->
 	
 <?php if(isset($extraTitle)):?>
 	<title><?=$extraTitle?></title>
@@ -13,13 +13,13 @@
  	<title>Ferret Brain DB</title>
 <?php endif;?>
 
-/*If extraHeader is set, it will be shown.*/
+<!-- If extraHeader is set, it will be shown. -->
 	
 <?php if(isset($extraHeader)):?>
  	<?=$extraHeader?>
  <?php endif;?>
 
-/* Style sheet used: /ferret/js/prototype.js */
+<!-- Style sheet used: /ferret/js/prototype.js -->
 	
 <link href="style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/prototype.js"></script>
@@ -32,7 +32,7 @@
 </head>
 <body>
 
-/*Main page header*/
+<!-- Main page header -->
 	
 <div id="header">
 <?php if(!isset($login_token)):?>
@@ -52,7 +52,7 @@
 	<a href="index.php?c=login&m=signout"> Exit</a>
 	</div>
 	
-/*Log in page header*/
+<!-- Log in page header -->
 	
 <?php else:?>
 
@@ -61,7 +61,7 @@
 </div>
 
 
-/*End of log in page header*/
+<!-- End of log in page header -->
 	
 <?php endif;?>
 
@@ -75,7 +75,7 @@
 	<td valign="top" >
 	<div id="outer_left">
 	
-/*Side menu from main page*/
+<!-- Side menu from main page -->
 	
 <?php if(isset($leftMenu)):?>
 
