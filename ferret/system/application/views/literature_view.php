@@ -1,11 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('Wir haben Sie nicht verstanden!'); ?>
 <?php  $this->load->view('header');  ?>
 
-
-
 <?php if($action == 'index'):?>
 
-<h2>Literature input</h2>
+<p align="right"><a href="javascript:history.go(-1)">Back</a>
+<h1>Literature input</h1>
 
 
 <?php if(isset($index_message)):?>
@@ -15,11 +14,46 @@
 
 
 
-<a href="index.php?c=literature&m=add">Add new Literature </a>
-<a href="index.php?c=authors&m=add">Add new Authors </a>
+<h2><a href="index.php?c=literature&m=add">Add new Literature </a></h2>
 
+<?php if(isset($last_inserted)):?>
+<div id="all">
+	<p>All publications</p>
+	
+	<?php $data['lit_data'] = $all; $data['auth_data'] = $all_authors; $this->load->view('literature_search_view',$data); ?>
+
+</div>
 <?php endif;?>
 
+<?php if(isset($last_inserted)):?>
+<div id="last_inserted">
+	<p>Recently inserted publications</p>
+	
+	<?php $data['lit_data'] = $last_inserted; $data['auth_data'] = $last_inserted_authors; $this->load->view('literature_search_view',$data); ?>
+
+</div>
+<?php endif;?>
+
+<?php if(isset($last_updated)):?>
+<div id="last_updated">
+	<p>Recently updated publications</p>
+	
+	<?php $data['lit_data'] = $last_updated; $data['auth_data'] = $last_updated_authors;  $this->load->view('literature_search_view',$data); ?>
+
+</div>
+<?php endif;?>
+
+
+<?php if(isset($for_proof_data)):?>
+<div id="for_proof">
+	<p>Ready for proofreading literature</p>
+	
+	<?php $data['lit_data'] = $for_proof_data; $data['auth_data'] = $for_proof_authors;  $this->load->view('literature_search_view',$data); ?>
+
+</div>
+<?php endif;?>
+
+<?php endif;?>
 
 
 <?php if($action == 'add'):?>
