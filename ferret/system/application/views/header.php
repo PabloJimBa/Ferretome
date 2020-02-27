@@ -37,7 +37,7 @@
 <div id="header">
 <?php if(!isset($login_token)):?>
 <div id="header_left">
-<h3><a href="index.php?c=literature&m=search"> Main menu</a></h3>
+<h3><a href="index.php?c=welcome"> Main menu</a></h3>
 </div>
 <div id="header_right">
 
