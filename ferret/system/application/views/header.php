@@ -19,7 +19,7 @@
  <?=$extraHeader?>
  <?php endif;?>
 
-<!-- Style sheet used: /ferret/js/prototype.js -->
+<!-- Style sheet used: -->
 
 <link href="style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/prototype.js"></script>
@@ -29,7 +29,9 @@
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 
+
 </head>
+
 <body>
 
 <!-- Main page header -->
@@ -69,28 +71,74 @@
 	<td valign="top" >
 <div id="outer_left">
 
-<!-- Side menu from main page -->
+<!-- Side menu -->
 
 <?php if(isset($leftMenu)):?>
 
+	<nav>
+			<ul>
+				<li><a href="#">Literature</a>
+				<div>
+ 					<ul>
+						<li><a href="index.php?c=literature">Literature</a></li>
+						<li><a href="">Author</a></li>
+						<li><a href="">Journla/Book/Etc</a></li>
+					</ul>
+				</div>
+				<li><a href="#">Mapping</a>
+ 				<div>
+ 					<ul>
+						<li><a href="">Brain map</a></li>
+						<li><a href="">Brain site</a></li>
+						<li><a href="">Acronym</a></li>
+						<li><a href="">Architecture of BSite</a></li>
+						<li><a href="">Architecture Parameter</a></li>
+						<li><a href="">Relations of BSites</a></li>
+					</ul>
+				</div>
+ 				</li>
+				<li><a href="#">Experiment</a>
+				<div>
+ 					<ul>
+						<li><a href="">Injection</a></li>
+						<li><a href="">Method of Injection</a></li>
+						<li><a href="">Tracer</a></li>
+						<li><a href="">Data for Injection</a></li>
+						<li><a href="">Data Parameter</a></li>
+						<li><a href="">Labeling Outcome</a></li>
+						<li><a href="">Labelled Site</a></li>
+						<li><a href="">Injection-Outcome Relation</a></li>
+					</ul>
+				</div>
+				<li><a href="#">Special</a>
+				<div>
+ 					<ul>
+						<li><a href="">Actions Journal</a></li>
+						<li><a href="">Coding Rules</a></li>
+						<li><a href="">Left menu Editor</a></li>
+						<li><a href="">Experiment</a></li>
+					</ul>
+				</div>
+			</ul>
+	</nav>
+
+
+	
+<!--
 	<?php foreach ($leftMenu->result() as $lmenu):?>
 					
-		<!-- Menu titles -->
-
 		<?php if($lmenu->item_type == '0'):?>
 		<p><strong><?=$lmenu->item_caption?></strong></p>
 		<?php endif;?>
-				
-		<!-- Menu links -->
-				
+						
 		<?php if($lmenu->item_type == '1'):?>
 		<p><a href="<?=$lmenu->item_link?>"><?=$lmenu->item_caption?></a></p>
 		<?php endif;?>
 					
 					
-	<?php endforeach;?>
+	<?php endforeach;?> 
+-->
 
- 
 <?php endif;?>
 	
 </div>
