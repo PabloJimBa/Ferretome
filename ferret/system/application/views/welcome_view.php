@@ -69,7 +69,7 @@
 	<td valign="top">
 	
 	<h3>Literature:</h3>
-	<p><a href="index.php?c=literature&m=search">Show Literature </a></p>
+	<p><a href="index.php?c=literature">Show Literature </a></p>
 	<p><a href="index.php?c=authors&m=search">Show Authors </a></p>
 	
 	<h3>Mapping data:</h3>	
