@@ -18,8 +18,7 @@
 	<?php endif;?>
 
 
-	<h2><a href="index.php?c=injections&m=add">Add new Injections </a> &nbsp; | &nbsp; <a href="index.php?c=methods&m=add">Add new Injection Methods </a></h2>
-	<h2><a href="index.php?c=injectionsdata&m=add">Add new Injection Data</a> &nbsp; | &nbsp; <a href="index.php?c=injectionsparameters&m=add">Add new Injection Parameters</a></h2>
+	<h2><a href="index.php?c=methods&m=add">Add new Injection Methods</a> &nbsp; | &nbsp; <a href="index.php?c=methods&m=show">Show all Injection Methods </a></h2>
 
 <?php endif;?>
 
@@ -129,8 +128,6 @@
 	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
 
 	<h1>All methods</h1>
-
-	<p><a href="index.php?c=methods&m=add">Add new Method </a></p>
 
 	<table border="0" cellpadding="3" cellspacing="1">
 	<tr><td><strong>Tracer name</strong></td><td><strong>Injection method</strong></td><td><strong>Survival time</strong></td><td></td></tr>
