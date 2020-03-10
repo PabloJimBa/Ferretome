@@ -27,12 +27,17 @@ class Injectionsoutcomes extends Controller {
 		}
 		
 		
-		
+	function index(){
+
+		$this->data['action'] = 'index';
+		$this->load->view('injections_and_outcomes',$this->data);
+
+	}
 		
 		
 	}
 
-	function index() {
+	function add() {
 		
 		$id = $this->input->get('id');
 		
@@ -55,8 +60,8 @@ class Injectionsoutcomes extends Controller {
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/autocomplete.js"></script>';
 		
 
-		$this->data['action'] = 'index';
-		$this->load->view('injections_and_outcomes.php',$this->data);
+		$this->data['action'] = 'add';
+		$this->load->view('injections_and_outcomes',$this->data);
 		
 		
 
