@@ -158,16 +158,17 @@ class Abbreviations extends Controller {
 	
 	}
 	
+	// Autocomplete function	
 	
 	function ajaxAtocomplit(){
 		
-		$qr = $this->input->post('query');
+		$qr = $this->input->post('query'); // $qr variable is what user writes
 		
 		$result = 'no thing';
 		
 		if (!empty($qr)) {
 		
-		
+			// Load data (which matching with abbr_short of $qr) from literature_abbr table (from database) into $qida variable
 			$qida = $this->db->query("SELECT DISTINCT abbreviations_id as aid, abbreviations_short as ash, abbreviations_full as af FROM literature_abbreviations WHERE abbreviations_short LIKE ? OR abbreviations_full LIKE ? LIMIT 7", array($qr . '%','%' . $qr . '%'));
 			
 			
