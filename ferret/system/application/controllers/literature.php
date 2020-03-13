@@ -45,18 +45,91 @@ class Literature extends Controller {
 	}
 	
 	function index() {
-		$this->search();
-		/*
+		
+		// Action 'index' is chosen.
+
 		$this->data['action'] = 'index';
+
+		// Load all literature and authors to be shown.
+		
+		$this->load->model('Literature_model','literM',TRUE);
+		$this->load->model('Authors_model','authorsM',TRUE);
+		
+		if (($qida = $this->literM->get_all_where()) != FALSE){
+		
+			foreach ($qida->result() as $rowa) {
+				
+				$this->data['all_authors'][$rowa->literature_id] =  $this->authorsM->get_authors_for_literature($rowa->literature_id); 
+			}
+			
+			$this->data['all'][] = $qida;
+		
+		}
+	
+		// Collecting last inserted publications.
+		
+		if (($qida = $this->literM->get_last_inserted()) != FALSE){
+		
+			foreach ($qida->result() as $rowa) {
+				
+				$this->data['last_inserted_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id); 
+			}
+			
+			$this->data['last_inserted'][] = $qida;
+		
+		}
+		
+		// Collecting last updated publications.
+
+				
+		if (($qida = $this->literM->get_last_updated()) != FALSE){
+		
+		
+			foreach ($qida->result() as $rowa) {
+					
+				$this->data['last_updated_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id);
+			}
+			
+			
+			$this->data['last_updated'][] = $qida;
+		
+		}
+		
+		// Collecting 3 puplication for proofreading.
+		
+		if (($qida = $this->literM->get_for_proof()) != FALSE){
+			
+			foreach ($qida->result() as $rowa) {
+					
+				$this->data['for_proof_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id);
+			}
+				
+				
+			$this->data['for_proof_data'][] = $qida;
+			
+		}
+		
+		
+		$this->data['extraHeader'] = '<script type="text/javascript" src="js/autocomplete.js"></script>';
+		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/literature.js"></script>';
+			
+		// Load the application/views/literature_view.php file.
+
 		$this->load->view('literature_view',$this->data);
-		*/
+		
+		
+		
 		
 	}
+
 	
 	function add(){
 		
+		// Load the field names from literature (table in database) into data
 		
 		$this->data['fields'] = $this->db->field_data('literature');
+		
+		// Action "add" is chosen
 		
 		$this->data['action'] = 'add';
 		
@@ -64,6 +137,8 @@ class Literature extends Controller {
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/literature.js"></script>';
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/upclick-min.js"></script>';
 			
+		// Load /views/literature_view.php file with this data (action: "add"; fields: from literature table)
+
 		$this->load->view('literature_view',$this->data);
 		
 		
@@ -616,23 +691,23 @@ class Literature extends Controller {
 		
 	}
 	
-	/*
-	 * @vieaAll 
-	 * is called from a link on page index.php?c=literature&m=search 
-	 * outputs all papers in data base
-	 */
+	
 	
 	function viewAll(){
 		
 		
-		$this->load->model('Literature_model','literM',TRUE);
+		$this->load->model('Literature_model','literM',TRUE); // Load "Literature_model" as "literM"; TRUE = autoconnect to database
+		
+		// Arrays with literature_id and all data from literature_and_authors (table from database)
 		
 		$this->data['block_data'] = $this->literM->get_all();
 		$this->data['block_fields'] = $this->literM->get_fields();
 		
 		
-		$this->load->model('Authors_model','amodel',TRUE);
+		$this->load->model('Authors_model','amodel',TRUE); // Load "Authors_model" as "amodel"; TRUE = autoconnect to database
 		
+		// To obtain an array called $auth with names and surnames
+
 		$auth = array();
 		
 		foreach ($this->data['block_data']->result() as $rowa) {
@@ -661,6 +736,8 @@ class Literature extends Controller {
 		
 
 		$this->data['action'] = 'all_literature';
+
+		// Load views/literature_view with all data obtained in this function
 
 		$this->load->view('literature_view',$this->data);
 		
