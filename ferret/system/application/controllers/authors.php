@@ -97,18 +97,18 @@ class Authors extends Controller {
 	
 	}
 	
-	
+	// Autocomplete function	
+
 	function ajaxAtocomplit() {
 		
 		
-		$qr = $this->input->post('query');
+		$qr = $this->input->post('query'); // $qr variable is what user writes
 		
 		$result = 'no thing';
 		
 		if (!empty($qr)) {
-		
-		
-		
+				
+			// Load data (which matching with surname of $qr) from authors table (from database) into $qida variable
 			$qida = $this->db->query("SELECT DISTINCT authors_id as aid, authors_surname as asname, authors_name as aname FROM authors WHERE authors_surname LIKE ? LIMIT 7", array($qr . '%'));
 		
 			if ($qida->num_rows() > 0) {
