@@ -91,8 +91,8 @@
 	<tr id="abbrevaiture_blk_srch">
 
 		<td >
-			Search journal / book <br/> to this pub. <br/>
-			Cannot find? <a href="index.php?c=abbreviations&m=add" target="_blank">Add journal/ book to DB first!</a> 
+			Search journal/book <br/> to this pub. <br/>
+			Cannot find? <a href="index.php?c=abbreviations&m=add" target="_blank">Add journal/book to DB first!</a> 
 		</td>
 		<td><input title="Please, start to type title of journal" type="text" id="autocomplite_abbr" class="input"/></td>
 	</tr>
@@ -107,7 +107,7 @@
 	<?php if (($field->primary_key == 1)  OR ($field->name == 'literature_state') OR ($field->name == 'literature_physicalCopy') OR ($field->name == 'literature_source') OR ($field->name == 'literature_tracingData') OR ($field->name == 'literature_mappingData') OR ($field->name == 'literature_index') ) continue; ?>
 
 	<tr>
-		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 		<?php if ($field->type == 'blob'): ?>
 			<td><textarea class="textarea" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php echo form_prep($field->default); ?></textarea></td>
@@ -317,6 +317,8 @@
 
 <?php if($action == 'edit'):?>
 
+	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+
 	<div id="literature_block">
 
 	<h1>Edit Literature</h1>
@@ -489,7 +491,7 @@
 	<?php endif;?>
 
 
-	<p><h3>Brain Sites:</sh3></p>
+	<p><h3>Brain Sites:</h3></p>
 	<p><a href="index.php?c=brainsites&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Brain Site </a></p>
 
 
@@ -653,7 +655,9 @@
 
 	<?php if(isset($block_data)):?>
 
-		<?php $local_data = array(); $local_data['output_data'] =$block_data; $local_data['fields_data'] = $block_fields; $this->load->view('standart_table_view',$local_data);?>
+		<!-- Create an array called $local_data with $block_data and $block_fields (from controllers/literature.php) and load it in views/standart_table_view -->
+
+		<?php $local_data = array(); $local_data['output_data'] =$block_data; $local_data['fields_data'] = $block_fields; $this->load->view('standart_table_view',$local_data);?> 
 
 	<?php else: ?>
 		<p> No papers.</p>
