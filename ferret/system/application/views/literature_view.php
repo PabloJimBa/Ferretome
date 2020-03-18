@@ -21,29 +21,32 @@
 
 <!-- Overview of last publications --> 
 
-	<?php if(isset($last_inserted)):?>
-		<div id="last_inserted">
+	<?php if(isset($last_inserted)):?>	
+		<div id="last_inserted">	<!-- Load data['last_inserted'][] from controllers/literature.php file -->
 			<p>Recently inserted publications</p>
-	
+			
+			<!-- Load literture and authors from last_insserted variable into views/literature_search_view.php file -->
 			<?php $data['lit_data'] = $last_inserted; $data['auth_data'] = $last_inserted_authors; $this->load->view('literature_search_view',$data); ?>
 
 		</div>
 	<?php endif;?>
 
 	<?php if(isset($last_updated)):?>
-		<div id="last_updated">
+		<div id="last_updated">		<!-- Load data['last_inserted'][] from controllers/literature.php file -->
 			<p>Recently updated publications</p>
 	
+			<!-- Load literture and authors from last_updated variable into views/literature_search_view.php file -->
 			<?php $data['lit_data'] = $last_updated; $data['auth_data'] = $last_updated_authors;  $this->load->view('literature_search_view',$data); ?>
 
 		</div>
 	<?php endif;?>
 
 
-	<?php if(isset($for_proof_data)):?>
+	<?php if(isset($for_proof_data)):?>	<!-- Load data['for_proof_data'][] from controllers/literature.php file -->
 		<div id="for_proof">
 			<p>Ready for proofreading literature</p>
-	
+
+			<!-- Load literture and authors from last_updated variable into views/literature_search_view.php file -->
 			<?php $data['lit_data'] = $for_proof_data; $data['auth_data'] = $for_proof_authors;  $this->load->view('literature_search_view',$data); ?>
 
 		</div>
@@ -72,6 +75,7 @@
 
 
 	<tr>
+		<!-- Authors name box-->
 		<td>Search an author(s)<br/> to this pub. <br/> 
 		Cannot find? <a href="index.php?c=authors&m=add" target="_blank" >Add authors to DB first!</a> </td>
 		<td><input title="Please, start to type a surname of an author" type="text" id="autocomplite_auth" class="input"/></td>
@@ -87,9 +91,10 @@
 		<td id="auth_list"></td>
 	</tr>
 
-
+		
 	<tr id="abbrevaiture_blk_srch">
 
+		<!-- Journal box -->
 		<td >
 			Search journal/book <br/> to this pub. <br/>
 			Cannot find? <a href="index.php?c=abbreviations&m=add" target="_blank">Add journal/book to DB first!</a> 
@@ -101,15 +106,15 @@
 		<td id="abbr_block"></td>
 	</tr>
 
-
+		<!-- Literature fields boxes -->
 	<?php foreach($fields as $field): ?>
 
 	<?php if (($field->primary_key == 1)  OR ($field->name == 'literature_state') OR ($field->name == 'literature_physicalCopy') OR ($field->name == 'literature_source') OR ($field->name == 'literature_tracingData') OR ($field->name == 'literature_mappingData') OR ($field->name == 'literature_index') ) continue; ?>
 
 	<tr>
-		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
-	
-		<?php if ($field->type == 'blob'): ?>
+		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td> <!-- Boxes titles -->
+
+		<?php if ($field->type == 'blob'): ?> <!-- Data boxes -->
 			<td><textarea class="textarea" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php echo form_prep($field->default); ?></textarea></td>
 		<?php else : ?>
 			<td><input class="input" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" value="<?php echo form_prep($field->default); ?>" size="30" /></td>
@@ -118,8 +123,8 @@
 	</tr>
 	<?php endforeach; ?>
 
-
-	<tr id="upload_block_button">
+		<!-- Upload box -->
+	<tr id="upload_block_button"> 
 		<td>
 			Upload pdf file
 			<br/>if exists
@@ -139,7 +144,7 @@
 	</tr>
 
 	</table>
-
+		<!-- Insert button -->
 	<input type="submit" class="submit" value="Insert" />
 
 	</form>
@@ -221,7 +226,8 @@
 	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
 
 	<h1>Search publication</h1>
-
+	
+	<!-- Search box -->
 	<form method="post" id="frm" name="frm" action="#">
 
 	<table border="0" cellpadding="3" cellspacing="1">
@@ -231,9 +237,9 @@
 			<input title="Please, start to type literature title" type="text" id="autocomplite_1" class="input"/>
 			<input title="Please, start to type a surname of an author" type="text" id="autocomplite_2" class="input" style="display:none"/>
 			<br/>Search publication using:<span id="search_type_1"> <strong>Title</strong></span><span id="search_type_2" style="display:none"> <strong>Authors</strong></span> - 
-			<a href="#" id="search_link_2"  onclick="switch_search(2); return false;">Switch to Authors</a>
+			<a href="#" id="search_link_2"  onclick="switch_search(2); return false;">Switch to Authors</a> 	<!-- Change the browser method -->
 			<a href="#" id="search_link_1" onclick="switch_search(1); return false;" style="display:none">Switch to Title</a>
-			<br/><a href="index.php?c=literature&m=viewAll">All literature list</a>   
+			<br/><a href="index.php?c=literature&m=viewAll">All literature list</a>   <!-- Show all literature -->
 		</td>
 	
 	</tr>
@@ -245,6 +251,9 @@
 
 	<br/>
 	<div id="search_result"></div>
+
+
+<!-- Overview of last publications --> 
 
 	<?php if(isset($last_inserted)):?>
 	<div id="last_inserted">
@@ -331,7 +340,7 @@
 	<?php if(isset($lit_data)):?>
 
 
-		<?php  $this->load->view('update_dialog_view');  ?>
+		<?php  $this->load->view('update_dialog_view');  ?>	<!-- Dialog box which appears after editing -->
 
 		<form method="post" id="frm" name="frm" action="index.php?c=literature&m=update&lid=<?=$lit_data->literature_id?>">
 
@@ -340,6 +349,7 @@
 		<!-- Form -->
 
 		<tr>
+			<!-- Status box -->
 			<td>Literature status</td>
 			<td>
 			<strong><span id="lit_status"><?=$liteature_types[$lit_data->literature_state]?></span></strong>
@@ -364,6 +374,7 @@
 
 
 		<tr>
+			<!-- Authors box -->
 			<td>
 				Search an author(s)<br/> to this pub. <br/> Cannot find? <a href="index.php?c=authors&m=add" target="_blank" >Add authors to DB first!</a> 
 			</td>
@@ -381,6 +392,7 @@
 
 		<tr id="abbrevaiture_blk_srch" style="display:none;">
 
+			<!-- Journal box -->
 			<td>
 			Search journal/book <br/> to this pub. <br/>
 			Cannot find? <a href="index.php?c=abbreviations&m=add" target="_blank">Add journal/book to DB first!</a> 
@@ -396,13 +408,14 @@
 	
 			</td>
 		</tr>
-
+	
+			<!-- Literature fields boxes -->
 		<?php foreach($fields as $field): ?>
 
 			<?php if (($field->primary_key == 1) OR ($field->name == 'literature_state') OR ($field->name == 'literature_physicalCopy') OR ($field->name == 'literature_source') OR ($field->name == 'literature_index') ) continue; ?>
 
 				<tr>
-					<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+					<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 					<?php if ($field->type == 'blob'): ?>
 						<td><textarea class="textarea" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php $f=$field->name; echo form_prep($lit_data->$f); ?></textarea></td>
@@ -415,7 +428,7 @@
 		<?php endforeach; ?>
 
 
-
+			<!-- DOI box -->
 		<?php if(!empty($lit_data->doi_id)):?>
 
 			<tr >
@@ -430,6 +443,7 @@
 
 		<?php endif;?>
 
+			<!-- PubMed box -->
 		<?php if(!empty($lit_data->pubmed_id)):?>
 
 			<tr >
@@ -445,7 +459,7 @@
 	<?php endif;?>
 
 
-
+		<!-- Upload pdf box -->
 	<tr id="upload_block_button">
 		<td>
 			Upload pdf file
@@ -476,31 +490,30 @@
 	<!-- More options to add -->
 
 	<br/>
+		<!-- Mapping options -->
 	<h2>Mapping data:</h2>
-	<a target="_blank" href="index.php?c=brainmaps&m=add&id=<?=$lit_data->literature_id?>">Add new brain map</a>
+	<p><h3>Brain Maps:</h3></p>
 
 	<?php if(isset($bmaps_data)):?>
+		<p><a target="_blank" href="index.php?c=brainmaps&m=add&id=<?=$lit_data->literature_id?>">Add new Brain Map</a> &nbsp; | &nbsp; <a href="index.php?c=brainsites&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Brain Site </a></p>
 		<table>
 		<tr><td><?=$bmaps_data->brain_maps_index?></td><td> <a target="_blank" href="index.php?c=brainmaps&m=edit&id=<?=$bmaps_data->brain_maps_id?>">Details</a></td></tr>
 		</table>
 	<?php endif;?>
 
 	<?php if(!isset($bmaps_data)):?>
-		<p>This Literature has no mapping data.</p>
+		<p>This Literature has no mapping data. &nbsp; <a target="_blank" href="index.php?c=brainmaps&m=add&id=<?=$lit_data->literature_id?>">Add new brain map</a></p>
 
 	<?php endif;?>
 
-
-	<p><h3>Brain Sites:</h3></p>
-	<p><a href="index.php?c=brainsites&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Brain Site </a></p>
-
-
+		<!-- Experimental data options -->
 	<h2>Experimental data:</h2>
+
+			<!-- Injections -->
 	<p><h3>Injections:</h3></p>
-	<p><a href="index.php?c=injections&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Injection </a></p>
 
 	<?php if(isset($inj_data)):?>
-
+		<p><a href="index.php?c=injections&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Injection </a></p>
 		<table>
 		<?php foreach($inj_data->result() as $inj): ?>
 			<tr><td><?=$inj->injections_index?> - <?=$inj->brain_sites_index?> - <?=$inj->acronym_full_name?> - <?=$inj->tracers_name?> </td><td><a target="_blank" href="index.php?c=injections&m=edit&id=<?=$inj->injections_id?>">Details</a></td></tr>
@@ -509,41 +522,43 @@
 	<?php endif;?>
 
 	<?php if(!isset($inj_data)):?>
-		<p>This Literature has no injection data.</p>
+		<p>This Literature has no injection data. &nbsp; <a href="index.php?c=injections&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Injection </a></p>
 	<?php endif;?>
 
-
+			<!-- Labeling outcomes -->
 	<p><h3>Labeling outcomes:</h3></p>
-	<p><a href="index.php?c=labelingoutcome&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Outcome </a></p>
+
 	<?php if(isset($outcomes_data)):?>
+		<p><a href="index.php?c=labelingoutcome&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Outcome </a></p>
 		<p>This paper has labeling outcomes. <a target="_blank" href="index.php?c=labelingoutcome&m=add&id=<?=$lit_data->literature_id?>">Show</a><p>	
 	<?php endif;?>
 
 	<?php if(!isset($outcomes_data)):?>
-		<p>This paper has no labeling outcomes. </p>
+		<p>This paper has no labeling outcomes. &nbsp; <a href="index.php?c=labelingoutcome&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Outcome </a></p>
 	<?php endif;?>
 
-	<p><h3>Labeling Sites:</h3></p>
+			<!-- Labelled sites -->
+	<p><h3>Labelled Sites:</h3></p>
 	<p><a href="index.php?c=labelledsites&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Labelled Site </a></p>
 
+			<!-- Injections and outcomes -->
 	<p><h3>Injections and Outcomes:</h3></p>
-	<p><a href="index.php?c=injectionsoutcomes&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Relation of Injections and Outcomes</a></p>
-
 
 	<?php if(isset($relation_data)):?>
+		<p><a href="index.php?c=injectionsoutcomes&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Relation of Injections and Outcomes</a></p>
 		<p>This paper has relations of labeling outcomes and injections. <a target="_blank" href="index.php?c=injectionsoutcomes&id=<?=$lit_data->literature_id?>">Show</a><p>	
 	<?php endif;?>
 
 	<?php if(!isset($relation_data)):?>
-		<p>This paper has no relations of labeling outcomes and injections. </p>
+		<p>This paper has no relations of labeling outcomes and injections. &nbsp; <a href="index.php?c=injectionsoutcomes&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Relation of Injections and Outcomes</a></p>
 	<?php endif;?>
 
-
+		<!-- Maps relation data -->
 	</div>
 	<h2>Maps relation data:</h2>
-	<p><a href="index.php?c=mapsrelations&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Maps relations </a></p>
 
 	<?php if(isset($mr_data)):?>
+		<p><a href="index.php?c=mapsrelations&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Maps relations </a></p>
 		<table>
 		<tr>
 			<td>This paper describes <strong><?=$mr_data_num?></strong> maps relations. </td>
@@ -559,7 +574,7 @@
 	<?php endif;?>
 
 	<?php if(!isset($mr_data)):?>
-		<p>This Literature has no maps relation data.</p>
+		<p>This Literature has no maps relation data. &nbsp; <a href="index.php?c=mapsrelations&m=add&id=<?=$lit_data->literature_id?>" target="_blank"> Add new Maps relations </a></p>
 	<?php endif;?>
 	<br/>
 	<div id="mrel_block"></div>
