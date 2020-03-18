@@ -52,68 +52,57 @@ class Literature extends Controller {
 
 		// Load all literature and authors to be shown.
 		
-		$this->load->model('Literature_model','literM',TRUE);
-		$this->load->model('Authors_model','authorsM',TRUE);
+		$this->load->model('Literature_model','literM',TRUE); // Load "Literature_model" as "literM"; TRUE = autoconnect to database
+		$this->load->model('Authors_model','authorsM',TRUE); // Load "Authors_model" as "amodel"; TRUE = autoconnect to database
 		
-		if (($qida = $this->literM->get_all_where()) != FALSE){
-		
-			foreach ($qida->result() as $rowa) {
-				
-				$this->data['all_authors'][$rowa->literature_id] =  $this->authorsM->get_authors_for_literature($rowa->literature_id); 
-			}
-			
-			$this->data['all'][] = $qida;
-		
-		}
-	
 		// Collecting last inserted publications.
 		
-		if (($qida = $this->literM->get_last_inserted()) != FALSE){
+		if (($qida = $this->literM->get_last_inserted()) != FALSE){ // Function localised in models/literature_model.php file --> get the last 3 inputs
 		
 			foreach ($qida->result() as $rowa) {
 				
-				$this->data['last_inserted_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id); 
+				$this->data['last_inserted_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id); // Obtain the authors list from the last 3 inputs
 			}
 			
-			$this->data['last_inserted'][] = $qida;
+			$this->data['last_inserted'][] = $qida; // Load the above data into data['last_inserted'][]
 		
 		}
 		
 		// Collecting last updated publications.
 
 				
-		if (($qida = $this->literM->get_last_updated()) != FALSE){
+		if (($qida = $this->literM->get_last_updated()) != FALSE){	// Function localised in models/literature_model.php file --> get the last 3 updated inputs
 		
 		
 			foreach ($qida->result() as $rowa) {
 					
-				$this->data['last_updated_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id);
+				$this->data['last_updated_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id); // Obtain the authors list from the last 3 updated inputs
 			}
 			
 			
-			$this->data['last_updated'][] = $qida;
+			$this->data['last_updated'][] = $qida;	// Load the above data into data['last_updated'][]
 		
 		}
 		
 		// Collecting 3 puplication for proofreading.
 		
-		if (($qida = $this->literM->get_for_proof()) != FALSE){
+		if (($qida = $this->literM->get_for_proof()) != FALSE){		// Function localised in models/literature_model.php file --> get the last 3 inputs which required proofreading
 			
 			foreach ($qida->result() as $rowa) {
 					
-				$this->data['for_proof_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id);
+				$this->data['for_proof_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id);	// Obtain the authors list from the above inputs
 			}
 				
 				
-			$this->data['for_proof_data'][] = $qida;
+			$this->data['for_proof_data'][] = $qida;	// Load the above data into data['for_proof_data'][]
 			
 		}
 		
-		
+		// Load literature autocomplete Javascripts (from ferret/js)
 		$this->data['extraHeader'] = '<script type="text/javascript" src="js/autocomplete.js"></script>';
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/literature.js"></script>';
 			
-		// Load the application/views/literature_view.php file.
+		// Load the application/views/literature_view.php file with all above data
 
 		$this->load->view('literature_view',$this->data);
 		
@@ -133,6 +122,8 @@ class Literature extends Controller {
 		
 		$this->data['action'] = 'add';
 		
+		// Load literature autocomplete and upload button Javascripts (from ferret/js)
+
 		$this->data['extraHeader'] = '<script type="text/javascript" src="js/autocomplete.js"></script>';
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/literature.js"></script>';
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/upclick-min.js"></script>';
@@ -146,35 +137,36 @@ class Literature extends Controller {
 	
 	function insert() {
 		
-		$fields = $_POST;
+		$fields = $_POST; // Load fields from post method
 		
 		
-		$authors = array();
+		$authors = array(); // Create an array called "authors"
 		
-		$authors = $fields['authors_id'];
-		unset($fields['authors_id']);
-		
-		
+		$authors = $fields['authors_id']; // Load fields into the above array
+		unset($fields['authors_id']); // Reset the fields variable
 		
 		
+		
+		// Search the authors_surname from the database thanks to the authors_id
 		$this->db->select('authors_surname');
 		$this->db->where_in('authors_id', $authors);
-		$qida = $this->db->get('authors');
+		$qida = $this->db->get('authors'); // Load the authors table (from the database)
 
 		
 		
+		
+		// Create the literature index name
 
-
-		$fields['literature_index'] = '';
+		$fields['literature_index'] = ''; // Create $fields['literature_index'] variable
 		
 		foreach ($qida->result() as $row) {
 
 			
-			$fields['literature_index'] .= $row->authors_surname[0];
+			$fields['literature_index'] .= $row->authors_surname[0]; // Write the initial of each author into the $fields['literature_index'] variable
 						
 		}
 		
-		$fields['literature_index'].= $fields['literature_year'];
+		$fields['literature_index'].= $fields['literature_year']; // Write the year of publication after the above initials.
 
 // 		echo $fields['literature_index'];
 
@@ -191,9 +183,9 @@ class Literature extends Controller {
 			
 		} else {
 			
-			$lid = $this->db->insert_id();
+			$lid = $this->db->insert_id();	// Load all insert_id into lid variable
 			
-			$this->journal->newrecord($this->session->userdata('user_id'),$this->table_id,$lid);
+			$this->journal->newrecord($this->session->userdata('user_id'),$this->table_id,$lid);	// Save record in journal of actions table (database)
 			
 			
 			
@@ -201,14 +193,14 @@ class Literature extends Controller {
 				
 				foreach ($authors as $auth) {
 
-					$this->db->insert('literature_and_authors',array('literature_id' => $lid, 'authors_id' => $auth));
+					$this->db->insert('literature_and_authors',array('literature_id' => $lid, 'authors_id' => $auth)); // Save new authors in literature_and_authors table (database)
 					
 				}
 				
 			}
 			
 			
-			$this->session->set_userdata('pub_id',$lid);
+			$this->session->set_userdata('pub_id',$lid);	// Add userdata lid value to pub_id variable
 			$result = '{"result":"1","message":"Succes!","newurl":"index.php?c=literature&m=edit&id='.$lid.'"}';
 		}
 		
@@ -224,11 +216,11 @@ class Literature extends Controller {
 		
 		
 		
-		
+		// Load models from application/models
 		$this->load->model('Literature_model','literM',TRUE);
 		$this->load->model('Authors_model','authorsM',TRUE);
 		
-		// collecting last inserted publications 
+		// Collecting last inserted publications 
 		
 		if (($qida = $this->literM->get_last_inserted()) != FALSE){
 		
@@ -241,7 +233,7 @@ class Literature extends Controller {
 		
 		}
 		
-		// collecting last updated publications
+		// Collecting last updated publications
 
 				
 		if (($qida = $this->literM->get_last_updated()) != FALSE){
@@ -257,7 +249,7 @@ class Literature extends Controller {
 		
 		}
 		
-		// collecting 3 puplication for proofreading
+		// Collecting 3 puplication for proofreading
 		
 		if (($qida = $this->literM->get_for_proof()) != FALSE){
 			
@@ -272,12 +264,14 @@ class Literature extends Controller {
 		}
 		
 		
+		// Action "search" is chosen
 		$this->data['action'] = 'search';
 
-		
+		// Load literature autocomplete Java scripts
 		$this->data['extraHeader'] = '<script type="text/javascript" src="js/autocomplete.js"></script>';
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/literature.js"></script>';
 			
+		// Load views/literature_view.php file with above data
 		$this->load->view('literature_view',$this->data);
 		
 		
@@ -288,8 +282,10 @@ class Literature extends Controller {
 	
 	function edit(){
 		
-		$lid = $this->input->get('id');
+		$lid = $this->input->get('id'); // Obtain the literature ID
 		
+
+		// Action "edit" is chosen
 		$this->data['action'] = 'edit';
 		
 		$this->data['block_message'] = "Nothing was sent";
@@ -299,7 +295,7 @@ class Literature extends Controller {
 			$this->data['block_message'] = "Nothing was found";
 			
 			//$this->db->join('literature_abbreviations', 'literature_abbreviations.authors_id = literature_and_authors.authors_id');
-			$qida = $this->db->get_where('literature',array('literature_id' => $lid));
+			$qida = $this->db->get_where('literature',array('literature_id' => $lid)); // Load literature (from database) from lid variable
 			
 			if ($qida->num_rows() > 0) {
 				
@@ -308,12 +304,12 @@ class Literature extends Controller {
 				unset($this->data['block_message']);
 			
 				
-				
+				// Load literature autocomplete and upload button Javascripts
 				$this->data['extraHeader'] = '<script type="text/javascript" src="js/autocomplete.js"></script>';
 				$this->data['extraHeader'] .= '<script type="text/javascript" src="js/literature.js"></script>';
 				$this->data['extraHeader'] .= '<script type="text/javascript" src="js/upclick-min.js"></script>';
 				
-				// feedback module 
+				// Feedback module 
 				$this->data['extraHeader'] .= '<script type="text/javascript" src="js/journal_update.js"></script>';
 				
 				$this->data['journal_options_data'] = $this->journal->get_options();
@@ -325,94 +321,96 @@ class Literature extends Controller {
 				$this->load->model('Literature_model','litm',TRUE);
 				
 				$this->data['liteature_types'] = $this->litm->get_types();
-				// literature data
+
+				// Literature data
 				$rowa = $qida->row();
 				
-				$this->data['lit_data'] =  $rowa;
-				// abbreviations
-				$qidabbr =  $this->db->get_where('literature_abbreviations',array('abbreviations_id' => $rowa->literature_source));				
-				$this->data['abbr_data'] = $qidabbr->row();
+				$this->data['lit_data'] =  $rowa; // Load all literature data
+
+				// Abbreviations
+				$qidabbr =  $this->db->get_where('literature_abbreviations',array('abbreviations_id' => $rowa->literature_source)); // Load literature_abbreviations from abbreviations_id table (database) 				
+				$this->data['abbr_data'] = $qidabbr->row();	// Load above abbreviations data
 				
-				// authors
-				$this->db->join('authors', 'authors.authors_id = literature_and_authors.authors_id');				
-				$this->db->order_by('lna_id','ASC');
+				// Authors
+				$this->db->join('authors', 'authors.authors_id = literature_and_authors.authors_id');	// Join authors from literature_and_authors/authors_id with authors/authors_id		
+				$this->db->order_by('lna_id','ASC');	// Order data by lna_id (literature_and_authors table; database) in an ascendent way
 												
-				$this->data['auth_data'] =  $this->db->get_where('literature_and_authors',array('literature_id' => $lid));
-				$this->data['auth_data_numr'] = $this->data['auth_data']->num_rows();  
+				$this->data['auth_data'] =  $this->db->get_where('literature_and_authors',array('literature_id' => $lid));	// Load literature_and_authors table (from database) from lid variable
+				$this->data['auth_data_numr'] = $this->data['auth_data']->num_rows();	// Count the number of authors
 				
-				//brain maps
-				$qidbmap = $this->db->get_where('brain_maps',array('literature_id' => $lid));
+				// Brain maps
+				$qidbmap = $this->db->get_where('brain_maps',array('literature_id' => $lid)); // Load brain maps (from database) from lid variable
 
 				if ($qidbmap->num_rows() > 0) { 
 				
-					$this->data['bmaps_data'] = $qidbmap->row();  
+					$this->data['bmaps_data'] = $qidbmap->row();  // Load above brain maps data
 				
 				}
 				
-				// injetions
+				// Injections
 				
-				$this->db->join('brain_sites', 'brain_sites.brain_sites_id = injections.brain_sites_id');
+				$this->db->join('brain_sites', 'brain_sites.brain_sites_id = injections.brain_sites_id');	// Join brain_sites from injections/brain_sites_id with brain_sites/brain_sites_id
 				
-				$this->db->join('brain_site_acronyms', 'brain_site_acronyms.brain_site_acronyms_id = brain_sites.brain_sites_acronyms_id');
+				$this->db->join('brain_site_acronyms', 'brain_site_acronyms.brain_site_acronyms_id = brain_sites.brain_sites_acronyms_id');	// Join brain_site_acronyms from brain_sites/brain_sites_acronyms_id with brain_site_acronyms/brain_site_acronyms_id
 
-				$this->db->join('methods', 'methods.methods_id = injections.methods_id');
+				$this->db->join('methods', 'methods.methods_id = injections.methods_id');	// Join methods from injections/methods_id with methods/methods_id
 				
-				$this->db->join('tracers', 'methods.tracers_id = tracers.tracers_id');
+				$this->db->join('tracers', 'methods.tracers_id = tracers.tracers_id');	// Join tracers from tracers/tracers_id with methods/tracers_id
 									
-				$this->db->select('injections_id, injections_index, brain_sites_index,acronym_full_name, tracers_name');
+				$this->db->select('injections_id, injections_index, brain_sites_index,acronym_full_name, tracers_name');	// Load these tables from the database
 				
 
-				$qidinj = $this->db->get_where('injections',array('injections.literature_id' => $lid));
+				$qidinj = $this->db->get_where('injections',array('injections.literature_id' => $lid));	// Load injections (from database) from lid variable
 				
 				if ($qidinj->num_rows() > 0) {
 				
-					$this->data['inj_data'] = $qidinj;
+					$this->data['inj_data'] = $qidinj;	// Load above injections data
 				
 				}
 
-				// outcomes of labelings
-				$qidout = $this->db->get_where('labeling_outcome',array('literature_id' => $lid));
+				// Outcomes of labelings
+				$qidout = $this->db->get_where('labeling_outcome',array('literature_id' => $lid));	// Load labeling_outcomes table (from database) from lid variable
 				
 				if ($qidout->num_rows() > 0) {
 				
-					$this->data['outcomes_data'] = $qidout;
+					$this->data['outcomes_data'] = $qidout;	// Load above outcome data
 				
 				}
-				// their connection to injections
-				$qid = $this->db->get_where('injections_and_outcomes',array('literature_id' => $lid));
+				// Their connection to injections
+				$qid = $this->db->get_where('injections_and_outcomes',array('literature_id' => $lid));	// Load injections_and_outcomes (from database) from lid variable
 				
 				if ($qid->num_rows() > 0) {
 				
-					$this->data['relation_data'] = $qid;
+					$this->data['relation_data'] = $qid;	// Load above data
 				
 				}
 				
 				
-				// maps relations
-				$this->db->where('literature_id',$lid);
+				// Maps relations
+				$this->db->where('literature_id',$lid); // Load literature_id from lid variable
 				
-				$mrN = $this->db->count_all_results('maps_relations');				
+				$mrN = $this->db->count_all_results('maps_relations');	// Count number of maps relations			
 				
 				if ($mrN > 0) {
 				
-					$this->data['mr_data_num'] = $mrN;
-					$this->data['mr_data'] = $lid;
+					$this->data['mr_data_num'] = $mrN;	// Load the number of maps relations
+					$this->data['mr_data'] = $lid;	// Load the above maps relations data
 				
 				}
 				
 				
+				// Literature status
 				
-				
-				$this->load->model('Workflow_model','wfmod',TRUE);
+				$this->load->model('Workflow_model','wfmod',TRUE);	// Load model "Workflow_model" as "wfmod"; TRUE = autoconnect to database
 					
-				if (($qidb = $this->wfmod->get_current($this->session->userdata('user_id'))) != FALSE) {
+				if (($qidb = $this->wfmod->get_current($this->session->userdata('user_id'))) != FALSE) {	// Function localised in models/workflow_model.php file --> get all users with input queue
 				
-					$rowb = $qidb->row();
+					$rowb = $qidb->row();	// Load above users
 				
 					if ($rowb->literature_id == $lid) {
 				
 				
-						$this->data['lit_changeble_state'] = true;
+						$this->data['lit_changeble_state'] = true; // Allow us to change the user status
 					
 					}
 					
@@ -425,6 +423,7 @@ class Literature extends Controller {
 			
 		} 
 		
+		// Load view/literature_view.php file with the above data
 		$this->load->view('literature_view',$this->data);
 		
 	}
@@ -432,17 +431,17 @@ class Literature extends Controller {
 	
 	function update(){
 		
-		$fields = $_POST;
+		$fields = $_POST;	// Load fields data from user input
 		
 		
-		$authors = array();
+		$authors = array();	// Create an array called authors
 		
-		$authors = $fields['authors_id'];
-		unset($fields['authors_id']);
-		
-		
+		$authors = $fields['authors_id'];	// Load authors_id from fields variable into authors array
+		unset($fields['authors_id']);	// Reset authors_id from fields variable
 		
 		
+		
+		// Load authors_surname from authors table (from database) whose authors_id are in authors array
 		$this->db->select('authors_surname');
 		$this->db->where_in('authors_id', $authors);
 		$qida = $this->db->get('authors');
@@ -451,16 +450,16 @@ class Literature extends Controller {
 		
 
 
-		$fields['literature_index'] = '';
+		$fields['literature_index'] = '';	// Create fields['literature_index'] variable
 		
 		foreach ($qida->result() as $row) {
 
 			
-			$fields['literature_index'] .= $row->authors_surname[0];
+			$fields['literature_index'] .= $row->authors_surname[0];	// Get the initial of each authors_surname to create the literature_index
 						
 		}
 		
-		$fields['literature_index'].= $fields['literature_year'];
+		$fields['literature_index'].= $fields['literature_year'];	// Add the literature_year to the literature_index
 
 // 		echo $fields['literature_index'];
 
@@ -470,21 +469,21 @@ class Literature extends Controller {
 		
 		//print_r($fields);
 		
-		$lid = $this->input->get('lid');
+		$lid = $this->input->get('lid');	// Load literature_id input into lid variable
 		
-		// collecting previously saved data for journal
+		// Collecting previously saved data for journal
 		
-		$prev_data = $this->db->get_where('literature',array('literature_id' => $lid));
+		$prev_data = $this->db->get_where('literature',array('literature_id' => $lid));		// Load literature whose literature_id are in lid variable
 		
-		$prev_data = $prev_data->row();
+		$prev_data = $prev_data->row();		// Load the above data
 		
-		// finaly inserting...
+		// Finaly inserting...
 		
-		$this->db->where('literature_id',$lid);			
+		$this->db->where('literature_id',$lid);		// Load the literature_id from lid variable
 		
-		if ($this->db->update('literature',$fields) === FALSE){ 			
+		if ($this->db->update('literature',$fields) === FALSE){					
 			
-			$result = '{"result":"0","message":"An error has occured!"}';
+			$result = '{"result":"0","message":"An error has occured!"}';	// Error message
 			
 		} else {
 			
@@ -494,24 +493,24 @@ class Literature extends Controller {
 			if (!empty($authors)) {
 				
 				$this->db->where('literature_id', $lid);
-				$this->db->delete('literature_and_authors');
+				$this->db->delete('literature_and_authors');	// Delete literature_and_authors whose literature_id are in lid variable
 				
 				foreach ($authors as $auth) {
 
-					$this->db->insert('literature_and_authors',array('literature_id' => $lid, 'authors_id' => $auth));
+					$this->db->insert('literature_and_authors',array('literature_id' => $lid, 'authors_id' => $auth));	// Load new literature_id and authors_id in literature_and_authors (database)
 					
 				}
 				
 			}
 			
 			
-			$this->session->set_userdata('pub_id',$lid);
+			$this->session->set_userdata('pub_id',$lid);	// Load userdata session
 			
-			//newrecord (USER_ID,TABLE_ID,ENTRY_ID,ACTION_ID(1=ins,2=update,3=del)=1,DATA='');
+			// Newrecord (USER_ID,TABLE_ID,ENTRY_ID,ACTION_ID(1=ins,2=update,3=del)=1,DATA='');
 			
-			$jid = $this->journal->newrecord($this->session->userdata('user_id'),$this->table_id,$lid,2,$prev_data);
+			$jid = $this->journal->newrecord($this->session->userdata('user_id'),$this->table_id,$lid,2,$prev_data);	// Save new record
 			
-			$this->data['block_message'] = "Publication was updated";
+			$this->data['block_message'] = "Publication was updated";	// Info message
 			
 			$result = '{"result":"1","message":"Succes!","newurl":"index.php?c=literature&m=edit&id='.$lid.'","jid":"'.$jid.'"}';
 			
@@ -532,9 +531,9 @@ class Literature extends Controller {
 		
 		if (!empty($strig)){
 			
-			if ($strig == 1){
+			if ($strig == 1){	// Search publication using its title
 		
-				$id = $this->input->post('pubid');
+				$id = $this->input->post('pubid');	// Load input name in id variable
 				
 				$result = 'nothing sent';
 				
@@ -542,23 +541,23 @@ class Literature extends Controller {
 					
 					$result = 'nothing found';
 					
-					$this->db->join('literature_abbreviations','literature_abbreviations.abbreviations_id = literature.literature_source');
+					$this->db->join('literature_abbreviations','literature_abbreviations.abbreviations_id = literature.literature_source');		// Join literature_abbreviations from literature/literature_source with literature_abbreviations/abbreviations_id
 					
-					$qida = $this->db->get_where('literature',array('literature_id' => $id));
+					$qida = $this->db->get_where('literature',array('literature_id' => $id));	// Load literature whose literature_id are in id variable
 					
 					if ($qida->num_rows() > 0) {
 						
 						
-						$this->data['lit_data'][] = $qida;
+						$this->data['lit_data'][] = $qida;	// Load above literature_data
 						
 						
 						
-						$this->db->join('authors', 'authors.authors_id = literature_and_authors.authors_id');
+						$this->db->join('authors', 'authors.authors_id = literature_and_authors.authors_id');	// Join authors from literature_and_authors/authors_id with authors/authors_id
 						
-						$this->db->order_by('literature_and_authors.authors_id','asc');
+						$this->db->order_by('literature_and_authors.authors_id','asc');		// Order by authors_id in an ascendent way
 						
 		
-						$this->data['auth_data'][$id] =  $this->db->get_where('literature_and_authors',array('literature_id' => $id));
+						$this->data['auth_data'][$id] =  $this->db->get_where('literature_and_authors',array('literature_id' => $id));		// Load data from literature_and_authors whose literature_id are in id variable
 						
 						
 						
@@ -566,8 +565,8 @@ class Literature extends Controller {
 						
 						
 		
-						$this->data['search_title'] = "Search result";
-						$result = $this->load->view('literature_search_view',$this->data,TRUE);
+						$this->data['search_title'] = "Search result";		// Load search_title
+						$result = $this->load->view('literature_search_view',$this->data,TRUE);		// Load view/literature_search_view.php file with the above data
 						
 						
 					}
@@ -578,9 +577,9 @@ class Literature extends Controller {
 				
 				echo $result; 
 				
-			} elseif ($strig == 2) {
+			} elseif ($strig == 2) {	// Search publication using its authors
 				
-				$id = $this->input->post('authid');
+				$id = $this->input->post('authid');	// Load author input in id variable
 				$result = 'nothing sent';
 				
 				
@@ -588,26 +587,26 @@ class Literature extends Controller {
 					
 					$result = 'nothing found';
 					
-					$this->db->select('literature_id');
+					$this->db->select('literature_id');	// Load literature_id from database
 										
-					$qidb = $this->db->get_where('literature_and_authors',array('authors_id' => $id));
+					$qidb = $this->db->get_where('literature_and_authors',array('authors_id' => $id));	// Load literature_and_authors whose authors_id are in id variable
 
 					if ($qidb->num_rows()>0){
 						
 						foreach ($qidb->result() as $rowb){
-							$this->db->join('literature_abbreviations','literature_abbreviations.abbreviations_id = literature.literature_source');
-							$qida = $this->db->get_where('literature',array('literature_id' => $rowb->literature_id));
+							$this->db->join('literature_abbreviations','literature_abbreviations.abbreviations_id = literature.literature_source');		// Join literature_abbreviations from literature/literature_source with literature_abbreviations/abbreviations_id
+							$qida = $this->db->get_where('literature',array('literature_id' => $rowb->literature_id));	// Load literature whose literature_id are in the above literature_and_authors data
 								
 							if ($qida->num_rows() > 0) {
 						
 						
-								$this->data['lit_data'][$rowb->literature_id] = $qida;
+								$this->data['lit_data'][$rowb->literature_id] = $qida;		// Load above data
 						
 						
-								$this->db->join('authors', 'authors.authors_id = literature_and_authors.authors_id');
-								$this->db->order_by('literature_and_authors.authors_id','asc');
+								$this->db->join('authors', 'authors.authors_id = literature_and_authors.authors_id');	// Join authors from literature_and_authors/authors_id with authors/authors_id
+								$this->db->order_by('literature_and_authors.authors_id','asc');		// Order by authors_id in an ascendent way
 								
-								$this->data['auth_data'][$rowb->literature_id] =  $this->db->get_where('literature_and_authors',array('literature_id' => $rowb->literature_id));
+								$this->data['auth_data'][$rowb->literature_id] =  $this->db->get_where('literature_and_authors',array('literature_id' => $rowb->literature_id));	// Load auth data from literature_and_authors whose literature_id are selected above
 						
 						
 							}
@@ -616,9 +615,9 @@ class Literature extends Controller {
 							
 						}
 						
-						$this->data['search_title'] = "Search result";
+						$this->data['search_title'] = "Search result";	// Load search_title
 						
-						$result =  $this->load->view('literature_search_view',$this->data,TRUE);
+						$result =  $this->load->view('literature_search_view',$this->data,TRUE);	// Load view/literature_search_view.php file with the above data
 					}		
 						
 						
@@ -630,50 +629,50 @@ class Literature extends Controller {
 				
 				
 				
-				$limit = $this->input->post('limit');
-				$offset = $this->input->post('offset');
+				$limit = $this->input->post('limit');	// Select a limit of results
+				$offset = $this->input->post('offset');		// Do not show the numbers of result set in offset
 				
 				$result = 'nothing found';
 				
 					
-				$this->db->join('literature_abbreviations','literature_abbreviations.abbreviations_id = literature.literature_source');
+				$this->db->join('literature_abbreviations','literature_abbreviations.abbreviations_id = literature.literature_source');		// Join literature_abbreviations from literature/literature_source with literature_abbreviations/abbreviations_id
 				
-				$this->db->order_by('literature_year','desc');
+				$this->db->order_by('literature_year','desc');		// Order by literature_year in a descendent way
 				
 				
 													
-				$qida = $this->db->get('literature',$limit,$offset);
+				$qida = $this->db->get('literature',$limit,$offset);	// Load literature from database until a limit numbers of results, and avoiding the offset one
 				
 				if ($qida->num_rows() > 0) {
 					
-					$this->data['lit_data'][] = $qida;
+					$this->data['lit_data'][] = $qida;	// Load above data
 					
 					foreach ($qida->result() as $rowa){
 						
 						
-						$this->db->join('authors', 'authors.authors_id = literature_and_authors.authors_id');
-						$this->db->order_by('literature_and_authors.authors_id','asc');
+						$this->db->join('authors', 'authors.authors_id = literature_and_authors.authors_id');		// Join authors from literature_and_authors/authors_id with authors/authors_id
+						$this->db->order_by('literature_and_authors.authors_id','asc');		// Order by authors_id in an ascendent way
 						
-						$this->data['auth_data'][$rowa->literature_id] =  $this->db->get_where('literature_and_authors',array('literature_id' => $rowa->literature_id));
+						$this->data['auth_data'][$rowa->literature_id] =  $this->db->get_where('literature_and_authors',array('literature_id' => $rowa->literature_id));	// Load auth data from literature_and_authors whose literature_id are selected above
 							
 						
 					}
 				
 					
-					$this->data['freesearch'] = 'yes';
+					$this->data['freesearch'] = 'yes';	// Free search is on
 					
 					if ($offset != '0') {
 						
-						$this->data['notable'] = 'yes';
+						$this->data['notable'] = 'yes';		// Notable is on if offset is set
 						
 						
 					}
 					
-					$this->data['offset'] = $offset+10;
-					$this->data['limit'] = $limit;
+					$this->data['offset'] = $offset+10;	// Load offset
+					$this->data['limit'] = $limit;		// Load limit
 					
 
-					$result = $this->load->view('literature_search_view',$this->data,TRUE);
+					$result = $this->load->view('literature_search_view',$this->data,TRUE);	// Load view/literature_search_view.php file with the above data
 							
 				}
 				
@@ -696,7 +695,7 @@ class Literature extends Controller {
 	function viewAll(){
 		
 		
-		$this->load->model('Literature_model','literM',TRUE); // Load "Literature_model" as "literM"; TRUE = autoconnect to database
+		$this->load->model('Literature_model','literM',TRUE);
 		
 		// Arrays with literature_id and all data from literature_and_authors (table from database)
 		
@@ -704,7 +703,7 @@ class Literature extends Controller {
 		$this->data['block_fields'] = $this->literM->get_fields();
 		
 		
-		$this->load->model('Authors_model','amodel',TRUE); // Load "Authors_model" as "amodel"; TRUE = autoconnect to database
+		$this->load->model('Authors_model','amodel',TRUE);
 		
 		// To obtain an array called $auth with names and surnames
 
@@ -712,7 +711,7 @@ class Literature extends Controller {
 		
 		foreach ($this->data['block_data']->result() as $rowa) {
 			
-			$qida = $this->amodel->get_a_for_l($rowa->literature_id);
+			$qida = $this->amodel->get_a_for_l($rowa->literature_id);	// Function localised in models/authors_model --> Obtain the authors list from literature
 
 			if ($qida->num_rows() > 0) {
 				
@@ -731,14 +730,13 @@ class Literature extends Controller {
 			
 		}
 		
-		$this->data['block_fields']['authors']['array_data'] = $auth; 
+		$this->data['block_fields']['authors']['array_data'] = $auth;	// Load the above data
 		
 		
-
+		// Action "all_literature" is chosen
 		$this->data['action'] = 'all_literature';
 
 		// Load views/literature_view with all data obtained in this function
-
 		$this->load->view('literature_view',$this->data);
 		
 		
@@ -828,7 +826,7 @@ class Literature extends Controller {
 		
 	}
 	
-	// ajax call from litearature.edit -> literature.js
+	// ajax call from literature.edit -> literature.js
 	function changeState() {
 		
 		$literature_id = $this->input->post('literature_id');
@@ -924,7 +922,7 @@ class Literature extends Controller {
 		
 		
 		$tmp_file_name = $_FILES['Filedata']['tmp_name'];
-		$filename = md5(time()).'.pdf';
+		$filename = md5(time()).'.pdf';		// Create a MD5 name for the pdf file
 		$ok = move_uploaded_file($tmp_file_name, './upload/'.$filename);
 		
 		// This message will be passed to 'oncomplete' function
