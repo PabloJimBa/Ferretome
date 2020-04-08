@@ -144,7 +144,6 @@ class Authors extends Controller {
 	function search(){
 	
 	
-		//$this->data['fields'] = $this->db->field_data('literature');
 	
 		$this->data['action'] = 'search';
 	
@@ -253,6 +252,38 @@ class Authors extends Controller {
 		}
 
 		
+	}
+
+	function confirm(){
+	
+		$id = $this->input->get('id');
+		echo "<script>if(confirm('Are you sure?')){
+		document.location='index.php?c=authors&m=del_lit&id=$id';}
+		else{ javascript:history.go(-1);
+		}</script>"; 
+	}
+	
+	function del_lit(){
+		
+		$id = $this->input->get('id');
+		
+		$result = "empty query";
+		
+		if (!empty($id)){
+			
+			$this->db->delete('authors',array('authors_id'=>$id));
+				
+			echo "Deleted. Please, reload the page.";
+
+			echo "<script>document.location='index.php?c=authors&m=show'</script>;";
+				
+			return true;
+				
+				
+		}
+		echo "Not deleted";
+
+		echo "<script>document.location='index.php?c=authors&m=show'</script>;";
 	}
 	
 }
