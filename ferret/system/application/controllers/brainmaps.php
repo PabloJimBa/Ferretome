@@ -266,6 +266,103 @@ class Brainmaps extends Controller {
 		
 		
 	}
+
+	function search() {
+	
+		
+		$this->data['action'] = 'search';
+	
+		$this->data['extraHeader'] = '<script type="text/javascript" src="js/autocomplete.js"></script>';
+		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/brainmaps.js"></script>';
+			
+		$this->load->view('brainmaps_view',$this->data);
+	
+	}
+
+	function searchDo() {
+	
+		$id = $this->input->post('mapid');
+	
+		$result = 'nothing found: empty';
+
+		if (!empty($id)){
+	
+			$qida = $this->db->get_where('brain_maps',array('brain_maps_id' => $id));
+			
+			$result = 'nothing found: no records';
+				
+			if ($qida->num_rows()>0){
+	
+				$this->data['map_data'] = $qida->row();
+	
+				$result = $this->load->view('brainmaps_search_view',$this->data);
+	
+			
+	
+			}
+	
+	
+		}
+	
+		echo $result;
+	}
+
+	function show() {
+	
+	
+	
+		$this->data['action'] = 'show';
+		
+		$this->load->model('Maps_model','mam',TRUE);
+		
+		if (($qida = $this->mam->get_all(array(),'brain_maps_index','asc','999')) != FALSE){
+			
+			
+			$this->data['block_data'] = $qida;
+			$this->data['block_fields'] = $this->mam->get_fields();
+			
+			
+			
+		}
+	 
+			
+		$this->load->view('brainmaps_view',$this->data);
+	
+	
+	}
+
+	function confirm(){
+	
+		$id = $this->input->get('id');
+		echo "<script>if(confirm('Are you sure?')){
+		document.location='index.php?c=brainmaps&m=del_lit&id=$id';}
+		else{ javascript:history.go(-1);
+		}</script>"; 
+	}
+	
+	function del_lit(){
+		
+		$id = $this->input->get('id');
+		
+		$result = "empty query";
+		
+		if (!empty($id)){
+			
+			$this->db->delete('brain_maps',array('brain_maps_id'=>$id));
+				
+			echo "Deleted. Please, reload the page.";
+
+			echo "<script>document.location='index.php?c=brainmaps&m=show'</script>;";
+				
+			return true;
+				
+				
+		}
+		echo "Not deleted";
+
+		echo "<script>document.location='index.php?c=brainmaps&m=show'</script>;";
+	}
+
 	
 	function ajaxAtocomplit() {
 		
@@ -278,13 +375,13 @@ class Brainmaps extends Controller {
 		
 		
 		
-			$qida = $this->db->query("SELECT DISTINCT bm.brain_maps_id as bmid,lt.literature_index as litind FROM literature lt JOIN brain_maps bm ON (lt.literature_id=bm.literature_id) WHERE literature_index LIKE ? LIMIT 7", array($qr . '%'));
+			$qida = $this->db->query("SELECT DISTINCT bm.brain_maps_index as bmix,bm.brain_maps_id as bmid,lt.literature_index as litind FROM brain_maps bm JOIN literature lt ON (bm.literature_id=lt.literature_id) WHERE brain_maps_index LIKE ? LIMIT 7", array($qr . '%'));
 		
 			if ($qida->num_rows() > 0) {
 		
 				$result = "{ query:'" . $qr . "', suggestions:[";
 				foreach ($qida->result() as $rowa) {
-					$result .= "'". $rowa->litind ."',";
+					$result .= "'". $rowa->bmix ."',";
 				}
 		
 				$result = substr($result, 0, strlen($result) - 1);
