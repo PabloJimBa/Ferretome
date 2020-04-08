@@ -45,7 +45,7 @@ class Labelledsites extends Controller {
 	function index() {
 
 		$this->data['action'] = 'index';
-		$this->load->view('injections_view',$this->data);
+		$this->load->view('labelledsites_view',$this->data);
 
 
 	}
@@ -65,16 +65,23 @@ class Labelledsites extends Controller {
 		$qida = $this->db->get('pdc');
 		
 		$this->data['pdc_options'] = array();
+		$this->data['pdc_density'] = array();
 		
 		$temp_arr = array();
 		
 		foreach ($qida->result() as $rowa) {
 		
-			$temp_arr[$rowa->PDC_id] = $rowa->PDC_name;
+			if ($rowa->PDC_id <= 15) {
+				$temp_arr[$rowa->PDC_id] = $rowa->PDC_name;
+			}
+			if ($rowa->PDC_id <= 10) {
+				$temp_arr2[$rowa->PDC_id] = $rowa->PDC_name;
+			}
 		
 		}
 		
 		$this->data['pdc_options'] = $temp_arr;
+		$this->data['pdc_density'] = $temp_arr2;
 		
 		// collecting EC
 		$qida = $this->db->get('extension_codes');
@@ -91,7 +98,21 @@ class Labelledsites extends Controller {
 		
 		$this->data['ec_options'] = $temp_arr;
 		
+		// Loading injection laminae options
+		$qida = $this->db->get('injections_laminae');
+
+		$this->data['injections_laminae'] = array();
 		
+		$temp_arr = array();
+		
+		foreach ($qida->result() as $rowa) {
+		
+			$temp_arr[$rowa->laminae_id] = $rowa->laminae_code . " - " . $rowa->laminae_desc ;
+		
+		}
+		
+		$this->data['injections_laminae'] = $temp_arr;
+
 		//collecting Literature and Injections
 		
 		$pid = $this->session->userdata('pub_id');
