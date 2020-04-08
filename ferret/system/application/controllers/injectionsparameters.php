@@ -167,6 +167,38 @@ class Injectionsparameters extends Controller {
 	
 	
 	}
+
+	function confirm(){
+	
+		$id = $this->input->get('id');
+		echo "<script>if(confirm('Are you sure?')){
+		document.location='index.php?c=injectionsparameters&m=del_lit&id=$id';}
+		else{ javascript:history.go(-1);
+		}</script>"; 
+	}
+	
+	function del_lit(){
+		
+		$id = $this->input->get('id');
+		
+		$result = "empty query";
+		
+		if (!empty($id)){
+			
+			$this->db->delete('injections_parameters',array('parameters_id'=>$id));
+				
+			echo "Deleted. Please, reload the page.";
+
+			echo "<script>document.location='index.php?c=injectionsparameters&m=show'</script>;";
+				
+			return true;
+				
+				
+		}
+		echo "Not deleted";
+
+		echo "<script>document.location='index.php?c=injectionsparameters&m=show'</script>;";
+	}
 	
 	
 	function ajaxAtocomplit(){
