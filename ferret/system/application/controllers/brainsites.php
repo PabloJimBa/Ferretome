@@ -325,8 +325,69 @@ class Brainsites extends Controller {
 		
 	}
 	
+	function show() {
 	
 	
+		
+		$this->data['action'] = 'show';
+		
+		$this->load->model('Brain_sites_model','bsm',TRUE);
+		
+		if (($qida = $this->bsm->get_all(array(),'brain_sites_index','asc','999')) != FALSE){
+			
+			
+			$this->data['block_data'] = $qida;
+			$this->data['block_fields'] = $this->bsm->get_fields();
+			
+			
+			
+		}
+			
+			
+
+		$this->load->view('brainsites_view',$this->data);
+	}
+	
+	function search() {
+	
+		
+		$this->data['action'] = 'search';
+	
+		$this->data['extraHeader'] = '<script type="text/javascript" src="js/autocomplete.js"></script>';
+		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/brainsites.js"></script>';
+			
+		$this->load->view('brainsites_view',$this->data);
+	
+	}
+
+	function searchDo() {
+	
+		$id = $this->input->post('bsid');
+	
+		$result = 'nothing found: empty';
+
+		if (!empty($id)){
+	
+			$qida = $this->db->get_where('brain_sites',array('brain_sites_id' => $id));
+			
+			$result = 'nothing found: no records';
+				
+			if ($qida->num_rows()>0){
+	
+				$this->data['bs_data'] = $qida->row();
+	
+				$result = $this->load->view('brainsites_search_view',$this->data);
+	
+			
+	
+			}
+	
+	
+		}
+	
+		echo $result;
+	}
+
 	function update() {
 	
 		$fields = $_POST;
@@ -441,7 +502,38 @@ class Brainsites extends Controller {
 	
 	}
 	
+	function confirm(){
 	
+		$id = $this->input->get('id');
+		echo "<script>if(confirm('Are you sure?')){
+		document.location='index.php?c=brainsites&m=del_lit&id=$id';}
+		else{ javascript:history.go(-1);
+		}</script>"; 
+	}
+	
+	function del_lit(){
+		
+		$id = $this->input->get('id');
+		
+		$result = "empty query";
+		
+		if (!empty($id)){
+			
+			$this->db->delete('brain_sites',array('brain_sites_id'=>$id));
+				
+			echo "Deleted. Please, reload the page.";
+
+			echo "<script>document.location='index.php?c=brainsites&m=show'</script>;";
+				
+			return true;
+				
+				
+		}
+		echo "Not deleted";
+
+		echo "<script>document.location='index.php?c=brainsites&m=show'</script>;";
+	}	
+
 	function ajaxAtocomplit(){
 		
 		$qr = $this->input->post('query');
@@ -645,6 +737,46 @@ class Brainsites extends Controller {
 	
 	}
 	
+
+	function ajaxAtocomplitC() {
+		
+		
+		$qr = $this->input->post('query'); // $qr variable is what user writes
+		
+		$result = 'no thing';
+		
+		if (!empty($qr)) {
+				
+			$qida = $this->db->query("SELECT DISTINCT brain_sites_id as bsid, brain_sites_index as bsind, brain_maps_id as bmid FROM brain_sites WHERE brain_sites_index LIKE ? LIMIT 7", array($qr . '%'));
+		
+			if ($qida->num_rows() > 0) {
+		
+				$result = "{ query:'" . $qr . "', suggestions:[";
+				foreach ($qida->result() as $rowa) {
+					$result .= "'". $rowa->bsind . " " . $rowa->bmid . "',";
+				}
+		
+				$result = substr($result, 0, strlen($result) - 1);
+		
+				$result .="],data:[";
+				
+				foreach ($qida->result() as $rowa) {
+					$result .= "'". $rowa->bsid ."',";
+				}
+				
+				$result = substr($result, 0, strlen($result) - 1);
+			
+			
+				$result .="]}";
+			}
+		}
+		
+		echo $result;
+		
+		
+		
+		
+	}
 	
 	function ajaxGetBrainSites(){
 		
