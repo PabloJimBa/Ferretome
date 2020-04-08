@@ -51,8 +51,9 @@ class Injections extends Controller {
 		
 		foreach ($qida->result() as $rowa) {
 				
-			$temp_arr[$rowa->PDC_id] = $rowa->PDC_name;
-				
+			if ($rowa->PDC_id <= 15) {
+				$temp_arr[$rowa->PDC_id] = $rowa->PDC_name;
+			}
 		}
 		
 		$this->data['pdc_options'] = $temp_arr;
@@ -71,9 +72,55 @@ class Injections extends Controller {
 		}
 		
 		$this->data['ec_options'] = $temp_arr;
+
+
+		$qida = $this->db->get('hemispheres');
 		
+		$this->data['hemisp_options'] = array();
+		
+		$temp_arr = array();
+		
+		foreach ($qida->result() as $rowa) {
+		
+			$temp_arr[$rowa->hemispheres_id] = $rowa->hemispheres_code . " - " . $rowa->hemispheres_name ;
+		
+		}
+		
+		$this->data['hemisp_options'] = $temp_arr;
+		
+		
+		$qida = $this->db->get('injections_laminae');
+
+		$this->data['injections_laminae'] = array();
+		
+		$temp_arr = array();
+		
+		foreach ($qida->result() as $rowa) {
+		
+			$temp_arr[$rowa->laminae_id] = $rowa->laminae_code . " - " . $rowa->laminae_desc ;
+		
+		}
+		
+		$this->data['inj_laminae_options'] = $temp_arr;
+		
+
+		$qida = $this->db->get('pdc_laminae');
+		
+		$this->data['pdc_laminae_options'] = array();
+		
+		$temp_arr = array();
+		
+		foreach ($qida->result() as $rowa) {
+				
+			$temp_arr[$rowa->pdc_laminae_id] = $rowa->pdc_laminae_code;
+				
+		}
+		
+		$this->data['pdc_laminae_options'] = $temp_arr;
+
+
 		$litid = $this->input->get('id');
-		
+
 		if (!empty($litid)) {
 		
 			$this->load->model('Literature_model','literM',TRUE);
@@ -218,8 +265,10 @@ class Injections extends Controller {
 				
 				foreach ($qida->result() as $rowa) {
 				
-					$temp_arr[$rowa->PDC_id] = $rowa->PDC_name;
-				
+					if ($rowa->PDC_id <= 15) {
+						$temp_arr[$rowa->PDC_id] = $rowa->PDC_name;
+					}	
+									
 				}
 				
 				$this->data['pdc_options'] = $temp_arr;
@@ -238,6 +287,51 @@ class Injections extends Controller {
 				}
 				
 				$this->data['ec_options'] = $temp_arr;
+				
+				
+				$qida = $this->db->get('hemispheres');
+				
+				$this->data['hemisp_options'] = array();
+				
+				$temp_arr = array();
+				
+				foreach ($qida->result() as $rowa) {
+				
+					$temp_arr[$rowa->hemispheres_id] = $rowa->hemispheres_code . " - " . $rowa->hemispheres_name ;
+				
+				}
+				
+				$this->data['hemisp_options'] = $temp_arr;
+
+				
+				$qida = $this->db->get('injections_laminae');
+
+				$this->data['inj_laminae_options'] = array();
+				
+				$temp_arr = array();
+				
+				foreach ($qida->result() as $rowa) {
+				
+					$temp_arr[$rowa->laminae_id] = $rowa->laminae_code . " - " . $rowa->laminae_desc ;
+				
+				}
+				
+				$this->data['inj_laminae_options'] = $temp_arr;
+
+				
+				$qida = $this->db->get('pdc_laminae');
+				
+				$this->data['pdc_laminae_options'] = array();
+				
+				$temp_arr = array();
+				
+				foreach ($qida->result() as $rowa) {
+				
+					$temp_arr[$rowa->pdc_laminae_id] = $rowa->pdc_laminae_code;
+				
+				}
+				
+				$this->data['pdc_laminae_options'] = $temp_arr;
 				
 				/*
 				$this->db->where('injections_id',$lid)->from('labelled_sites');
@@ -263,7 +357,69 @@ class Injections extends Controller {
 		
 	}
 	
+	function show() {
 	
+	
+		
+		$this->data['action'] = 'show';
+		
+		$this->load->model('Injections_model','injm',TRUE);
+		
+		if (($qida = $this->injm->get_all(array(),'injections_index','asc','999')) != FALSE){
+			
+			
+			$this->data['block_data'] = $qida;
+			$this->data['block_fields'] = $this->injm->get_fields();
+			
+			
+			
+		}
+			
+			
+
+		$this->load->view('injections_view',$this->data);
+	}
+	
+	function search() {
+	
+		
+		$this->data['action'] = 'search';
+	
+		$this->data['extraHeader'] = '<script type="text/javascript" src="js/autocomplete.js"></script>';
+		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/injections.js"></script>';
+			
+		$this->load->view('injections_view',$this->data);
+	
+	}
+
+	function searchDo() {
+	
+		$id = $this->input->post('inj_id');
+	
+		$result = 'nothing found: empty';
+
+		if (!empty($id)){
+	
+			$qida = $this->db->get_where('injections',array('injections_id' => $id));
+			
+			$result = 'nothing found: no records';
+				
+			if ($qida->num_rows()>0){
+	
+				$this->data['inj_data'] = $qida->row();
+	
+				$result = $this->load->view('injections_search_view',$this->data);
+	
+			
+	
+			}
+	
+	
+		}
+	
+		echo $result;
+	}
+
 	function update() {
 		
 		$fields = $_POST;
@@ -331,7 +487,7 @@ class Injections extends Controller {
 			
 			$this->db->select('literature_id');
 			
-			$qida = $this->db->get_where('injection',array('injection_id' => $inid));
+			$qida = $this->db->get_where('injections',array('injections_id' => $inid));
 			
 			if ($qida->num_rows() > 0){
 			
@@ -351,6 +507,38 @@ class Injections extends Controller {
 		
 		
 	}
+
+	function confirm(){
+	
+		$id = $this->input->get('id');
+		echo "<script>if(confirm('Are you sure?')){
+		document.location='index.php?c=injections&m=del_lit&id=$id';}
+		else{ javascript:history.go(-1);
+		}</script>"; 
+	}
+	
+	function del_lit(){
+		
+		$id = $this->input->get('id');
+		
+		$result = "empty query";
+		
+		if (!empty($id)){
+			
+			$this->db->delete('injection',array('injection_id'=>$id));
+				
+			echo "Deleted. Please, reload the page.";
+
+			echo "<script>document.location='index.php?c=injections&m=show'</script>;";
+				
+			return true;
+				
+				
+		}
+		echo "Not deleted";
+
+		echo "<script>document.location='index.php?c=injections&m=show'</script>;";
+	}
 	
 	function ajaxAtocomplit() {
 		
@@ -360,7 +548,7 @@ class Injections extends Controller {
 		
 		if (!empty($qr))  {
 				
-			$qida = $this->db->query("SELECT injections_id as inid, injections_index as inind, FROM injections WHERE injections_index LIKE ?",array($qr.'%'));
+			$qida = $this->db->query("SELECT injections_id as inid, injections_index as inind FROM injections WHERE injections_index LIKE ?",array($qr.'%'));
 			
 		
 			if ($qida->num_rows() > 0) {
@@ -392,7 +580,7 @@ class Injections extends Controller {
 		
 		
 	}
-	
+
 	function ajaxGetInjections(){
 		
 		
