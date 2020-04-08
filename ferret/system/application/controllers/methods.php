@@ -75,7 +75,12 @@ class Methods extends Controller {
 	
 		$fields = $_POST;
 	
-	
+		$fields['bilateral_use'] = "N";
+		
+		if (isset($fields['yes'])) {	
+			$fields['bilateral_use'][0] = "Y"; 
+		}	
+
 		if ($this->db->insert('methods',$fields) === FALSE){
 	
 			$result = '{"result":"0","message":"Error!"}';
@@ -163,7 +168,11 @@ class Methods extends Controller {
 		
 		$qid_before = $qid_before->row();
 		
+		$fields['bilateral_use'] = "N";
 		
+		if (isset($fields['yes'])) {	
+			$fields['bilateral_use'][0] = "Y"; 
+		}
 	
 	
 		if (!empty($id)){
@@ -190,6 +199,38 @@ class Methods extends Controller {
 		
 	
 	
+	}
+
+	function confirm(){
+	
+		$id = $this->input->get('id');
+		echo "<script>if(confirm('Are you sure?')){
+		document.location='index.php?c=methods&m=del_lit&id=$id';}
+		else{ javascript:history.go(-1);
+		}</script>"; 
+	}
+	
+	function del_lit(){
+		
+		$id = $this->input->get('id');
+		
+		$result = "empty query";
+		
+		if (!empty($id)){
+			
+			$this->db->delete('methods',array('methods_id'=>$id));
+				
+			echo "Deleted. Please, reload the page.";
+
+			echo "<script>document.location='index.php?c=methods&m=show'</script>;";
+				
+			return true;
+				
+				
+		}
+		echo "Not deleted";
+
+		echo "<script>document.location='index.php?c=methods&m=show'</script>;";
 	}
 	
 	function ajaxGetMethods(){
