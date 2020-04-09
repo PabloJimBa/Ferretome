@@ -50,8 +50,8 @@
 	
 		<h3>Second step:</h3>
 	
+		<p><a href="index.php?c=acronyms&m=add">Add new Acronym(s) </a></p>		
 		<p><a href="index.php?c=brainmaps&m=add">Add new Brain Map(s) </a></p>
-		<p><a href="index.php?c=acronyms&m=add">Add new Acronym(s) </a></p>
 		<p><a href="index.php?c=brainsites&m=add">Add new Brain Site(s) </a></p>
 		<p><a href="index.php?c=architecture&m=add">Add new Architecture to a BSite </a></p>
 		<p><a href="index.php?c=mapsrelations&m=add">Add new Relation of BMaps </a></p>
@@ -78,7 +78,7 @@
 	
 		<h3>Expirement data:</h3>
 	
-		<p><a href="index.php?c=injections">Show Injections </a></p>
+		<p><a href="index.php?c=injections&m=show">Show Injections </a></p>
 	
 		</td>
 	
