@@ -91,7 +91,7 @@
 	<tr>
 		<td><?=$bdata->parameters_name?></td>
 		<td><?=$bdata->parameters_description?></td> 
-		<td><a href="index.php?c=injectionsparameters&m=edit&id=<?=$bdata->parameters_id?>">edit</a></td>
+		<td><a href="index.php?c=injectionsparameters&m=edit&id=<?=$bdata->parameters_id?>">edit</a> &nbsp; | &nbsp; <a href="index.php?c=injectionsparameters&m=confirm&id=<?=$bdata->parameters_id?>">delete</a></td>
 	</tr>
 	<?php endforeach; ?>
 	</table>
