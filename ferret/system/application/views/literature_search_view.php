@@ -3,7 +3,7 @@
 <p><?=$search_title?>
 <?php endif; ?>
 <table>
-<tr><td>Authors</td> <td>Title</td> <td>Year</td> <td>Source<td></tr>
+<tr><td>Authors</td> <td>Title</td> <td>Year</td> <td>Source</td><td></td><td></td></tr>
 
 
 <?php foreach ($lit_data as $sldata): ?>
@@ -18,14 +18,13 @@
 	</td> 
 	<td><?=$ldata->literature_title?></td> <td><?=$ldata->literature_year?></td> 
 	<td><?=$ldata->abbreviations_short?> - <?=$ldata->abbreviations_full?></td>
-	<td><a target="_blank" href="index.php?c=literature&m=edit&id=<?=$ldata->literature_id?>">details</a></td>
+	<td><a href="index.php?c=literature&m=edit&id=<?=$ldata->literature_id?>">details</a></td> <td><a href="index.php?c=literature&m=confirm&id=<?=$ldata->literature_id?>">delete</a></td>
 </tr>
 	<?php endforeach;?>
 <?php endforeach;?>
 
 
 </table>
-
 
 
 
