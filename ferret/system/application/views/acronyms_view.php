@@ -54,7 +54,7 @@
 					<td><?=$bdata->$field;?></td>
 				
 				<?php endforeach;?>
-					<td><a href="index.php?c=acronyms&m=edit&id=<?=$bdata->brain_site_acronyms_id?>">edit</a></td>
+					<td><a href="index.php?c=acronyms&m=edit&id=<?=$bdata->brain_site_acronyms_id?>">edit</a> &nbsp; | &nbsp; <a href="index.php?c=acronyms&m=confirm&id=<?=$bdata->brain_site_acronyms_id?>">delete</a></td>
 						
 				</tr>
 			<?php endforeach; ?>
@@ -94,7 +94,7 @@
 		<?php if (($field->primary_key == 1) ) continue; ?>
 
 			<tr>
-				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 				<?php if ($field->type == 'blob'): ?>
 					td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php echo form_prep($field->default); ?></textarea></td>
@@ -186,7 +186,7 @@
 			<?php if ($field->primary_key == 1) continue; ?>
 
 			<tr>
-				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 				<?php if ($field->type == 'blob'): ?>
 					<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php $f=$field->name; echo form_prep($acr_data->$f); ?></textarea></td>
