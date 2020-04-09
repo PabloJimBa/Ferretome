@@ -66,11 +66,13 @@
 			<input title="Please, start to type a title of a literature" type="text" id="autocomplite_auth" class="input"/>
 			<br/>Start type title of a literature, after that type name of  acronym of brain site in field below 
 		</td>
+	<td></td>
 	</tr>
 
 	<tr id="lit_block" style="display:none;">
 		<td>Selected Literature</td>
 		<td id="literature"></td>
+	<td></td>
 	</tr>
 
 
@@ -79,11 +81,13 @@
 	<tr id="bsite_auto_block" >
 		<td>Search for Brain Site </td>
 		<td><input title="Please, start to type name of acronym" type="text" id="autocomplite_bsite" class="input" <?php if(!isset($lit_data_2)):?>disabled<?php endif;?> /> <br/> Please, start to type name of acronym</td>
+	<td></td>
 	</tr>
 
 	<tr style="display:none;" id="bsite_block">
 		<td>Selected  Brain Site</td>
 		<td id="sel_bsite"></td>
+	<td></td>
 	</tr>
 
 
@@ -91,18 +95,20 @@
 
 
 
-	<tr id="layer_menu" style="display:none;"><td>Layer</td><td>Parametrs &nbsp;&nbsp;&nbsp; Can't find proper parameter? <a target="_blank" href="index.php?c=parameters">Change set of parameters</a></td>
+	<tr id="layer_menu" style="display:none;"><td>Layers</td>
+
+	<td>	<a href="#" onclick="add_layer('0'); return false;">Add parameters to the whole bsite</a><br/>
+
+		Add by layer: 
+		<a href="#" onclick="add_layer('1'); return false;">I</a>&nbsp; 
+		<a href="#" onclick="add_layer('2'); return false;">II</a>&nbsp;
+		<a href="#" onclick="add_layer('3'); return false;">III</a>&nbsp;
+		<a href="#" onclick="add_layer('4'); return false;">IV</a>&nbsp;
+		<a href="#" onclick="add_layer('5'); return false;">V</a>&nbsp;
+		<a href="#" onclick="add_layer('6'); return false;">VI</a>&nbsp; 
 
 	<td> 
-	<a href="#" onclick="add_layer('0'); return false;">Add parameters to the whole bsite</a><br/>
-
-	Add by layer: 
-	<a href="#" onclick="add_layer('1'); return false;">I</a>&nbsp; 
-	<a href="#" onclick="add_layer('2'); return false;">II</a>&nbsp;
-	<a href="#" onclick="add_layer('3'); return false;">III</a>&nbsp;
-	<a href="#" onclick="add_layer('4'); return false;">IV</a>&nbsp;
-	<a href="#" onclick="add_layer('5'); return false;">V</a>&nbsp;
-	<a href="#" onclick="add_layer('6'); return false;">VI</a>&nbsp; 
+	Cannot find any proper parameter?<br> <a target="_blank" href="index.php?c=parameters&m=add">Change set of parameters</a></td>
 	</td></tr>
 
 	<tr id="layer_0" style="display:none;"><td>The Whole Brain Site <br/><a href="#" onclick="add_parameter('0')">add parameter</a></td>
