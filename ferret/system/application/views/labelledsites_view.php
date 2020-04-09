@@ -36,18 +36,18 @@
 
 	<!-- Form -->
 
-	<a href="#" onclick="show_coding_rules('lsites'); return false;">Coding rules for Labeled Sites</a>
+	<a href="#" onclick="show_coding_rules('lsites'); return false;">Coding rules for Labelled Sites</a>
 	<form method="post" id="frm" name="frm" action="index.php?c=labelledsites&m=insert">
 
 	<table border="0" cellpadding="3" cellspacing="1">
 
-	<tr><td colspan="3"><b>First, you need to find Literature where this injection was discribed</b></td></tr>
+	<tr><td colspan="3"><b>First, you need to find Literature where this injection was described</b></td></tr>
 
 
 	<tr id="auto_block">
 		<td>Search for publication<br/> to find Injections </td>
 		<td><input title="Please, start to type a title of a literature" type="text" id="autocomplite_auth" class="input"/>
-		<br/>Start type title of a literature, after that type name of  acronym of brain site in field below 
+		<br/>Start type title of a literature, after that type name of the brain site acronym in field below 
 		</td>
 	</tr>
 
@@ -63,8 +63,8 @@
 	<tr>
 
 		<td>
-			Selected outcome
-			<br/> Can't Find?
+			Selected labelling outcome
+			<br/> Cannot find it?
 			<br/><a target="_blank" href="index.php?c=labelingoutcome&m=add">Add Labeling Outcome</a> 
 		</td>
 		<td id="injection_block">
@@ -158,7 +158,7 @@
 	<tr>	
 	
 		<td>Density PDC</td>
-		<td><?php echo form_dropdown('PDC_DENSITY', $pdc_options);?> <a href="#" onclick="show_coding_rules('pdc_density'); return false;"> Coding rules</a></td>	
+		<td><?php echo form_dropdown('PDC_DENSITY', $pdc_density);?> <a href="#" onclick="show_coding_rules('pdc_density'); return false;"> Coding rules</a></td>	
 	
 	</tr>
 
@@ -173,7 +173,7 @@
 	<?php if (($field->primary_key == 1)  OR ($field->name == 'PDC_LAMINAE') OR ($field->name == 'labelled_sites_laminae') OR ($field->name == 'labelled_sites_density') OR ($field->name == 'PDC_DENSITY') OR ($field->name == 'PDC_SITE') OR ($field->name == 'labelled_sites_type') OR ($field->name == 'PDC_EC') OR ($field->name == 'EC') OR ($field->name == 'outcome_id') OR ($field->name == 'brain_sites_id')) continue; ?>
 
 	<tr>
-		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 		<?php if ($field->type == 'blob'): ?>
 		<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php echo form_prep($field->default); ?></textarea></td>
@@ -188,13 +188,9 @@
 	<tr><td colspan="3"><b>Third, you need to input Laminae data ! if exists !</td></tr>
 
 	<tr>	
-	
-		<td>injections_laminae<br/><a href="#" onclick="show_coding_rules('laminae'); return false;"> Coding rules</a></td>
-
-	<td><input class="input" name="labelled_sites_laminae" value="" size="30" /> </td>
+		<td>Injection Laminae<br/><a href="#" onclick="show_coding_rules('laminae'); return false;"> Coding rules</a></td>
+		<td><?php echo form_dropdown('injections_laminae', $injections_laminae); ?></td>
 	</tr>
-
-	<tr>	
 	
 		<td>PDC_laminae</td>
 		<td><?php echo form_dropdown('PDC_LAMINAE', $pdc_options);?> <a href="#" onclick="show_coding_rules('pdc_laminae'); return false;"> Coding rules</a></td>	
@@ -421,7 +417,7 @@
 		<?php if (($field->primary_key == 1)  OR ($field->name == 'outcome_id') OR ($field->name == 'PDC_LAMINAE') OR ($field->name == 'labelled_sites_laminae') OR  ($field->name == 'labelled_sites_density') OR ($field->name == 'PDC_DENSITY') OR ($field->name == 'PDC_SITE') OR ($field->name == 'labelled_sites_type') OR ($field->name == 'PDC_EC') OR ($field->name == 'EC') OR ($field->name == 'injections_id') OR ($field->name == 'brain_sites_id')) continue; ?>
 
 		<tr>
-			<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+			<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 			<?php if ($field->type == 'blob'): ?>
 				<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php $f=$field->name; echo form_prep($ls_data->$f); ?></textarea></td>
