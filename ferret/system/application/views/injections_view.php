@@ -18,7 +18,9 @@
 	<?php endif;?>
 
 
-	<h2><a href="index.php?c=injections&m=add">Add new Injection </a> &nbsp; | &nbsp;<a href="index.php?c=injectionsdata&m=add">Add new Injection Data</a> &nbsp; | &nbsp; <a href="index.php?c=injectionsparameters&m=add">Add new Injection Parameter</a></h2>
+	<h2><a href="index.php?c=injections&m=add">Add new Injections </a> &nbsp; | &nbsp; <a href="index.php?c=methods&m=add">Add new Injection Methods </a></h2>
+	<h2><a href="index.php?c=injectionsdata&m=add">Add new Injection Data</a> &nbsp; | &nbsp; <a href="index.php?c=injectionsparameters&m=add">Add new Injection Parameters</a></h2>
+	<a href="index.php?c=injections&m=show">Show all Injections </a> &nbsp; | &nbsp; <a href="index.php?c=injections&m=search">Search Injections </a>
 
 <?php endif;?>
 
@@ -108,16 +110,21 @@
 	
 	</tr>
 
-
+	<tr>	
+	
+		<td>Injections hemisphere</td>
+		<td><?php echo form_dropdown('hemispheres', $hemisp_options);?>	
+	
+	</tr>	
 
 
 	<?php foreach($fields as $field): ?>
 
 	 
-		<?php if (($field->primary_key == 1) OR ($field->name == 'methods_id') OR ($field->name == 'PDC_site') OR ($field->name == 'PDC_laminae') OR ($field->name == 'injections_laminae') OR ($field->name == 'site_type') OR ($field->name == 'PDC_EC') OR ($field->name == 'EC') OR ($field->name == 'literature_id') OR ($field->name == 'brain_sites_id') OR ($field->name == 'injections_index')) continue; ?>
+		<?php if (($field->primary_key == 1) OR ($field->name == 'methods_id') OR ($field->name == 'PDC_site') OR ($field->name == 'PDC_laminae') OR ($field->name == 'injections_laminae') OR ($field->name == 'site_type') OR ($field->name == 'PDC_EC') OR ($field->name == 'EC') OR ($field->name == 'literature_id') OR ($field->name == 'brain_sites_id') OR ($field->name == 'injections_index') OR ($field->name == 'injections_hemisphere')) continue; ?>
 
 		<tr>
-			<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+			<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 			<?php if ($field->type == 'blob'): ?>
 				<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php echo form_prep($field->default); ?></textarea></td>
@@ -128,19 +135,19 @@
 		</tr>
 	<?php endforeach; ?>
 
-	<tr><td colspan="3"><strong>Third, you need to input Laminae data ! if exists !</strong> <a href="#" onclick="show_lamina(); return false;" id="lamina_show_button">Yes, show fields</a><a style="display:none;" id="lamina_hide_button" href="#" onclick="hide_lamina(); return false;">Hide, lamina </a></td></tr>
+	<tr><td colspan="3"><strong>Third, you need to input Laminae data! If exists!</strong> <a href="#" onclick="show_lamina(); return false;" id="lamina_show_button">Yes, show fields</a><a style="display:none;" id="lamina_hide_button" href="#" onclick="hide_lamina(); return false;">Hide, lamina </a></td></tr>
 
 	<tr style="display:none;" id="lamina_fields_1">	
 	
-		<td>Injections Laminae<br/><a href="#" onclick="show_coding_rules('laminae'); return false;"> Coding rules</a></td>
+		<td>Injection Laminae<br/></td>
 
-		<td><input class="input" name="injections_laminae" value="" size="30" /> </td>
+		<td><?php echo form_dropdown('injections_laminae', $inj_laminae_options);?> <a href="#" onclick="show_coding_rules('laminae'); return false;"> Coding rules</a></td>	
 	</tr>
 
 	<tr style="display:none;" id="lamina_fields_2">	
 	
 		<td>PDC_laminae</td>
-		<td><?php echo form_dropdown('PDC_laminae', $pdc_options);?> <a href="#" onclick="show_coding_rules('pdc_laminae'); return false;"> Coding rules</a></td>	
+		<td><?php echo form_dropdown('PDC_laminae', $pdc_laminae_options);?> <a href="#" onclick="show_coding_rules('pdc_laminae'); return false;"> Coding rules</a></td>	
 	
 	</tr>
 
@@ -299,7 +306,12 @@
 	
 	</tr>
 
-
+	<tr>	
+	
+		<td>Injections hemisphere</td>
+		<td><?php echo form_dropdown('EC', $ec_options,$inj_data->EC);?><a href="#" onclick="show_coding_rules('ec'); return false;"> Coding rules</a></td>	
+	
+	</tr>
 
 
 	<?php foreach($fields as $field): ?>
@@ -308,7 +320,7 @@
 	<?php if (($field->primary_key == 1)   OR ($field->name == 'methods_id') OR ($field->name == 'PDC_laminae') OR ($field->name == 'injections_laminae') OR ($field->name == 'PDC_site')OR ($field->name == 'site_type') OR ($field->name == 'PDC_EC') OR ($field->name == 'EC') OR ($field->name == 'literature_id') OR ($field->name == 'brain_sites_id') OR ($field->name == 'injections_index')) continue; ?>
 
 	<tr>
-		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 		<?php if ($field->type == 'blob'): ?>
 		<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php $f=$field->name; echo form_prep($inj_data->$f); ?></textarea></td>
@@ -318,9 +330,9 @@
 	
 	</tr>
 	<?php endforeach; ?>
-	<tr><td colspan="3"><strong>Third, you need to input Laminae data ! if exists !</strong></td></tr>
+	<tr><td colspan="3"><strong>Third, you need to input Laminae data! If exists!</strong></td></tr>
 	<tr>	
-		<td>injections_laminae<br/><a href="#" onclick="show_coding_rules('laminae'); return false;"> Coding rules</a></td>
+		<td>Injection Laminae<br/><a href="#" onclick="show_coding_rules('laminae'); return false;"> Coding rules</a></td>
 		<td><input class="input" name="injections_laminae" value="<?php echo form_prep($inj_data->injections_laminae); ?>" size="30" /> </td>
 	</tr>
 
@@ -392,6 +404,97 @@
 
 <?php endif;?>
 
+<!-- Show -->
+
+<?php if($action == 'show'):?>
+
+	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+
+	<h1>All Injections</h1>
+	<p><a href="index.php?c=injections&m=add">Add new Injections</a></p>
+
+	<?php if(isset($block_data)):?>
+		
+		<table>
+			<tr>
+			<?php foreach($block_fields as $field): ?>
+
+					<td><?php $fname = explode("_", $field); foreach ($fname as $fn) { echo ucfirst($fn." "); };?></td>
+				
+			<?php endforeach; ?>
+			<td>Actions</td>
+			</tr>
+		
+		<?php foreach($block_data->result() as $bdata): ?>
+		<tr>
+
+			<?php foreach($block_fields as $field): ?>
+		
+			<td><?=$bdata->$field;?></td>
+			
+			<?php endforeach;?>
+			<td><a href="index.php?c=injections&m=edit&id=<?=$bdata->injections_id?>">details</a> &nbsp; | &nbsp; <a href="index.php?c=injections&m=confirm&id=<?=$bdata->injections_id?>">delete</a></td>
+					
+		</tr>
+		<?php endforeach; ?>
+
+			</table>
+	<?php else:?>
+		<p>Nothing was found.</p>
+	<?php endif;?>
+
+
+<?php endif;?>
+
+<!-- Search -->
+
+<?php if($action == 'search'):?>
+
+	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+
+	<h1>Search Injections</h1>
+
+	<?php if(isset($search_message)):?>
+		<p><?=$search_message?></p>
+	<?php endif;?>
+
+	<!-- Browser -->
+
+	<form method="post" id="frm" name="frm" action="#">
+
+	<table border="0" cellpadding="3" cellspacing="1">
+
+	<tr id="auto_block">
+		<td>Search Injections</td>
+		<td>
+		<input title="Please, start to type an index of an injection" type="text" id="autocomplite_2" class="input" />
+		</td>
+	</tr>
+
+	</table>
+	</form>
+	<br/>
+	<div id="search_result"></div>
+
+	<!-- Java scripts -->
+
+	<script type="text/javascript">
+	//<![CDATA[
+	new Autocomplete('autocomplite_2', { 
+		serviceUrl:'index.php/injections/ajaxAtocomplit',
+		onSelect: function(value, data){
+			sel_lit_num = data;
+			search_do();
+	
+		} 
+
+	 });
+	 
+
+	//]]>
+	</script>
+
+<?php endif;?>
 
 <!-- Load the footer -->
 
