@@ -100,7 +100,7 @@
 					<div>
 	 					<ul>
 							<li><a href="index.php?c=injections">Injections</a></li>
-							<li><a href="index.php?c=methods">Methods of Injection</a></li>
+							<li><a href="index.php?c=methods">Injection methods</a></li>
 							<li><a href="index.php?c=tracers">Tracers</a></li>
 							<li><a href="index.php?c=injectionsdata">Data for Injection</a></li>
 							<li><a href="index.php?c=injectionsparameters">Data Parameters</a></li>
