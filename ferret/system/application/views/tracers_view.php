@@ -79,7 +79,7 @@
 		<tr>
 			<td><?=$bdata->tracers_name?></td>
 			<td><?=$bdata->tracers_description?></td> 
-			<td><a href="index.php?c=tracers&m=edit&id=<?=$bdata->tracers_id?>">edit</a></td>
+			<td><a href="index.php?c=tracers&m=edit&id=<?=$bdata->tracers_id?>">edit</a> &nbsp; | &nbsp; <a href="index.php?c=tracers&m=confirm&id=<?=$bdata->tracers_id?>">delete</a></td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
