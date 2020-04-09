@@ -92,7 +92,7 @@
 	</tr>
 
 	<tr>
-		<td>maps relations code</td>	
+		<td>Maps relations code</td>	
 		<td><?php echo form_dropdown('maps_relations_code', $rel_options,1,'id="maps_relations_code"');?> <a href="#" onclick="show_coding_rules('rc'); return false;"> Please see coding rules</a></td>	
 	
 	
@@ -129,7 +129,7 @@
 	
 	<tr>	
 	
-		<td>PDC RELATION</td>
+		<td>PDC relation</td>
 		<td><?php echo form_dropdown('PDC_RELATION', $pdc_options,1,'id="PDC_RELATION"');?><a href="#" onclick="show_coding_rules('pdc_relation'); return false;"> Please see coding rules</a></td>	
 	
 	
@@ -142,7 +142,7 @@
 		<?php if (($field->primary_key == 1) OR ($field->name == 'literature_id') OR ($field->name == 'brain_sites_id_a') OR ($field->name == 'brain_sites_id_b') OR ($field->name == 'maps_relations_id') OR ($field->name == 'maps_relations_code') OR ($field->name == 'PDC_RELATION')) continue; ?>
 
 		<tr>
-		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>	
+		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>	
 		<?php if ($field->type == 'blob'): ?>
 			<td><textarea class="textarea" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php echo form_prep($field->default); ?></textarea></td>
 		<?php else : ?>
@@ -305,7 +305,7 @@
 		</tr>
 
 		<tr>
-			<td>maps_relations_code</td>	
+			<td>Maps relations code</td>	
 			<td><?php echo form_dropdown('maps_relations_code', $rel_options,$mr_data->maps_relations_code);?> <a href="#" onclick="show_coding_rules('rc'); return false;"> Please see coding rules</a></td>	
 		</tr>
 
@@ -348,7 +348,7 @@
 	
 		<tr>	
 	
-			<td>PDC_RELATION</td>
+			<td>PDC_relation</td>
 			<td><?php echo form_dropdown('PDC_RELATION', $pdc_options,$mr_data->PDC_RELATION)?><a href="#" onclick="show_coding_rules('pdc_relation'); return false;"> Please see coding rules</a></td>	
 	
 		</tr>
@@ -360,7 +360,7 @@
 			<?php if (($field->primary_key == 1) OR ($field->name == 'literature_id') OR ($field->name == 'brain_sites_id_a') OR ($field->name == 'brain_sites_id_b') OR ($field->name == 'maps_relations_id') OR ($field->name == 'maps_relations_code') OR ($field->name == 'PDC_RELATION')) continue; ?>
 
 			<tr>
-			<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>	
+			<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>	
 			<?php if ($field->type == 'blob'): ?>
 				<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php $f=$field->name; echo form_prep($mr_data->$f); ?></textarea></td>
 			<?php else : ?>
