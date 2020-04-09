@@ -17,7 +17,8 @@
 		<p><?=$index_message?></p>
 	<?php endif;?>
 
-	<h2><a href="index.php?c=brainsites&m=add">Add new Brain Sites </a></h2>
+	<h2><a href="index.php?c=brainsites&m=add">Add new Brain Sites </a> &nbsp; | &nbsp; <a href="index.php?c=brainsites&m=search">Search Brain Sites </a></h2> 
+	<a href="index.php?c=brainsites&m=show">All brain maps list</a>
 
 <?php endif;?>
 
@@ -60,7 +61,7 @@
 			Search for Acronym
 			<br/> for this Brain Site
 			<br/> Can't find? 
-			<br/> <a href="index.php?c=acronyms" target="_blank">Check Acronyms first</a>
+			<br/> <a href="index.php?c=acronyms&m=show" target="_blank">Check Acronyms first</a>
 			  
 		</td>
 		<td><input title="Please, start to type name or full name of Acronym" type="text" id="autocomplite_acron" class="input"/></td>
@@ -76,7 +77,7 @@
 		<?php if (($field->primary_key == 1) OR ($field->name == 'brain_sites_class') OR ($field->name == 'brain_sites_index') OR ($field->name == 'brain_sites_acronyms_id') OR ($field->name == 'brain_maps_id')) continue; ?>
 
 			<tr>
-				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>	
+				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>	
 	
 				<?php if ($field->name == 'brain_sites_type'): ?>
 					<td><?php echo form_dropdown($field->name, $type_options,1,'id="brain_sites_type"');?> <a href="#" onclick="show_coding_rules('bsitetype'); return false;">Coding rules</a></td>
@@ -190,7 +191,7 @@
 			<?php if (($field->primary_key == 1) OR ($field->name == 'brain_sites_class') OR ($field->name == 'brain_sites_index') OR ($field->name == 'brain_sites_acronyms_id') OR ($field->name == 'brain_maps_id')) continue; ?>
 	
 				<tr>
-					<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>	
+					<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>	
 					<?php if ($field->name == 'brain_sites_type'): ?>
 						<td><?php echo form_dropdown($field->name, $type_options,$bs_data->brain_sites_type,'id="brain_sites_type"');?> <a href="#" onclick="show_coding_rules('bsitetype'); return false;">Coding rules</a></td>
 					<?php endif; ?>
@@ -252,6 +253,97 @@
 
 <?php endif;?>
 
+<!-- Show -->
+
+<?php if($action == 'show'):?>
+
+	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+
+	<h1>All Brain Sites</h1>
+	<p><a href="index.php?c=brainsites&m=add">Add new Brain Sites</a></p>
+
+	<?php if(isset($block_data)):?>
+		
+		<table>
+			<tr>
+			<?php foreach($block_fields as $field): ?>
+
+					<td><?php $fname = explode("_", $field); foreach ($fname as $fn) { echo ucfirst($fn." "); };?></td>
+				
+			<?php endforeach; ?>
+			<td>Actions</td>
+			</tr>
+		
+		<?php foreach($block_data->result() as $bdata): ?>
+		<tr>
+
+			<?php foreach($block_fields as $field): ?>
+		
+			<td><?=$bdata->$field;?></td>
+			
+			<?php endforeach;?>
+			<td><a href="index.php?c=brainsites&m=edit&id=<?=$bdata->brain_sites_id?>">details</a> &nbsp; | &nbsp; <a href="index.php?c=brainsites&m=confirm&id=<?=$bdata->brain_sites_id?>">delete</a></td>
+					
+		</tr>
+		<?php endforeach; ?>
+
+			</table>
+	<?php else:?>
+		<p>Nothing was found.</p>
+	<?php endif;?>
+
+
+<?php endif;?>
+
+<!-- Search -->
+
+<?php if($action == 'search'):?>
+
+	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+
+	<h1>Search Brain Sites</h1>
+
+	<?php if(isset($search_message)):?>
+		<p><?=$search_message?></p>
+	<?php endif;?>
+
+	<!-- Browser -->
+
+	<form method="post" id="frm" name="frm" action="#">
+
+	<table border="0" cellpadding="3" cellspacing="1">
+
+	<tr id="auto_block">
+		<td>Search Brain Sites</td>
+		<td>
+		<input title="Please, start to type an index of a brain site" type="text" id="autocomplite_2" class="input" />
+		</td>
+	</tr>
+
+	</table>
+	</form>
+	<br/>
+	<div id="search_result"></div>
+
+	<!-- Java scripts -->
+
+	<script type="text/javascript">
+	//<![CDATA[
+	new Autocomplete('autocomplite_2', { 
+		serviceUrl:'index.php/brainsites/ajaxAtocomplitC',
+		onSelect: function(value, data){
+			sel_lit_num = data;
+			search_do();
+	
+		} 
+
+	 });
+	 
+
+	//]]>
+	</script>
+
+<?php endif;?>
 
 <!-- Load the footer -->
 
