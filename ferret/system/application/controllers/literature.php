@@ -220,48 +220,7 @@ class Literature extends Controller {
 		$this->load->model('Literature_model','literM',TRUE);
 		$this->load->model('Authors_model','authorsM',TRUE);
 		
-		// Collecting last inserted publications 
 		
-		if (($qida = $this->literM->get_last_inserted()) != FALSE){
-		
-			foreach ($qida->result() as $rowa) {
-				
-				$this->data['last_inserted_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id); 
-			}
-			
-			$this->data['last_inserted'][] = $qida;
-		
-		}
-		
-		// Collecting last updated publications
-
-				
-		if (($qida = $this->literM->get_last_updated()) != FALSE){
-		
-		
-			foreach ($qida->result() as $rowa) {
-					
-				$this->data['last_updated_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id);
-			}
-			
-			
-			$this->data['last_updated'][] = $qida;
-		
-		}
-		
-		// Collecting 3 puplication for proofreading
-		
-		if (($qida = $this->literM->get_for_proof()) != FALSE){
-			
-			foreach ($qida->result() as $rowa) {
-					
-				$this->data['for_proof_authors'][$rowa->literature_id] =  $this->authorsM->get_a_for_l($rowa->literature_id);
-			}
-				
-				
-			$this->data['for_proof_data'][] = $qida;
-			
-		}
 		
 		
 		// Action "search" is chosen
@@ -604,7 +563,7 @@ class Literature extends Controller {
 						
 						
 								$this->db->join('authors', 'authors.authors_id = literature_and_authors.authors_id');	// Join authors from literature_and_authors/authors_id with authors/authors_id
-								$this->db->order_by('literature_and_authors.authors_id','asc');		// Order by authors_id in an ascendent way
+								$this->db->order_by('lna_id','asc');		// Order by authors_id in an ascendent way
 								
 								$this->data['auth_data'][$rowb->literature_id] =  $this->db->get_where('literature_and_authors',array('literature_id' => $rowb->literature_id));	// Load auth data from literature_and_authors whose literature_id are selected above
 						
@@ -651,7 +610,7 @@ class Literature extends Controller {
 						
 						
 						$this->db->join('authors', 'authors.authors_id = literature_and_authors.authors_id');		// Join authors from literature_and_authors/authors_id with authors/authors_id
-						$this->db->order_by('literature_and_authors.authors_id','asc');		// Order by authors_id in an ascendent way
+						$this->db->order_by('lna_id','ASC');		// Order by lna_id in an ascendent way
 						
 						$this->data['auth_data'][$rowa->literature_id] =  $this->db->get_where('literature_and_authors',array('literature_id' => $rowa->literature_id));	// Load auth data from literature_and_authors whose literature_id are selected above
 							
