@@ -50,7 +50,6 @@
 	<tr style="display:none;" id="lit_block">
 		<td>Selected Literature</td>
 		<td id="literature"></td>
-		<td></td>
 		
 	</tr>
 
@@ -59,8 +58,6 @@
 	
 		<td><a href="#" onclick="add_outcome(); return false;">Add new outcome</a></td>
 		<td id="data_column"></td>
-		<td><a href="index.php?c=labelingoutcome&m=edit&id=<?=$inj_id->outcome_id?>">Edit</a></td>
-	
 	
 	</tr>
 
@@ -132,14 +129,14 @@
 			<tr  id="lit_block">
 				<td>Selected Literature <br/> for new Brain Map:</td>
 				<td id="literature"><span id="<?=$lit_data->literature_id?>"><input type="hidden" name="literature_id" value="<?=$lit_data->literature_id?>"><?=$lit_data->literature_title?> <?=$lit_data->literature_index?><a href="#" onclick="lit_replace('<?=$lit_data->literature_id?>'); return false;"> Replace</a></span><br/></td>
-				<td><td>
+				
 			</tr>
 		
 			<tr>	
 	
 				<td>Type of labeling</td>
 				<td><?php echo form_dropdown('outcome_type', $outcome_type,$block_data->outcome_type);?></td>	
-				<td></td>
+				
 		
 			</tr>
 		
