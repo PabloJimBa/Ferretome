@@ -43,7 +43,7 @@
     <?php if (($field->primary_key == 1) OR ($field->name == 'parameters_type')) continue; ?>
 
       <tr>
-	    <td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+	    <td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 	    <?php if ($field->type == 'blob'): ?>
 	      <td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ></textarea></td>
@@ -57,7 +57,7 @@
 
   <tr>
 	  <td>
-	  parameter type
+	  Parameter type
 	  </td>
 	  <td>
 		  <?php echo form_dropdown('parameters_type', $types_options, '1');?>
@@ -87,7 +87,7 @@
   <?php foreach($block_data->result() as $bdata): ?>
   <tr>
 	  <td><?=$bdata->parameters_name?></td>	
-	  <td><a href="index.php?c=parameters&m=edit&id=<?=$bdata->parameters_id?>">edit</a></td>
+	  <td><a href="index.php?c=parameters&m=edit&id=<?=$bdata->parameters_id?>">edit</a> &nbsp; | &nbsp; <a href="index.php?c=parameters&m=confirm&id=<?=$bdata->parameters_id?>">delete</a></td>
   </tr>
   <?php endforeach; ?>
   </table>
@@ -114,7 +114,7 @@
   <?php if (($field->primary_key == 1) OR ($field->name == 'parameters_type')) continue; ?>
 
   <tr>
-	  <td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+	  <td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 	  <?php if ($field->type == 'blob'): ?>
 	  <td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php $f=$field->name; echo form_prep($block_data->$f); ?></textarea></td>
@@ -128,7 +128,7 @@
 
   <tr>
 	  <td>
-	  parameter type
+	  Parameter type
 	  </td>
 	  <td>
 		  <?php echo form_dropdown('parameters_type', $types_options, $block_data->parameters_type);?>
@@ -148,3 +148,6 @@
 <!-- Load the footer -->
 
 <?php $this->load->view('footer');
+
+
+
