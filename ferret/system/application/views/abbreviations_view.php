@@ -15,9 +15,9 @@
 
 	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
 
-	<h1>Journals/ Books / Etc. </h1>
+	<h1>Journals/Books/Etc. </h1>
 
-	<h2><a href="index.php?c=abbreviations&m=add">Add new Literature Abbr. </a> &nbsp; | &nbsp; <a href="index.php?c=abbreviations&m=show">Show all </a></h2>
+	<h2><a href="index.php?c=abbreviations&m=add">Add new Literature Abbr.</a> &nbsp; | &nbsp; <a href="index.php?c=abbreviations&m=show">Show all</a></h2>
 
 
 
@@ -45,7 +45,7 @@
 		<?php if ($field->primary_key == 1) continue; ?>
 
 			<tr>
-			<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+			<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 
 			<?php if ($field->type == 'blob'): ?>
 			<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ></textarea></td>
@@ -77,11 +77,15 @@
 	<!-- Form -->
 
 	<table border="0" cellpadding="3" cellspacing="1">
+	<tr>
+		<td>Abbreviation</td><td>Name</td><td>Actions</td>
+	</tr>
 	<?php foreach($block_data->result() as $bdata): ?>
 		<tr>
 			<td><?=$bdata->abbreviations_short?></td>
 			<td><?=$bdata->abbreviations_full?></td> 
-			<td><a href="index.php?c=abbreviations&m=edit&id=<?=$bdata->abbreviations_id?>">edit</a></td>
+			<td><a href="index.php?c=abbreviations&m=edit&id=<?=$bdata->abbreviations_id?>">edit</a> &nbsp; | &nbsp; <a href="index.php?c=abbreviations&m=confirm&id=<?=$bdata->abbreviations_id?>">delete</a></td>						
+
 		</tr>
 	<?php endforeach; ?>
 	</table>
@@ -109,7 +113,7 @@
 		<?php if ($field->primary_key == 1) continue; ?>
 
 			<tr>
-				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 
 				<?php if ($field->type == 'blob'): ?>
 					<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php $f=$field->name; echo form_prep($block_data->$f); ?></textarea></td>
