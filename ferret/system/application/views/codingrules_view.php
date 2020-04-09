@@ -74,7 +74,7 @@
 	<?php foreach($block_data->result() as $bdata): ?>
 	<tr>
 		<td><?=$bdata->coding_rules_name?></td> 
-		<td><a href="index.php?c=codingrules&m=edit&id=<?=$bdata->coding_rules_id?>">edit</a></td>
+		<td><a href="index.php?c=codingrules&m=edit&id=<?=$bdata->coding_rules_id?>">edit</a> &nbsp; | &nbsp; <a href="index.php?c=codingrules&m=confirm&id=<?=$bdata->coding_rules_id?>">delete</a></td>
 	</tr>
 	<?php endforeach; ?>
 	</table>
