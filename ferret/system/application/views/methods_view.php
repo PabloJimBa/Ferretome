@@ -53,7 +53,7 @@
 
 
 	<tr id="auto_block_tracer">
-		<td>Search for tracer<br/> for this injection method <br/> Cannot find? <a href="index.php?c=tracers" target="_blank">Check tracers</a> </td>
+		<td>Search for tracer<br/> for this injection method <br/> Cannot find? <a href="index.php?c=tracers&m=show" target="_blank">Check tracers</a> </td>
 		<td><input title="Please, start to type a title" type="text" id="autocomplite_tracer" class="input"/></td>
 	</tr>
 
@@ -63,13 +63,21 @@
 	
 	</tr>
 
+	<tr>
+		<td>
+		Bilateral use:
+		</td>
+		<td>
+		<input type="checkbox" name="yes" value="">
+		</td>
+	</tr>
 
 	<?php foreach($fields as $field): ?>
 
-	<?php if (($field->primary_key == 1) OR  ($field->name == 'literature_id') OR ($field->name == 'tracers_id')) continue; ?>
+	<?php if (($field->primary_key == 1) OR  ($field->name == 'literature_id') OR ($field->name == 'tracers_id') OR ($field->name == 'bilateral_use')) continue; ?>
 
 	<tr>
-		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 		<?php if ($field->type == 'blob'): ?>
 		<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ></textarea></td>
@@ -136,7 +144,7 @@
 		<td><?=$bdata->tracers_name?></td>
 		<td><?=$bdata->injection_method?></td>
 		<td><?=$bdata->survival_time?></td> 
-		<td><a href="index.php?c=methods&m=edit&id=<?=$bdata->methods_id?>">edit</a></td>
+		<td><a href="index.php?c=methods&m=edit&id=<?=$bdata->methods_id?>">edit</a> &nbsp; | &nbsp; <a href="index.php?c=methods&m=confirm&id=<?=$bdata->methods_id?>">delete</a></td>
 	</tr>
 	<?php endforeach; ?>
 	</table>
@@ -198,15 +206,24 @@
 			</td>
 		</tr>
 
-
+		<tr >
+			<td>Bilateral use:</td>
+			<td>
+		
+			<?php if ($block_data->bilateral_use[0] =='Y'):?>
+				<input type="checkbox" name="yes" value="" checked="checked">
+			<?php else: ?>
+				<input type="checkbox" name="yes" value="">
+			<?php endif; ?>
+		</tr>
 
 
 		<?php foreach($fields as $field): ?>
 
-			<?php if (($field->primary_key == 1) OR ($field->name == 'literature_id') OR ($field->name == 'tracers_id')) continue; ?>
+			<?php if (($field->primary_key == 1) OR ($field->name == 'literature_id') OR ($field->name == 'tracers_id') OR ($field->name == 'bilateral_use')) continue; ?>
 
 			<tr>
-				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 				<?php if ($field->type == 'blob'): ?>
 					<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php $f=$field->name; echo form_prep($block_data->$f); ?></textarea></td>
