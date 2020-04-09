@@ -12,7 +12,7 @@
 <?php endif;?>
 
 
-
+<!-- <?=$out->outcome_id?> - -->
 
 <?php if($mode == 'extended'):?>
 
@@ -20,10 +20,10 @@
 	
 		<?php foreach ($outcomes->result() as $out): ?>
 		
-			<span id="outcome_<?=$out->outcome_id?>"><strong><?=$out->outcome_id?> - <?=$outcome_type[$out->outcome_type]?></strong> - has  <?=$outcome_data[$out->outcome_id]?>
+			<span id="outcome_<?=$out->outcome_id?>"><strong><?=$outcome_type[$out->outcome_type]?></strong> - has  <?=$outcome_data[$out->outcome_id]?>
 			
 			  labeled sites
-			  <a href="#" id="labeled_sites_show_button_<?=$out->outcome_id?>" onclick="show_labeled('<?=$out->outcome_id?>')">Show</a>
+			  <a href="#" id="labeled_sites_show_button_<?=$out->outcome_id?>" onclick="show_labeled('<?=$out->outcome_id?>')">Show</a> <br> <a  href="index.php?c=labelingoutcome&m=edit&id=<?=$out->outcome_id?>">Edit</a> &nbsp; | &nbsp;
 				<a style="display:none;" href="#" id="labeled_sites_hide_button_<?=$out->outcome_id?>" onclick="hide_labeled('<?=$out->outcome_id?>')">Hide</a>
 				 
 			  <br/><br/></span>
@@ -35,6 +35,8 @@
 			  	<br/>
 			  	
 			  </span>
+
+
 		
 		<?php endforeach; ?> 
 	
