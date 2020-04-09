@@ -1,10 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('Wir haben Sie nicht verstanden!'); ?>
 
-/*Load the header*/
+<!-- Load the header -->
 
 <?php $this->load->view('header.php'); ?>
 
-/*Main page*/
+<!-- Main page -->
 
 <?php if ($action =='index'): ?>
 
@@ -12,7 +12,7 @@
 <p><font color="Red"><?= $index_message ?></font></p>
 <?php endif; ?>
 
-/*Log in table*/
+<!-- Log in table -->
 
 <div id="login" align="center">
 <form action="index.php?c=login&m=signin" method="post">
@@ -25,6 +25,6 @@
 </div>
 <?php endif; ?>
 
-/*Load the footer*/
+<!-- Load the footer -->
 
 <?php $this->load->view('footer.php'); ?>
