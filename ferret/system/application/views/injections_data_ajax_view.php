@@ -2,8 +2,8 @@
 
 	<?php foreach($block_data->result() as $bdata): ?>
 		<span id="data_<?=$bdata->data_id?>">
-			<?=$bdata->parameters_name?> : <?=$bdata->parameters_value?> 
-			<strong>was defined in:</strong><span title="<?=$bdata->literature_title?>"> <?=substr($bdata->literature_title, 0,50)?>...<?=$bdata->literature_index?></span> 
+			<?=$bdata->parameters_name?>: <?=$bdata->parameters_value?> <br>
+			<strong>was defined in:</strong><span title="<?=$bdata->literature_title?>"> <?=substr($bdata->literature_title, 0,50)?>...<?=$bdata->literature_index?></span><br>
 			<a href="#" onclick="del_data('<?=$bdata->data_id?>')">Delete</a><br/>
 		</span> 
 	<?php endforeach; ?>
@@ -33,3 +33,4 @@ Specify parameter</td><td><?php echo form_dropdown('parameters_id', $parameters,
 
 
 <?php endif;?>
+
