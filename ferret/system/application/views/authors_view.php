@@ -38,10 +38,10 @@
 				<tr>
 				<?php foreach($block_fields as $field): ?>
 	
-						<td><?php $fname = explode("_", $field); foreach ($fname as $fn) { echo $fn." "; };?></td>
+						<td><?php $fname = explode("_", $field); foreach ($fname as $fn) { echo ucfirst($fn." "); };?></td>
 					
 				<?php endforeach; ?>
-				<td>actions</td>
+				<td>Actions</td>
 				</tr>
 			
 			<?php foreach($block_data->result() as $bdata): ?>
@@ -52,8 +52,8 @@
 				<td><?=$bdata->$field;?></td>
 				
 				<?php endforeach;?>
-				<td><a href="index.php?c=authors&m=edit&id=<?=$bdata->authors_id?>">edit</a></td>
-						
+				<td><a href="index.php?c=authors&m=edit&id=<?=$bdata->authors_id?>">edit</a> &nbsp; | &nbsp; <a href="index.php?c=authors&m=confirm&id=<?=$bdata->authors_id?>">delete</a></td>						
+
 			</tr>
 			<?php endforeach; ?>
 	
@@ -88,7 +88,7 @@
 		<?php if ($field->primary_key == 1) continue; ?>
 
 			<tr>
-				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+				<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 				<?php if ($field->type == 'blob'): ?>
 					<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php echo form_prep($field->default); ?></textarea></td>
@@ -113,7 +113,7 @@
 
 		<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
 
-		<h1>Search for Author</h1>
+		<h1>Search Author</h1>
 
 		<?php if(isset($search_message)):?>
 			<p><?=$search_message?></p>
@@ -130,7 +130,6 @@
 			<td>
 			<input title="Please, start to type a surname of an author" type="text" id="autocomplite_2" class="input" />
 			</td>
-			<td><input type="submit" class="submit" value="Go" /></td>
 		</tr>
 
 		</table>
@@ -186,7 +185,7 @@
 			<?php if ($field->primary_key == 1) continue; ?>
 	
 				<tr>
-					<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+					<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 		
 					<?php if ($field->type == 'blob'): ?>
 					<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php $f=$field->name; echo form_prep($auth_data->$f); ?></textarea></td>
