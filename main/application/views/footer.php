@@ -5,7 +5,7 @@
 
 <div id="footer">
 <?php if(!isset($footer_page)):?>
-<p>Computational Neuroscience Institut UKE 2012</p>
+<p>Computational Neuroscience Institut UKE 2012-<?php echo @date('Y'); ?></p>
 <?php else:?>
 <?=$footer_page?>
 <?php endif;?>
