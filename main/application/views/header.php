@@ -33,7 +33,7 @@
 <div id="header">
 
 <div id="header_left">
-<h3><a href="index.php"><img src="ferret_logo_main1.png" alt="Ferretome"></a></h3>
+<h3><a href="index.php">&nbsp;&nbsp;<img src="ferretome.png" width='185' height='120' alt="Ferretome"></a></h3>
 </div>
 
 <div id="header_right">
@@ -66,6 +66,8 @@
 </div>
 
 </div>
+
+
 
 <br clear="all">
 <div id="outer">
