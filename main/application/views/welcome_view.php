@@ -35,7 +35,7 @@
 
 	
 <div id="news_block">
-	<p><strong>Latest news:</strong></p>
+	<h2>Latest news:</h2>
 	
 	<?php if(isset($news)):?>
 	
@@ -53,6 +53,20 @@
 </div>
 
 
+<div id="logos">
+
+<br clear='left'><br><br><br>
+
+
+<p align='center'>
+<img src="uke.png" width='120' height='120' alt="UKE">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="icns.jpg" width='225' height='120' alt="ICNS">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="SFB_logo.png" width='200' height='120' alt="SFB">
+</p>
+
+
+
+</div>
 	
 
 <script type="text/javascript">
