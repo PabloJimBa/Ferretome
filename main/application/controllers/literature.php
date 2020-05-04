@@ -39,7 +39,7 @@ class Literature extends CI_Controller {
 	}
 	
 	
-	function view(){
+	function view_index(){
 		
 		
 	
@@ -71,7 +71,45 @@ class Literature extends CI_Controller {
 				$this->load->model('Authors_model','authorsM',TRUE);
 				
 				$this->data['auth_data'] = $this->authorsM->get_a_for_l($lid);
+							
+			}
 				
+				
+			$qida = $this->db->get_where('literature',array('literature_id' => $lid));
+				
+			
+				
+		}
+	
+		$this->data['action'] = 'view_index';
+		
+		
+			
+		$this->load->view('literature_view',$this->data);
+			
+		
+	
+	}
+	
+	function view_map(){
+		
+		
+	
+		$lid = $this->input->get('id'); 
+	
+		
+	
+		$this->data['block_message'] = "Nothing was sent";
+	
+		if (!empty($lid)){
+				
+			$this->data['block_message'] = "Nothing was found";
+			
+			$this->load->model('Literature_model','literm',TRUE);
+			
+			if (($qida = $this->literm->get_one($lid)) != FALSE){
+				
+				unset($this->data['block_message']);
 				
 				// map for this literature
 				
@@ -106,14 +144,54 @@ class Literature extends CI_Controller {
 					
 				}
 				
-							
+				
+				
+				
+			}
+				
+				
+			$qida = $this->db->get_where('literature',array('literature_id' => $lid));
+				
+			
+				
+		}
+	
+		$this->data['action'] = 'view_map';
+		
+		
+			
+		$this->load->view('literature_view',$this->data);
+			
+		
+	
+	}
+	
+	
+	function view_exp(){
+		
+		
+	
+		$lid = $this->input->get('id'); 
+	
+		$this->data['literature_id'] = $lid;
+	
+		$this->data['block_message'] = "Nothing was sent";
+	
+		if (!empty($lid)){
+				
+			$this->data['block_message'] = "Nothing was found";
+			
+			$this->load->model('Literature_model','literm',TRUE);			
+
+			if (($qida = $this->literm->get_one($lid)) != FALSE){
+				
+				unset($this->data['block_message']);
 				
 				// loading injections
 
 				
 				$this->load->model('Injections_model','injm',TRUE);
-				
-				
+								
 				if (($qida = $this->injm->get_from_l($lid)) != FALSE){
 					
 					
@@ -122,7 +200,7 @@ class Literature extends CI_Controller {
 					
 					$this->data['inj_bs_data'] = array();
 					$this->data['inj_out_data'] = array();
-					
+								
 					// outcomes
 					$this->load->model('Outcomes_model','outm',TRUE);
 					
@@ -147,14 +225,16 @@ class Literature extends CI_Controller {
 					
 					
 					foreach ($this->data['inj_data']->result() as $idata) {
-						
-						
+												
 						// site of injection
 						
+						$this->load->model('Brainsite_model','bsm',TRUE);
 						
-						
+
+
 						if (($qida = $this->bsm->get_one($idata->brain_sites_id)) != FALSE){
 								
+							$this->data['bsfields'] = $this->bsm->get_fields();
 							$this->data['inj_bs_data'][$idata->injections_id] = $qida;
 						
 						
@@ -209,7 +289,47 @@ class Literature extends CI_Controller {
 				
 				
 				
+			}
 				
+				
+			$qida = $this->db->get_where('literature',array('literature_id' => $lid));
+				
+			
+				
+		}
+	
+		$this->data['action'] = 'view_exp';
+		
+		
+			
+		$this->load->view('literature_view',$this->data);
+			
+		
+	
+	}
+	
+
+	
+	function view_rel(){
+		
+		
+	
+		$lid = $this->input->get('id'); 
+	
+		
+		$this->data['literature_id'] = $lid;
+	
+		$this->data['block_message'] = "Nothing was sent";
+	
+		if (!empty($lid)){
+				
+			$this->data['block_message'] = "Nothing was found";
+			
+			$this->load->model('Literature_model','literm',TRUE);
+			
+			if (($qida = $this->literm->get_one($lid)) != FALSE){
+				
+				unset($this->data['block_message']);
 				
 				// maps relations
 				
@@ -238,7 +358,7 @@ class Literature extends CI_Controller {
 				
 		}
 	
-		$this->data['action'] = 'view';
+		$this->data['action'] = 'view_rel';
 		
 		
 			
@@ -247,14 +367,6 @@ class Literature extends CI_Controller {
 		
 	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -581,6 +693,149 @@ class Literature extends CI_Controller {
 	
 	}
 	
+
+	function ajaxGetExpData(){
+		
+		
+	
+		$lid = $this->input->post('lit_id'); 
+
+		$result = "empty";
+	
+		$this->data['literature_id'] = $lid;
+	
+		$this->data['block_message'] = "Nothing was sent";
+	
+		if (!empty($lid)){
+				
+			$this->data['block_message'] = "Nothing was found";
+			
+			$this->load->model('Literature_model','literm',TRUE);	
+
+			$result = "no records";		
+
+			if (($qida = $this->literm->get_one($lid)) != FALSE){
+				
+				unset($this->data['block_message']);
+				
+				// loading injections
+
+				
+				$this->load->model('Injections_model','injm',TRUE);
+				
+				
+				if (($qida = $this->injm->get_from_l($lid)) != FALSE){
+					
+					
+					$this->data['inj_data'] = $qida;
+					$this->data['injfields'] = $this->injm->get_fields();
+					
+					$this->data['inj_bs_data'] = array();
+					$this->data['inj_out_data'] = array();
+					
+					// outcomes
+					$this->load->model('Outcomes_model','outm',TRUE);
+					
+					$this->data['outcomes_types'] = $this->outm->get_types();
+					
+					
+					//labeled sites for oucomes
+					$this->load->model('labeledsites_model','lsm',TRUE);
+					
+					$this->data['outlsfields'] = $this->lsm->get_fields(); 
+					
+					$this->data['out_ls_data'] = array();
+					
+
+					//method of injection
+					$this->load->model('methods_model','mtm',TRUE);
+						
+					$this->data['mtmfields'] = $this->mtm->get_fields();
+						
+					$this->data['mtm_data'] = array();
+					
+					
+					
+					foreach ($this->data['inj_data']->result() as $idata) {
+						
+						
+						// site of injection
+						
+						$this->load->model('Brainsite_model','bsm',TRUE);
+						
+
+
+						if (($qida = $this->bsm->get_one($idata->brain_sites_id)) != FALSE){
+								
+							$this->data['bsfields'] = $this->bsm->get_fields();
+							$this->data['inj_bs_data'][$idata->injections_id] = $qida;
+						
+						
+						}
+						
+						//outcomes of injection
+						
+						
+						
+						if (($qida = $this->outm->get_for_i($idata->injections_id)) != FALSE){
+							
+							
+							$this->data['inj_out_data'][$idata->injections_id] = $qida;
+							
+							
+							foreach ($qida->result() as $rowa) {
+							
+							
+								if (($qida = $this->lsm->get_for_o($rowa->outcome_id)) != FALSE){
+										
+										
+									$this->data['out_ls_data'][$rowa->outcome_id] = $qida;
+										
+										
+								}
+							}
+							
+							
+							
+							
+						}
+						
+						
+						// method of injection
+						
+						
+						if (($qida = $this->mtm->get_one($idata->methods_id)) != FALSE){
+								
+								
+							$this->data['mtm_data'][$idata->injections_id] = $qida;
+								
+								
+						}
+						
+						
+						
+					}
+					
+					
+					
+				}//injections section ends here
+				
+				
+				
+			}
+				
+				
+			$qida = $this->db->get_where('literature',array('literature_id' => $lid));
+				
+			
+				
+		}
+	
+		$result = $this->load->view('literature_ajax_get_view',$this->data,TRUE);
+
+		echo $result;
+			
+	}
 	
 }
 
