@@ -119,7 +119,8 @@ class Pages extends CI_Controller {
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/pages.js"></script>';
 
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/upclick-min.js"></script>';
-		
+		/*
+
 		$this->load->model('files_model','filem',TRUE);
 		
 		if (($qida = $this->filem->get_all(array('user_id'=>$this->session->userdata('user_id')))) != FALSE){
@@ -130,7 +131,8 @@ class Pages extends CI_Controller {
 				
 		
 		}
-		
+
+		*/
 		
 		$this->load->view('pages_view',$this->data);
 		
@@ -193,7 +195,7 @@ class Pages extends CI_Controller {
 				$this->load->model('pages_model','pagem',TRUE);
 				$this->data['types_options'] = $this->pagem->get_types();
 				
-				
+				/*
 
 				$this->load->model('files_model','filem',TRUE);
 				
@@ -205,6 +207,9 @@ class Pages extends CI_Controller {
 					
 																
 				}
+				*/
+
+
 				
 				
 					
