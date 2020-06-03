@@ -2,7 +2,7 @@ body {
  margin: 0;
  padding: 0;
  font-family: Lucida Grande, Verdana, Geneva, Sans-serif;
- font-size: 11px;
+ font-size: 12px;
  color: #4F5155;
  background: #fff url(images/background.jpg) repeat-x left top;
  background-size: 21px;
@@ -55,7 +55,7 @@ a:hover {
  	margin: 0;
  	padding: 0;
  	min-height: 450px;
- 	min-width: 1200px;
+ 	min-width: 1300px;
 	
 }
 
@@ -136,11 +136,11 @@ form {
 
 .input {
  font-family: Lucida Grande, Verdana, Geneva, Sans-serif;
- font-size: 11px;
+ font-size: 12px;
  width: 600px;
  color: #333;
  border: 1px solid #B3B4BD;
- font-size: 11px;
+ font-size: 12px;
  height: 2em;
  padding: 0;
  margin: 0;
@@ -158,7 +158,7 @@ form {
 
 .select {
  background-color: #fff;
- font-size:  11px;
+ font-size:  12px;
  font-weight: normal;
  color: #333;
  padding: 0;
@@ -180,6 +180,11 @@ form {
  padding: 1px 5px 1px 5px;
 }
 
+
+div.magnifiable{color: #333;}
+div.magnifiable:hover{font-size: 200%;}
+
+
 /* Experimental data menu */
 
 nav {
@@ -196,18 +201,18 @@ nav ul.vertical {
 }
  
 nav > ul > li {
-	float:left;
+	float:below;
 }
  
 nav ul li a {
 	text-decoration:strong;
-	color:#fff;
+	color:#040E7A;
 	display:block;
 	padding:10px 20px;
 }
  
 nav ul li a:hover {
-	background:#3669a3;
+	background:#fff;
 }
  
 nav > ul > li:hover div {
@@ -250,11 +255,11 @@ nav ul li div ul .titulo a:hover {
 }
  
 nav ul li div ul li a {
-	color:#fff;
+	color:#040E7A;
 }
  
 nav ul li div ul li a:hover {
-	color:#fff;
+	color:#000;
 }
 
 
