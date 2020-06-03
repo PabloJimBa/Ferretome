@@ -53,8 +53,8 @@
 
 
 <p align='center'>
-<img src="uke.png" width='120' height='120' alt="UKE">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="icns.jpg" width='225' height='120' alt="ICNS">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="uke.png" width='100' height='100' alt="UKE">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="icns.jpg" width='225' height='100' alt="ICNS">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="SFB_logo.png" width='200' height='120' alt="SFB">
 </p>
 
