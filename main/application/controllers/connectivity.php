@@ -34,12 +34,21 @@ class Connectivity extends CI_Controller {
 		$this->load->database('default');
 		$this->load->helper('form');
 		$this->load->library('session');
+		$this->load->helper('login');
 		
 		//$this->load->library('journal');
 
-		//$this->load->helper('login');
 
 		//require_login();
+		if (islogged()) $this->data['logintoken'] = TRUE;
+		
+		$this->load->model('pages_model','pagem',TRUE);
+		
+		if (($qida = $this->pagem->get_page('header_page')) != FALSE){
+		
+			$this->data['header_page'] = substr($qida, 3,-4);
+		
+		}
 	}
 
 	function index() {
@@ -51,7 +60,7 @@ class Connectivity extends CI_Controller {
 		$this->data['action'] = 'index';
 		$this->load->view('connectivity_view',$this->data);
 
-
+		
 	}
 	
 	function cat_connectivity_with_ferret_brain(){
@@ -365,7 +374,9 @@ class Connectivity extends CI_Controller {
 			
 			$this->load->model('Connectivity_model','cnmod',TRUE);
 			
-			if (($qida = $this->cnmod->get_connectivity($lid)) != FALSE) {
+//			if (($qida = $this->cnmod->get_connectivity($lid)) != FALSE) {
+
+			if ($lid == -999){
 				
 				
 				
@@ -478,7 +489,10 @@ class Connectivity extends CI_Controller {
 											$bsMatrix[$asite][$bsite] = $rowb->labelled_sites_density;
 											//$bsMatrix[$bsite][$asite] = $rowb->labelled_sites_density;
 											
-											$cReason[$asite][$bsite] = 'acronym';
+											$cReason[$asite][$bsite] = '- = null
+1 = weak
+2 = moderate
+3 = strong';
 											
 										}
 										
@@ -699,7 +713,7 @@ class Connectivity extends CI_Controller {
 		
 		foreach ($qida->result() as $rowa){
 				
-			$bsList[$rowa->brain_sites_acronyms_id] = array("aname"=>$rowa->acronym_name,"bsiteid"=>$rowa->brain_sites_id);
+			$bsList[$rowa->brain_sites_acronyms_id] = array("aname"=>$rowa->acronym_full_name,"bsiteid"=>$rowa->brain_sites_id);
 				
 		}
 		
