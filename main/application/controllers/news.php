@@ -128,7 +128,8 @@ class News extends CI_Controller {
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/pages.js"></script>';
 		
 		$this->data['extraHeader'] .= '<script type="text/javascript" src="js/upclick-min.js"></script>';
-		
+
+		/*
 		$this->load->model('files_model','filem',TRUE);
 		
 		if (($qida = $this->filem->get_all(array('user_id'=>$this->session->userdata('user_id')))) != FALSE){
@@ -138,7 +139,7 @@ class News extends CI_Controller {
 		
 		
 		}
-	
+		*/
 	
 		$this->load->view('news_view',$this->data);
 	
@@ -202,6 +203,7 @@ class News extends CI_Controller {
 				
 				$this->data['extraHeader'] .= '<script type="text/javascript" src="js/upclick-min.js"></script>';
 				
+				/*
 				$this->load->model('files_model','filem',TRUE);
 				
 				if (($qida = $this->filem->get_all(array('user_id'=>$this->session->userdata('user_id')))) != FALSE){
@@ -211,7 +213,7 @@ class News extends CI_Controller {
 				
 				
 				}
-				
+				*/
 				
 				
 					
