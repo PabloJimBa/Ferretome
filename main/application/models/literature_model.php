@@ -9,8 +9,8 @@ class Literature_model extends CI_Model {
 					"abbreviations_full",
 					"number_or_chapter",
 					"page_number",
-					"literature_abstract"
-			
+					"literature_abstract",
+					"literature_physicalCopy"
 			);
     
 	function __construct()
