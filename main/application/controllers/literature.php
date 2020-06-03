@@ -155,6 +155,38 @@ class Literature extends CI_Controller {
 			
 				
 		}
+
+		if (!empty($lid)){
+				
+			$this->data['block_message'] = "Nothing was found";
+			
+
+			$this->load->model('Literature_model','literm',TRUE);
+			
+			if (($qida = $this->literm->get_one($lid)) != FALSE){
+				
+				unset($this->data['block_message']);
+				
+				
+				// literature data
+				$this->data['fields'] = $this->literm->get_fields();
+				
+				$this->data['lit_data'] = $qida->row();
+				
+				
+				// authors for literature
+				$this->load->model('Authors_model','authorsM',TRUE);
+				
+				$this->data['auth_data'] = $this->authorsM->get_a_for_l($lid);
+							
+			}
+				
+				
+			$qida = $this->db->get_where('literature',array('literature_id' => $lid));
+				
+			
+				
+		}
 	
 		$this->data['action'] = 'view_map';
 		
@@ -297,6 +329,38 @@ class Literature extends CI_Controller {
 			
 				
 		}
+
+		if (!empty($lid)){
+				
+			$this->data['block_message'] = "Nothing was found";
+			
+
+			$this->load->model('Literature_model','literm',TRUE);
+			
+			if (($qida = $this->literm->get_one($lid)) != FALSE){
+				
+				unset($this->data['block_message']);
+				
+				
+				// literature data
+				$this->data['fields'] = $this->literm->get_fields();
+				
+				$this->data['lit_data'] = $qida->row();
+				
+				
+				// authors for literature
+				$this->load->model('Authors_model','authorsM',TRUE);
+				
+				$this->data['auth_data'] = $this->authorsM->get_a_for_l($lid);
+							
+			}
+				
+				
+			$qida = $this->db->get_where('literature',array('literature_id' => $lid));
+				
+			
+				
+		}
 	
 		$this->data['action'] = 'view_exp';
 		
@@ -357,6 +421,38 @@ class Literature extends CI_Controller {
 			
 				
 		}
+
+		if (!empty($lid)){
+				
+			$this->data['block_message'] = "Nothing was found";
+			
+
+			$this->load->model('Literature_model','literm',TRUE);
+			
+			if (($qida = $this->literm->get_one($lid)) != FALSE){
+				
+				unset($this->data['block_message']);
+				
+				
+				// literature data
+				$this->data['fields'] = $this->literm->get_fields();
+				
+				$this->data['lit_data'] = $qida->row();
+				
+				
+				// authors for literature
+				$this->load->model('Authors_model','authorsM',TRUE);
+				
+				$this->data['auth_data'] = $this->authorsM->get_a_for_l($lid);
+							
+			}
+				
+				
+			$qida = $this->db->get_where('literature',array('literature_id' => $lid));
+				
+			
+				
+		}
 	
 		$this->data['action'] = 'view_rel';
 		
@@ -368,6 +464,82 @@ class Literature extends CI_Controller {
 	
 	}
 	
+
+	function pdf(){
+
+		$lid = $this->input->get('id'); 
+	
+		
+	
+		$this->data['block_message'] = "Nothing was sent";
+	
+		if (!empty($lid)){
+				
+			$this->data['block_message'] = "Nothing was found";
+			
+
+			$this->load->model('Literature_model','literm',TRUE);
+			
+			if (($qida = $this->literm->get_one($lid)) != FALSE){
+				
+				unset($this->data['block_message']);
+				
+				
+				// literature data
+				$this->data['fields'] = $this->literm->get_fields();
+				
+				$this->data['lit_data'] = $qida->row();
+				
+				
+							
+			}
+				
+				
+			$qida = $this->db->get_where('literature',array('literature_id' => $lid));
+				
+			
+				
+		}
+
+		if (!empty($lid)){
+				
+			$this->data['block_message'] = "Nothing was found";
+			
+
+			$this->load->model('Literature_model','literm',TRUE);
+			
+			if (($qida = $this->literm->get_one($lid)) != FALSE){
+				
+				unset($this->data['block_message']);
+				
+				
+				// literature data
+				$this->data['fields'] = $this->literm->get_fields();
+				
+				$this->data['lit_data'] = $qida->row();
+				
+				
+				// authors for literature
+				$this->load->model('Authors_model','authorsM',TRUE);
+				
+				$this->data['auth_data'] = $this->authorsM->get_a_for_l($lid);
+							
+			}
+				
+				
+			$qida = $this->db->get_where('literature',array('literature_id' => $lid));
+				
+			
+				
+		}
+	
+		$this->data['action'] = 'pdf';
+		
+		
+			
+		$this->load->view('literature_view',$this->data);
+
+	}
 	
 	
 	function searchDo(){
@@ -565,7 +737,7 @@ class Literature extends CI_Controller {
 						$result .= $this->load->view('literature_search_view',$this->data,TRUE);
 					}
 					
-					
+					/*
 					$this->load->model('brainsite_model','bsitem',TRUE);
 					
 					
@@ -580,7 +752,7 @@ class Literature extends CI_Controller {
 						
 						
 					}
-					
+					*/
 					
 					if (empty($result)){
 							
@@ -622,7 +794,7 @@ class Literature extends CI_Controller {
 		
 		
 		
-			$qida = $this->db->query("SELECT DISTINCT literature_id as lid, literature_index as lyear, literature_title as ltitle FROM literature WHERE literature_title LIKE ? OR literature_title LIKE ? LIMIT 7", array($qr . '%','%' . $qr . '%'));
+			$qida = $this->db->query("SELECT DISTINCT literature_id as lid, literature_index as lyear, literature_title as ltitle FROM literature WHERE literature_title LIKE ? LIMIT 7", array($qr . '%','%' . $qr . '%'));
 		
 			if ($qida->num_rows() > 0) {
 		
@@ -660,16 +832,21 @@ class Literature extends CI_Controller {
 	
 		if (!empty($qr)) {
 	
-	
+			
 	
 			$qida = $this->db->query("SELECT DISTINCT authors_id as aid, authors_surname as asname, authors_name as aname FROM authors WHERE authors_surname LIKE ? LIMIT 7", array($qr . '%'));
-	
+
+			$qidb = $this->db->query("SELECT DISTINCT authors_id as aid, authors_surname as asname, authors_name as aname FROM authors WHERE authors_name LIKE ? LIMIT 7", array($qr . '%'));
+			
 			if ($qida->num_rows() > 0) {
 	
 				$result = "{ query:'" . $qr . "', suggestions:[";
 				foreach ($qida->result() as $rowa) {
 					$result .= "'". $rowa->asname . " " . $rowa->aname . "',";
 				}
+				foreach ($qidb->result() as $rowa) {
+					$result .= "'". $rowa->asname . " " . $rowa->aname . "',";
+				} 
 	
 				$result = substr($result, 0, strlen($result) - 1);
 	
@@ -678,12 +855,19 @@ class Literature extends CI_Controller {
 				foreach ($qida->result() as $rowa) {
 					$result .= "'". $rowa->aid ."',";
 				}
+				foreach ($qidb->result() as $rowa) {
+					$result .= "'". $rowa->aid ."',";
+				}
 	
 				$result = substr($result, 0, strlen($result) - 1);
 					
 					
 				$result .="]}";
+
 			}
+
+
+
 		}
 	
 		echo $result;
