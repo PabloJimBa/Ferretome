@@ -5,15 +5,15 @@
 
 <?php if($action == 'index'):?>
 
-<h3> Ferret connectivity</h3>
+<h2> Ferret connectivity</h2>
 
 <?php if(isset($block_message)):?>
 <p><?=$block_message?></p>
 <?php endif;?>
 
 
-<!-- ///////////////// index /////////////// -->
 
+<!-- ///////////////// index /////////////// -->
 
 
 <div id=search_block>
@@ -21,17 +21,22 @@
 	<form method="post" id="frm" name="frm" action="#">
 			
 			<span id="title_search_field">
-				Find brain map using literature title<br/>
-				<input title="Please, start to type literature title" type="search" id="autocomplite_1" class="input" placeholder=" Search for publication - type some words from publication title here"/>
+				Find brain map using literature title <br>
+				<input title="Please, start to type literature title" type="search" id="autocomplite_1" class="input" placeholder=" Search for publication - type some words from publication title here">
 			</span>
+
 	</form>
 	
 	<span id="selected_lit_block" style="display:none">
-	Selected literature: <span id="selected_lit_field"></span> <a href="#" onclick="replace_lit(); return false;">replace</a>	
+	<strong>Selected literature:</strong> <span id="selected_lit_field"></span> &nbsp; | &nbsp; <a href="index.php?c=connectivity">Change literature</a>
 	</span>
+
+
 </div>
 <br/>
 <br/>
+
+<div id="search_result"></div>
 
 <div id="connectivity_output"></div>
 
@@ -61,6 +66,17 @@ new Autocomplete('autocomplite_1', {
 	
  });
 
+new Autocomplete('autocomplite_2', { 
+	serviceUrl:'index.php/literature/ajaxAtocomplitAuthors',
+	onSelect: function(value, data){
+		search_string = data;
+
+		search_do();
+
+	} 
+
+ });
+
 <?php if(isset($selected_literature)):?>
 
 sel_lit_num =<?=$selected_literature['lit_id']?>;
@@ -71,9 +87,6 @@ select_lit();
 
 //]]>
 </script>
-
-
-
 
 <?php endif;?>
 
