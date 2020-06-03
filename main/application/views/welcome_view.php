@@ -26,15 +26,14 @@
 	
 
 
-
-<div id="main_page">	
+	
 	<?php if(isset($main_page)):?>
 		<?=$main_page?>
 	<?php endif;?>
-</div>
 
-	
-<div id="news_block">
+
+	<!-- News -->
+	<br><br><br>
 	<h2>Latest news:</h2>
 	
 	<?php if(isset($news)):?>
@@ -48,12 +47,7 @@
 		<p><a href="index.php?c=news">All news</a></p>	
 	
 	<?php endif;?>
-	
-	
-</div>
 
-
-<div id="logos">
 
 <br clear='left'><br><br><br>
 
@@ -66,7 +60,7 @@
 
 
 
-</div>
+
 	
 
 <script type="text/javascript">
