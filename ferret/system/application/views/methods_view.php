@@ -27,7 +27,7 @@
 
 <?php if($action == 'add'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=methods">Back</a> <!-- Back button -->
 
 	<h1>New Injection Method </h1>
 
@@ -133,7 +133,7 @@
 
 <?php if($action == 'show'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=methods">Back</a> <!-- Back button -->
 
 	<h1>All methods</h1>
 
@@ -156,7 +156,7 @@
 
 <?php if($action == 'edit'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=methods">Back</a> <!-- Back button -->
 
 	<h1>Edit Injection Method</h1>
 

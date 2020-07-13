@@ -34,7 +34,7 @@
 		<!-- Manual link -->
 
 		<td>
-		<h3><a href="index.php?c=manual&m=index">How to upload data?</a></h3>
+		<h3><a href="index.php?c=manual">How to upload data?</a></h3>
 	</tr>
 
 	<!-- Main table content -->
@@ -92,6 +92,7 @@
 		<h3>Special tables</h3>
 		<p><a href="index.php?c=journal">Actions Journal</a></p>
 		<p><a href="index.php?c=codingrules">Coding rules</a></p>
+		<p><a href="index.php?c=users">Users</a></p>
 		<h3>Additional tables for mapping studies</h3>
 		<p><a href="index.php?c=abbreviations&m=add">Add new Literature Abbr.</a></p>
 		<p><a href="index.php?c=parameters&m=add">Add new Architecture parameters </a></p>

@@ -47,7 +47,7 @@
 <?php if($action == 'show'):?>
 
 <p><a href="index.php?c=parameters">Back </a></p>
-<p><a href="index.php?c=parameters&m=add">add new Architecture param </a></p>
+<p><a href="index.php?c=parameters&m=add">Add new Architecture param </a></p>
 
 <h2>All Architecture Parameters</h2>
 

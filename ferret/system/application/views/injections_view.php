@@ -309,7 +309,7 @@
 	<tr>	
 	
 		<td>Injections hemisphere</td>
-		<td><?php echo form_dropdown('EC', $ec_options,$inj_data->EC);?><a href="#" onclick="show_coding_rules('ec'); return false;"> Coding rules</a></td>	
+		<td><?php echo form_dropdown('hemispheres', $hemisp_options,$inj_data->injections_hemisphere);?><a href="#" onclick="show_coding_rules('ec'); return false;"> Coding rules</a></td>	
 	
 	</tr>
 
@@ -499,3 +499,4 @@
 <!-- Load the footer -->
 
 <?php $this->load->view('footer'); 
+

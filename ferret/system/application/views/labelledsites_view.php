@@ -268,7 +268,7 @@
 
 <?php if($action == 'edit'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=labelledsites">Back</a> <!-- Back button -->
 
 	<h2>Edit Labelled Site</h2>
 
@@ -280,12 +280,12 @@
 	<?php if(isset($ls_data)):?>
 
 
-		<a href="#" onclick="show_coding_rules('lsites'); return false;">Coding rules for Labeled Sites</a>
+		<a href="#" onclick="show_coding_rules('lsites'); return false;">Coding rules for Labelled Sites</a>
 		<form method="post" id="frm" name="frm" action="index.php?c=labelledsites&m=update&id=<?=$ls_data->labelled_sites_id?>">
 
 		<table border="0" cellpadding="3" cellspacing="1">
 
-		<tr><td colspan="3"><b>First, you need to find Literature where this injection was discribed</b></td></tr>
+		<tr><td colspan="3"><b>First, you need to find Literature where this injection was described</b></td></tr>
 
 
 	<?php if(isset($lit_data)):?>
@@ -317,7 +317,7 @@
 		<td>
 			Selected outcome
 			<br/> Can't Find?
-			<br/><a target="_blank" href="index.php?c=labelingoutcome&m=add">Add Labeling Outcome</a> 
+			<br/><a target="_blank" href="index.php?c=labelingoutcome&m=add">Add Labelling Outcome</a> 
 		</td>
 		<td id="injection_block">
 		<?php if(isset($inj_options)):?>
@@ -507,3 +507,4 @@
 <!-- Load the footer -->
 
 <?php $this->load->view('footer'); 
+

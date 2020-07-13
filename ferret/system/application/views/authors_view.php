@@ -27,7 +27,7 @@
 
 	<?php if($action == 'show'):?>
 
-		<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+		<p align="right"><a href="index.php?c=authors">Back</a> <!-- Back button -->
 
 		<h1>All Authors</h1>
 		<p><a href="index.php?c=authors&m=add">Add new Author</a></p>
@@ -70,7 +70,7 @@
 
 	<?php if($action == 'add'):?>
 
-		<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+		<p align="right"><a href="index.php?c=authors">Back</a> <!-- Back button -->
 
 		<h1>Add new Author</h1>
 		<p><a href="index.php?c=authors&m=show">Show all</a></p>
@@ -111,7 +111,7 @@
 
 	<?php if($action == 'search'):?>
 
-		<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+		<p align="right"><a href="index.php?c=authors">Back</a> <!-- Back button -->
 
 		<h1>Search Author</h1>
 
@@ -163,7 +163,7 @@
 
 	<?php if($action == 'edit'):?>
 
-		<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+		<p align="right"><a href="index.php?c=authors">Back</a> <!-- Back button -->
 
 		<h1>Edit Author</h1>
 
@@ -209,6 +209,7 @@
 <!-- Load the footer -->
 
 <?php $this->load->view('footer'); 
+
 
 
 

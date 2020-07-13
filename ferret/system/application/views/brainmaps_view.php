@@ -28,7 +28,7 @@
 
 	<?php if($action == 'add'):?>
 
-		<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+		<p align="right"><a href="index.php?c=brainmaps">Back</a> <!-- Back button -->
 
 		<h1>Add new Brain Map</h1>
 
@@ -131,7 +131,7 @@
 
 	<?php if($action == 'edit'):?>
 
-		<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+		<p align="right"><a href="index.php?c=brainmaps">Back</a> <!-- Back button -->
 
 		<div id="edit_bmap_block">
 
@@ -218,7 +218,7 @@
 				This Brain map has <?=$bsites_number?> brain sites 
 				<span id="a_show_all"> <a href="#" onclick="show_brain_sites_block('<?=$map_data->brain_maps_id?>'); return false;">Show all</a></span> &nbsp;
 				<span> <a href="index.php?c=brainsites&m=add&id=<?=$map_data->literature_id?>" target="_blank">Add new Brain site to this Map</a></span>
-				<span id="a_hide_all_refresh" style="display:none;"> <a href="#" onclick="hide_brain_sites_block()">Hide</a> &nbsp; <a href="#" onclick="show_brain_sites_block('<?=$map_data->brain_maps_id?>')">Refresh</a> </span>
+				<span id="a_hide_all_refresh" style="display:none;"> <a href="#" onclick="hide_brain_sites_block()">&nbsp; Hide</a> &nbsp; <a href="#" onclick="show_brain_sites_block('<?=$map_data->brain_maps_id?>')">Refresh</a> </span>
 		
 				</p>
 			<?php endif;?>
@@ -258,7 +258,7 @@
 
 	<?php if($action == 'search'):?>
 
-		<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+		<p align="right"><a href="index.php?c=brainmaps">Back</a> <!-- Back button -->
 
 		<h1>Search Brain Maps</h1>
 
@@ -309,7 +309,7 @@
 
 	<?php if($action == 'show'):?>
 
-		<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+		<p align="right"><a href="index.php?c=brainmaps">Back</a> <!-- Back button -->
 
 		<h1>All Brain Maps</h1>
 		<p><a href="index.php?c=brainmaps&m=add">Add new Brain Map</a></p>

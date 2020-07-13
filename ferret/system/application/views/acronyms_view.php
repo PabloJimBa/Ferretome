@@ -26,7 +26,7 @@
 
 <?php if($action == 'show'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=acronyms">Back</a> <!-- Back button -->
 
 	<h1>All Acronyms</h1>
 
@@ -72,7 +72,7 @@
 
 <?php if($action == 'add'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=acronyms">Back</a> <!-- Back button -->
 
 	<h1>Add new Acronym</h1>
 
@@ -118,7 +118,7 @@
 
 <?php if($action == 'search'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=acronyms">Back</a> <!-- Back button -->
 
 	<h1>Search for Acronyms</h1>
 
@@ -165,7 +165,7 @@
 
 <?php if($action == 'edit'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=acronyms">Back</a> <!-- Back button -->
 
 	<h1>Edit Acronym</h1>
 
@@ -210,3 +210,4 @@
 <!-- Load the footer -->
 
 <?php $this->load->view('footer');
+

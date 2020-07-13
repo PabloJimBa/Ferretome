@@ -27,25 +27,29 @@
 
 <?php if($action == 'add'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=labelingoutcome">Back</a> <!-- Back button -->
 
-	<h1>Add New Labeling Outcome</h1>
+	<h1>Add New Labelling Outcome</h1>
 
 	<?php if(isset($add_message)):?>
 		<p><?=$add_message?></p>
 	<?php endif;?>
 
 
-	<a href="#" onclick="show_coding_rules('labelingoutcome'); return false;">Coding rules for Labeling Outcome</a>
-
 
 	<table border="0" cellpadding="3" cellspacing="1">
 
 	<tr id="auto_block">
-		<td>Search for publication<br/> to find Labeling outcomes </td>
-		<td><input title="Please, start to type title of publication" type="text" id="autocomplite_auth" class="input"/></td>
+		<td>
+			<input title="Please, start to type title of publication" type="text" id="autocomplite_lit" class="input"/>
+			<input title="Please, start to type a surname/name of an author" type="text" id="autocomplite_auth" class="input" style="display:none"/>
+			<br/>Search publication using:<span id="search_type_1"> <strong>Title</strong></span><span id="search_type_2" style="display:none"> <strong>Authors</strong></span> - 
+			<a href="#" id="search_link_2"  onclick="switch_search(2); return false;">Switch to Authors</a> 	<!-- Change the browser method -->
+			<a href="#" id="search_link_1" onclick="switch_search(1); return false;" style="display:none">Switch to Title</a>
 	
 	</tr>
+
+	<div id="search_result"></div>
 
 	<tr style="display:none;" id="lit_block">
 		<td>Selected Literature</td>
@@ -61,6 +65,7 @@
 	
 	</tr>
 
+
 	</table>
 
 	<br/>
@@ -72,7 +77,7 @@
 	<script type="text/javascript">
 	//<![CDATA[
 
-	new Autocomplete('autocomplite_auth', { 
+	new Autocomplete('autocomplite_lit', { 
 		serviceUrl:'index.php/literature/ajaxAtocomplit', 
 		onSelect: function(value, data){
 			sel_lit_num = data;
@@ -81,7 +86,18 @@
 		}
 	 });
 
+	new Autocomplete('autocomplite_auth', { 
+		serviceUrl:'index.php/authors/ajaxAtocomplit',
+		onSelect: function(value, data){
+			sel_auth_num = data;
+		
+			search_do();
 
+			$('autocomplite_auth').value = '';
+		
+		} 
+	
+	 });
 
 	<?php if(isset($lit_block)):?>
 	sel_lit_num = <?=$lit_block->literature_id?>;
@@ -90,7 +106,23 @@
 	<?php endif;?>
 		   
 
+	function show_table(table_display,table_state, row_state) {
+		var tableID = document.getElementById(table_display);
+		var tablestate = document.getElementById(table_state);
+		var row = document.getElementById(row_state); 
 
+		switch(tableID.style.display) {
+			case "none":
+			tableID.style.display = "inline-table";
+			table_state.innerHTML = "Hide";
+			row.innerHTML = ""; 
+			break;
+			default:
+			tableID.style.display = "none";
+			table_state.innerHTML = "Show";
+			break;
+		}
+	}
 	//]]>
 	</script>
 
@@ -103,7 +135,7 @@
 
 	<div id="edit_outcome_block">
 	
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=labelingoutcome">Back</a> <!-- Back button -->
 
 	<h2>Edit Labeling Outcome</h2>
 
@@ -134,13 +166,15 @@
 		
 			<tr>	
 	
-				<td>Type of labeling</td>
-				<td><?php echo form_dropdown('outcome_type', $outcome_type,$block_data->outcome_type);?></td>	
-				
+				<td>Type of labelling outcome</td>
+				<td><?php echo form_dropdown('outcome_type', $labelling_options,$block_data->outcome_type);?></td>	
 		
 			</tr>
 		
-		
+			<tr>
+	
+				<td>Name of labelling outcome</td>
+				<td><input class="input" name="outcome_name" value="<?php echo form_prep($block_data->outcome_name); ?>" size="30" /> </td>
 		
 			</table>
 		

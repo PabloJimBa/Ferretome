@@ -28,7 +28,7 @@
 
 <?php if($action == 'add'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=abbreviations">Back</a> <!-- Back button -->
 
 	<h1>New Literature Abbr. </h1>
 
@@ -68,7 +68,7 @@
 
 <?php if($action == 'show'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=abbreviations">Back</a> <!-- Back button -->
 
 	<h1>All Literature Abbr.</h1>
 
@@ -96,7 +96,7 @@
 
 <?php if($action == 'edit'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=abbreviations">Back</a> <!-- Back button -->
 
 	<h1>Edit Literature Abbr.</h1>
 
@@ -135,3 +135,4 @@
 <!-- Load the footer -->
 
 <?php $this->load->view('footer');
+

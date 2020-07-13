@@ -20,9 +20,11 @@
 	
 		<?php foreach ($outcomes->result() as $out): ?>
 		
-			<span id="outcome_<?=$out->outcome_id?>"><strong><?=$outcome_type[$out->outcome_type]?></strong> - has  <?=$outcome_data[$out->outcome_id]?>
+			<span id="outcome_<?=$out->outcome_id?>"><strong><?=$labelling_options[$out->outcome_type]?></strong> - has  <?=$outcome_data[$out->outcome_id]?>
 			
 			  labeled sites
+
+			<?php if($outcome_data[$out->outcome_id] > 0): ?>
 			  <a href="#" id="labeled_sites_show_button_<?=$out->outcome_id?>" onclick="show_labeled('<?=$out->outcome_id?>')">Show</a> <br> <a  href="index.php?c=labelingoutcome&m=edit&id=<?=$out->outcome_id?>">Edit</a> &nbsp; | &nbsp;
 				<a style="display:none;" href="#" id="labeled_sites_hide_button_<?=$out->outcome_id?>" onclick="hide_labeled('<?=$out->outcome_id?>')">Hide</a>
 				 
@@ -35,7 +37,9 @@
 			  	<br/>
 			  	
 			  </span>
-
+			<?php else: ?>
+				<br> <a  href="index.php?c=labelingoutcome&m=edit&id=<?=$out->outcome_id?>">Edit</a>
+			<?php endif;?>
 
 		
 		<?php endforeach; ?> 
@@ -51,8 +55,11 @@
 <?php if($action == 'new_outcome'):?>
 	<span id="outcome_<?=$frmid?>">
 		<form name="insert_form_<?=$frmid?>" id="insert_form_<?=$frmid?>">
+			Insert a name for the injection outcome<br>
+			<input class="input" name="outcome_name" value="" size="30" /><br>
+			Select the labelling outcome type<br>
 			<input name="literature_id" type="hidden" value="<?=$lid?>">
-			<?php echo form_dropdown('outcome_type', $outcome_type);?>
+			<?php echo form_dropdown('outcome_type', $labelling_options);?>
 		</form>
 		<a href="#" onclick="delete_outcome('<?=$frmid?>')">Cancel</a> &nbsp; <a href="#" onclick="save_outcome('<?=$frmid?>')">Save</a>
 	</span>

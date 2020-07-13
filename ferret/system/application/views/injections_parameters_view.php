@@ -27,7 +27,7 @@
 
 <?php if($action == 'add'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=injectionsparameters">Back</a> <!-- Back button -->
 
 	<h1>New  Injection parameter </h1>
 
@@ -45,7 +45,7 @@
 	<?php if (($field->primary_key == 1) OR ($field->name == 'parameters_type')) continue; ?>
 
 	<tr>
-		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 		<?php if ($field->type == 'blob'): ?>
 		<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ></textarea></td>
@@ -80,7 +80,7 @@
 
 <?php if($action == 'show'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=injectionsparameters">Back</a> <!-- Back button -->
 
 	<h1>All Injection Parameters</h1>
 
@@ -102,7 +102,7 @@
 
 <?php if($action == 'edit'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=injectionsparameters">Back</a> <!-- Back button -->
 
 	<h1>Edit Injection parameter</h1>
 
@@ -118,7 +118,7 @@
 	<?php if (($field->primary_key == 1) OR ($field->name == 'parameters_type')) continue; ?>
 
 	<tr>
-		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo $fn." "; }; echo ' '.$field->default; ?></td>
+		<td><?php $fname = explode("_", $field->name); foreach ($fname as $fn) { echo ucfirst($fn." "); }; echo ' '.$field->default; ?></td>
 	
 		<?php if ($field->type == 'blob'): ?>
 		<td><textarea class="textarea" name="<?php echo $field->name; ?>" cols="30" rows="10" ><?php $f=$field->name; echo form_prep($block_data->$f); ?></textarea></td>
@@ -150,6 +150,7 @@
 <!-- Load the footer -->
 
 <?php $this->load->view('footer');
+
 
 
 

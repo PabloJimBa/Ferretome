@@ -26,7 +26,7 @@
 
 <?php if($action == 'add'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=mapsrelations">Back</a> <!-- Back button -->
 
 	<h1>Add new Maps Relations</h1>
 
@@ -230,7 +230,7 @@
 
 <?php if($action == 'edit'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=mapsrelations">Back</a> <!-- Back button -->
 
 	<h1>Edit Maps Relations</h1>
 
@@ -452,3 +452,4 @@
 <!-- Load the footer -->
 
 <?php $this->load->view('footer'); 
+

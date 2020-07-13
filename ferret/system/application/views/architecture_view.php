@@ -29,7 +29,7 @@
 
 <?php if($action == 'add'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=architecture">Back</a> <!-- Back button -->
 
 	<h1>Add new Architecture of Brain sites</h1>
 

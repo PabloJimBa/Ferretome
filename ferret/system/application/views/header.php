@@ -114,6 +114,7 @@
 	 					<ul>
 							<li><a href="index.php?c=journal">Actions Journal</a></li>
 							<li><a href="index.php?c=codingrules">Coding Rules</a></li>
+							<li><a href="index.php?c=users">Users</a></li>
 						</ul>
 					</div>
 				</ul>

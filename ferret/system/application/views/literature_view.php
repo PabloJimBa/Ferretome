@@ -59,7 +59,7 @@
 
 <?php if($action == 'add'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=literature">Back</a> <!-- Back button -->
 
 	<h1>Add new Literature</h1>
 
@@ -223,7 +223,7 @@
 	<p><?=$block_message?></p>
 	<?php endif;?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=literature">Back</a> <!-- Back button -->
 
 	<h1>Search publication</h1>
 	
@@ -235,7 +235,7 @@
 	<tr id="auto_block">
 		<td>
 			<input title="Please, start to type literature title" type="text" id="autocomplite_1" class="input"/>
-			<input title="Please, start to type a surname of an author" type="text" id="autocomplite_2" class="input" style="display:none"/>
+			<input title="Please, start to type a surname/name of an author" type="text" id="autocomplite_2" class="input" style="display:none"/>
 			<br/>Search publication using:<span id="search_type_1"> <strong>Title</strong></span><span id="search_type_2" style="display:none"> <strong>Authors</strong></span> - 
 			<a href="#" id="search_link_2"  onclick="switch_search(2); return false;">Switch to Authors</a> 	<!-- Change the browser method -->
 			<a href="#" id="search_link_1" onclick="switch_search(1); return false;" style="display:none">Switch to Title</a>
@@ -252,36 +252,6 @@
 	<br/>
 	<div id="search_result"></div>
 
-
-<!-- Overview of last publications --> 
-
-	<?php if(isset($last_inserted)):?>
-	<div id="last_inserted">
-		<p>Recently inserted publications</p>
-	
-		<?php $data['lit_data'] = $last_inserted; $data['auth_data'] = $last_inserted_authors; $this->load->view('literature_search_view',$data); ?>
-
-	</div>
-	<?php endif;?>
-
-	<?php if(isset($last_updated)):?>
-	<div id="last_updated">
-		<p>Recently updated publications</p>
-	
-		<?php $data['lit_data'] = $last_updated; $data['auth_data'] = $last_updated_authors;  $this->load->view('literature_search_view',$data); ?>
-
-	</div>
-	<?php endif;?>
-
-
-	<?php if(isset($for_proof_data)):?>
-	<div id="for_proof">
-		<p>Ready for proofreading literature</p>
-	
-		<?php $data['lit_data'] = $for_proof_data; $data['auth_data'] = $for_proof_authors;  $this->load->view('literature_search_view',$data); ?>
-
-	</div>
-	<?php endif;?>
 
 	<!-- Java scripts -->
 
@@ -326,7 +296,7 @@
 
 <?php if($action == 'edit'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=literature">Back</a> <!-- Back button -->
 
 	<div id="literature_block">
 
@@ -659,7 +629,7 @@
 
 <?php if($action == 'all_literature'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=literature">Back</a> <!-- Back button -->
 
 	<h1>All Literature</h1>
 
@@ -672,13 +642,81 @@
 
 		<!-- Create an array called $local_data with $block_data and $block_fields (from controllers/literature.php) and load it in views/standart_table_view -->
 
-		<?php $local_data = array(); $local_data['output_data'] =$block_data; $local_data['fields_data'] = $block_fields; $this->load->view('standart_table_view',$local_data);?> 
+		<?php $local_data = array(); $local_data['output_data'] =$block_data; $local_data['fields_data'] = $block_fields; $local_data['output_data_b'] =$lit_asc; $local_data['fields_data_b'] = $lit_asc_fields;$local_data['output_data_c'] =$lit_desc; $local_data['fields_data_c'] = $lit_desc_fields;$local_data['output_data_d'] =$year_desc; $local_data['fields_data_d'] = $year_desc_fields;$local_data['output_data_e'] =$source_asc; $local_data['fields_data_e'] = $source_asc_fields;$local_data['output_data_f'] =$source_desc; $local_data['fields_data_f'] = $source_desc_fields; $this->load->view('standart_table_view',$local_data);?> 
 
 	<?php else: ?>
 		<p> No papers.</p>
 	<?php endif;?>
 
+<script type="text/javascript">
+//<![CDATA[
+function title_asc_f() {
 
+$('title_asc').show();
+$('title_desc').hide();
+$('year_asc').hide();
+$('year_desc').hide();
+$('source_asc').hide();
+$('source_desc').hide();
+
+}
+
+function title_desc_f() {
+
+$('title_asc').hide();
+$('title_desc').show();
+$('year_asc').hide();
+$('year_desc').hide();
+$('source_asc').hide();
+$('source_desc').hide();
+
+}
+
+function year_asc_f() {
+
+$('title_asc').hide();
+$('title_desc').hide();
+$('year_asc').show();
+$('year_desc').hide();
+$('source_asc').hide();
+$('source_desc').hide();
+
+}
+
+function year_desc_f() {
+
+$('title_asc').hide();
+$('title_desc').hide();
+$('year_asc').hide();
+$('year_desc').show();
+$('source_asc').hide();
+$('source_desc').hide();
+
+}
+
+function source_asc_f() {
+
+$('title_asc').hide();
+$('title_desc').hide();
+$('year_asc').hide();
+$('year_desc').hide();
+$('source_asc').show();
+$('source_desc').hide();
+
+}
+
+function source_desc_f() {
+
+$('title_asc').hide();
+$('title_desc').hide();
+$('year_asc').hide();
+$('year_desc').hide();
+$('source_asc').hide();
+$('source_desc').show();
+
+}
+//]]>
+</script>
 
 <?php endif;?>
 

@@ -4,14 +4,30 @@
 
 <table>
 	<tr>
-		<?php foreach($fields_data as $field => $val): ?> <!-- Print table titles -->
-	
-			<td><?php $fname = explode("_", $field); foreach ($fname as $fn) { echo ucfirst($fn." "); };?></td> <!-- Change every "_" to " " and also make the first letter uppercase -->
-					
-		<?php endforeach; ?>
-		<td></td>
+		<td style='background-color:#040E7A;color:white'>Authors</td>
+		<td style='background-color:#040E7A;color:white'>
+			Title
+			<a style='color:white' href="index.php?c=literature&m=standart_table_view" onclick="title_asc_f('literature_title','asc'); return false;" title="Click here to order by title">a..z</a>
+			<a style='color:white' href="index.php?c=literature&m=viewAll" onclick="title_desc_f('literature_title','desc'); return false;" title="Click here to order by title">z..a</a>
+		
+		</td>
+		<td style='background-color:#040E7A;color:white'>
+			Year
+			<a style='color:white' href="index.php?c=literature&m=viewAll" onclick="year_asc_f('literature_year','asc'); return false;" title="Click here to order by year">1..9</a>
+			<a style='color:white' href="index.php?c=literature&m=viewAll" onclick="year_desc_f('literature_year','desc'); return false;" title="Click here to order by year">9..1</a>
+		</td>
+		<td style='background-color:#040E7A;color:white'>
+			Source
+			<a style='color:white' href="index.php?c=literature&m=viewAll" onclick="source_asc_f('abbreviations_full','asc'); return false;" title="Click here to order by source">a..z</a>
+			<a style='color:white' href="index.php?c=literature&m=viewAll" onclick="source_desc_f('abbreviations_full','desc'); return false;" title="Click here to order by source">z..a</a>
+
+		</td>
+		<td style='background-color:#040E7A;color:white'>Actions</td>
+		<td style='background-color:#040E7A;color:white'></td>
 	</tr>
-			
+	
+	<!-- Normal data -->
+	<div id="year_asc">		
 	<?php foreach($output_data->result() as $bdata): ?>
 	<tr>
 	
@@ -44,7 +60,8 @@
 	</tr>
 
 	<?php endforeach; ?>
+	</div>
 
-</table>
+	
 
 <?php endif;?>

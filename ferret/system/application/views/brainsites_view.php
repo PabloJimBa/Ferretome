@@ -27,7 +27,7 @@
 
 <?php if($action == 'add'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=brainsites">Back</a> <!-- Back button -->
 
 	<h1>Add new Brain Site</h1>
 
@@ -137,7 +137,7 @@
 
 <?php if($action == 'edit'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=brainsites">Back</a> <!-- Back button -->
 
 	<h1>Edit Brain Site</h1>
 
@@ -257,7 +257,7 @@
 
 <?php if($action == 'show'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=brainsites">Back</a> <!-- Back button -->
 
 	<h1>All Brain Sites</h1>
 	<p><a href="index.php?c=brainsites&m=add">Add new Brain Sites</a></p>
@@ -299,7 +299,7 @@
 
 <?php if($action == 'search'):?>
 
-	<p align="right"><a href="javascript:history.go(-1)">Back</a> <!-- Back button -->
+	<p align="right"><a href="index.php?c=brainsites">Back</a> <!-- Back button -->
 
 	<h1>Search Brain Sites</h1>
 
