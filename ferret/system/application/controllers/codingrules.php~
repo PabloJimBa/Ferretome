@@ -126,71 +126,39 @@ class Codingrules extends Controller {
 		
 		
 		
-	function update() {
-	
-	
-	
-		$fields = $_POST;
-	
-		// 		print_r($fields);
-	
-	
-		$id = $this->input->get('id');
-	
-	
-		if (!empty($id)){
-	
-	
-			$this->db->where('coding_rules_id',$id);
-	
-			if ($this->db->update('coding_rules',$fields) === FALSE){
-	
-				$this->index();
-					
-			} else {
-					
-	
-				//$this->journal->newrecord($this->session->userdata('user_id'),5,$id,2);
-					
-				$this->data['block_message'] = "Coding rule was updated";
-				$this->show();
+		function update() {
+		
+		
+		
+			$fields = $_POST;
+		
+			// 		print_r($fields);
+		
+		
+			$id = $this->input->get('id');
+		
+		
+			if (!empty($id)){
+		
+		
+				$this->db->where('coding_rules_id',$id);
+		
+				if ($this->db->update('coding_rules',$fields) === FALSE){
+		
+					$this->index();
+						
+				} else {
+						
+		
+					//$this->journal->newrecord($this->session->userdata('user_id'),5,$id,2);
+						
+					$this->data['block_message'] = "Coding rule was updated";
+					$this->show();
+				}
 			}
+		
+		
 		}
-	
-	
-	}
-
-	function confirm(){
-	
-		$id = $this->input->get('id');
-		echo "<script>if(confirm('Are you sure?')){
-		document.location='index.php?c=codingrules&m=del_lit&id=$id';}
-		else{ javascript:history.go(-1);
-		}</script>"; 
-	}
-	
-	function del_lit(){
-		
-		$id = $this->input->get('id');
-		
-		$result = "empty query";
-		
-		if (!empty($id)){
-			
-			$this->db->delete('coding_rules',array('coding_rules_id'=>$id));
-				
-			echo "Deleted. Please, reload the page.";
-
-			echo "<script>document.location='index.php?c=codingrules&m=show'</script>;";
-				
-			return true;
-				
-				
-		}
-		echo "Not deleted";
-
-		echo "<script>document.location='index.php?c=codingrules&m=show'</script>;";
-	}
 		
 	
 }

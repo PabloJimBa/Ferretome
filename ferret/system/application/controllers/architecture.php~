@@ -74,7 +74,7 @@ class Architecture extends Controller {
 		
 		$pid = $this->db->insert_id();
 		
-		$lid = $this->input->post('literature_id');
+		//$lid = $this->input->post('literature_id');
 		
 		
 		//selecting lit title for describing source of architecture data

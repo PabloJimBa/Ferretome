@@ -331,38 +331,6 @@ class Brainmaps extends Controller {
 	
 	}
 
-	function confirm(){
-	
-		$id = $this->input->get('id');
-		echo "<script>if(confirm('Are you sure?')){
-		document.location='index.php?c=brainmaps&m=del_lit&id=$id';}
-		else{ javascript:history.go(-1);
-		}</script>"; 
-	}
-	
-	function del_lit(){
-		
-		$id = $this->input->get('id');
-		
-		$result = "empty query";
-		
-		if (!empty($id)){
-			
-			$this->db->delete('brain_maps',array('brain_maps_id'=>$id));
-				
-			echo "Deleted. Please, reload the page.";
-
-			echo "<script>document.location='index.php?c=brainmaps&m=show'</script>;";
-				
-			return true;
-				
-				
-		}
-		echo "Not deleted";
-
-		echo "<script>document.location='index.php?c=brainmaps&m=show'</script>;";
-	}
-
 	
 	function ajaxAtocomplit() {
 		

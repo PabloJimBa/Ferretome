@@ -162,7 +162,7 @@ class Abbreviations extends Controller {
 	
 		$id = $this->input->get('id');
 		echo "<script>if(confirm('Are you sure?')){
-		document.location='index.php?c=abbreviations&m=del_lit&id=$id';}
+		document.location='index.php?c=literature&m=del_lit&id=$id';}
 		else{ javascript:history.go(-1);
 		}</script>"; 
 	}
@@ -175,11 +175,11 @@ class Abbreviations extends Controller {
 		
 		if (!empty($id)){
 			
-			$this->db->delete('literature_abbreviations',array('abbreviations_id'=>$id));
+			$this->db->delete('literature',array('literature_id'=>$id));
 				
 			echo "Deleted. Please, reload the page.";
 
-			echo "<script>document.location='index.php?c=abbreviations&m=show'</script>;";
+			echo "<script>document.location='index.php?c=literature'</script>;";
 				
 			return true;
 				
@@ -187,7 +187,7 @@ class Abbreviations extends Controller {
 		}
 		echo "Not deleted";
 
-		echo "<script>document.location='index.php?c=abbreviations&m=show'</script>;";
+		echo "<script>document.location='index.php?c=literature'</script>;";
 	}
 	
 	// Autocomplete function	
