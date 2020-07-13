@@ -73,14 +73,14 @@ class Literature_model extends Model {
     	
     }
     
-    function get_all_where($args=array(),$order_by='literature_id',$order='desc',$limit='10',$offset='0') {
+    function get_all_where($args=array(),$order_by='literature_id',$order='desc',$limit='10',$offset='0') {	// Create an array and pass some instructions to the next level
     	
-    	if (!empty($order_by)) $this->db->order_by($order_by,$order);
+    	if (!empty($order_by)) $this->db->order_by($order_by,$order);	// Order results by "literature_id" in a descendent way
     	
-    	$this->db->join('literature_abbreviations','literature_abbreviations.abbreviations_id = literature.literature_source');
+    	$this->db->join('literature_abbreviations','literature_abbreviations.abbreviations_id = literature.literature_source');	// Join "literature_abbreviations" from /literature/literature_source with /literature_abbreviations/abbreviations_id
     	
     	if (!empty($args)){
-    		$qida = $this->db->get_where('literature',$args,$limit,$offset);
+    		$qida = $this->db->get_where('literature',$args,$limit,$offset);	// Load the last 10 inputs from literature table (from database); last = order is desc; 10 = limit 10 
     		if ($qida->num_rows() > 0){
     			return $qida;
     		} else {
@@ -90,7 +90,7 @@ class Literature_model extends Model {
     		
     	} else {
     		
-    		$qida = $this->db->get('literature',$limit,$offset);
+    		$qida = $this->db->get('literature',$limit,$offset);	// Load the last 10 inputs from literature table (from database); last = order is desc; 10 = limit 10 
     		
     		if ($qida->num_rows() > 0){
     			return $qida;
@@ -106,7 +106,7 @@ class Literature_model extends Model {
     function get_last_inserted($limit='3') {
     	 
     	
-    	return $this->get_all_where(array(),'literature_id','desc',$limit);
+    	return $this->get_all_where(array(),'literature_id','desc',$limit); // Call the "get_all_where" function and load the last 3 inputs from literature table (from database); last = order is dec; 3 = limit 3
     	 
     }
     
@@ -115,7 +115,7 @@ class Literature_model extends Model {
     function get_for_proof($limit='3') {
     
     	 
-    	return $this->get_all_where(array("literature_state"=>"1"),'literature_id','desc',$limit);
+    	return $this->get_all_where(array("literature_state"=>"1"),'literature_id','desc',$limit); // Load 3 last literature where state = "proofreading require", and order them by literature_id in a descendent way
     
     }
     
@@ -130,18 +130,18 @@ class Literature_model extends Model {
     
     function get_last_updated($limit='3') {
     	
-    	$this->db->join('literature','literature.literature_id = ferretdb_log.log_entry_id');
+    	$this->db->join('literature','literature.literature_id = ferretdb_log.log_entry_id');	// Join "literature" from ferretdb_log/log_entry_id with literature/literature_id
     	
-    	$this->db->join('literature_abbreviations','literature_abbreviations.abbreviations_id = literature.literature_source');
+    	$this->db->join('literature_abbreviations','literature_abbreviations.abbreviations_id = literature.literature_source'); // Join "literature_abbreviations" from literature/literature_source with literature_abbreviations/abbreviations_id
     	    	  	
-    	$this->db->order_by('log_id','desc');
+    	$this->db->order_by('log_id','desc');	// Order all above data by log_id in a descendent way
     	
-    	$this->db->distinct();
+    	$this->db->distinct(); // Select only distinct values from the ordered above data
     	
-    	$qida = $this->db->get_where('ferretdb_log',array('log_table_id'=>'1','log_action'=>'2'),$limit);
+    	$qida = $this->db->get_where('ferretdb_log',array('log_table_id'=>'1','log_action'=>'2'),$limit); // Load data from "ferretdb_log" table (from database) where log_table = "literature" and action = "update" --> load last updated literature
     	
     	if ($qida->num_rows() > 0){
-    		return $qida;
+    		return $qida;	// Load all results
     	} else {
     	
     		return FALSE;

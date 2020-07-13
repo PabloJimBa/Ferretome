@@ -68,7 +68,7 @@ class Labeled_sites_model extends Model {
 				
 				"percent_neurons" => array
 				(
-						"real_name" => "percent_neurons_labeled",
+						"real_name" => "percent_neurons_labelled",
 						"type" => "string"
 				),
 					

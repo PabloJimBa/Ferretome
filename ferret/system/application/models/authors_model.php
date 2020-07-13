@@ -48,12 +48,12 @@ class Authors_model extends Model {
     
     function get_authors_for_literature($lid) {
     	
-    		$args = array ('literature_id'=>$lid);	// Load all literature_id in an array called $args
+    		$args = array ('literature_id'=>$lid);	// Load all "literature_id" (from $lid parameter) in an array
     		
     		$this->db->join('authors','literature_and_authors.authors_id = authors.authors_id'); // Join authors from authors/authors_id with literature_and_authors/authors_id
     	     	$this->db->order_by('lna_id','ASC'); // Order the authors names
 
-    		return $this->db->get_where('literature_and_authors',$args); // Load all literature_and_authors data into $args array
+    		return $this->db->get_where('literature_and_authors',$args); // Load all literature_and_authors data into the above array
     	    
     	 
     }

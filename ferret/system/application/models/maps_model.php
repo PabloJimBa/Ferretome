@@ -1,12 +1,24 @@
 <?php 
 class Maps_model extends Model {
 	
-	
+	var $fields = array 
+	(
+			"brain_maps_index",
+			"literature_id"
+			
+	);
 
     
 	function Maps_model(){
          
          parent::Model();
+    }
+
+    function get_fields(){
+    	
+    	
+    	return $this->fields;
+    	
     }
     
     function get_from_lit_id($lid){

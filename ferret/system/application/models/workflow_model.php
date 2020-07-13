@@ -385,7 +385,7 @@ class Workflow_model extends Model {
     function get_current($user_id) {
     	 
     	 
-    	return $this->get_all_where(array('user_id'=>$user_id,'job_state'=>'1'));
+    	return $this->get_all_where(array('user_id'=>$user_id,'job_state'=>'1'));	// Load all users with input queue (job_state = 1)
     	 
     	 
     }
