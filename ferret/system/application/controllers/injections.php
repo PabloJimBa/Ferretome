@@ -82,7 +82,7 @@ class Injections extends Controller {
 		
 		foreach ($qida->result() as $rowa) {
 		
-			$temp_arr[$rowa->hemispheres_id] = $rowa->hemispheres_code . " - " . $rowa->hemispheres_name ;
+			$temp_arr[$rowa->hemispheres_code] = $rowa->hemispheres_code . " - " . $rowa->hemispheres_name ;
 		
 		}
 		
@@ -171,8 +171,12 @@ class Injections extends Controller {
 		}
 		
 */
-		
-		
+		$hemis = $fields['hemispheres'];
+
+		$fields['injections_hemisphere'] = $hemis;
+
+		unset($fields['hemispheres']);
+
 		$lit_id = $fields['literature_id'];
 		
 		
@@ -424,6 +428,12 @@ class Injections extends Controller {
 		
 		$fields = $_POST;
 				
+		$hemis = $fields['hemispheres'];
+
+		$fields['injections_hemisphere'] = $hemis;
+
+		unset($fields['hemispheres']);
+
 		$lit_id = $fields['literature_id'];
 		
 		

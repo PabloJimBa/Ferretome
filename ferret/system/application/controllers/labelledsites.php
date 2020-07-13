@@ -25,9 +25,6 @@ class Labelledsites extends Controller {
 				'3' => 'strong, dense, heavy',
 		);
 		
-		
-		$this->data['outcome_type'] = array('overall','ipsilateral','contralateral');
-		
 		$this->load->model('Leftmenu','lmenu',TRUE);
 		
 		if ($this->lmenu->all_number() > 0) {
@@ -262,13 +259,28 @@ class Labelledsites extends Controller {
 				
 				if ($qidb->num_rows() > 0) {
 				
+					$qida = $this->db->get('outcome');
+		
+					$this->data['labelling_options'] = array();
+		
+					$temp_arr = array();
+		
+					foreach ($qida->result() as $rowa) {
+				
+						$temp_arr[$rowa->type_id] = $rowa->type_name;
+				
+					}
+		
+					$this->data['labelling_options'] = $temp_arr;
+
+
 					$this->data['inj_options'] = array();
 				
 					$temp_arr = array();
 				
 					foreach ($qidb->result() as $rowb) {
 				
-						$temp_arr[$rowb->outcome_id] = $rowb->outcome_id . " - " . $this->data['outcome_type'][$rowb->outcome_type];
+						$temp_arr[$rowb->outcome_id] = $rowb->outcome_name . " - " . $this->data['labelling_options'][$rowa->type_id];
 				
 					}
 				

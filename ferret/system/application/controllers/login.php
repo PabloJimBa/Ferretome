@@ -24,6 +24,7 @@ class Login extends Controller {
 	
 	function signin(){
 		
+		$page = $_SERVER['PHP_SELF'];
 		
 		$name = $this->input->post('name', true);
 		

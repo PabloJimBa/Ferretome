@@ -206,7 +206,6 @@ class Literature extends Controller {
 		
 		echo $result;
 
-
 	}
 	
 	function search(){
@@ -661,7 +660,58 @@ class Literature extends Controller {
 		$this->data['block_data'] = $this->literM->get_all();
 		$this->data['block_fields'] = $this->literM->get_fields();
 		
+	 
+		if (($qidb = $this->literM->get_all_where(array(),'literature_title','asc','999')) != FALSE){
+			
+			
+			$this->data['lit_asc'] = $qidb;
+			$this->data['lit_asc_fields'] = $this->literM->get_fields();
+			
+			
+			
+		}
+
+		if (($qidc = $this->literM->get_all_where(array(),'literature_title','desc','999')) != FALSE){
+			
+			
+			$this->data['lit_desc'] = $qidc;
+			$this->data['lit_desc_fields'] = $this->literM->get_fields();
+			
+			
+			
+		}
+
+		if (($qide = $this->literM->get_all_where(array(),'literature_year','desc','999')) != FALSE){
+			
+			
+			$this->data['year_desc'] = $qide;
+			$this->data['year_desc_fields'] = $this->literM->get_fields();
+			
+			
+			
+		}
+
+		if (($qidf = $this->literM->get_all_where(array(),'literature_source','asc','999')) != FALSE){
+			
+			
+			$this->data['source_asc'] = $qide;
+			$this->data['source_asc_fields'] = $this->literM->get_fields();
+			
+			
+			
+		}
+
+		if (($qidg = $this->literM->get_all_where(array(),'literature_source','desc','999')) != FALSE){
+			
+			
+			$this->data['source_desc'] = $qidg;
+			$this->data['source_desc_fields'] = $this->literM->get_fields();
+			
+			
+			
+		}		
 		
+
 		$this->load->model('Authors_model','amodel',TRUE);
 		
 		// To obtain an array called $auth with names and surnames
@@ -691,7 +741,142 @@ class Literature extends Controller {
 		
 		$this->data['block_fields']['authors']['array_data'] = $auth;	// Load the above data
 		
+	// Lit_asc authors
+		$authb = array();
 		
+		foreach ($this->data['lit_asc']->result() as $rowa) {
+			
+			$qidh = $this->amodel->get_a_for_l($rowa->literature_id);	
+
+			if ($qidh->num_rows() > 0) {
+				
+				$str = '';
+				foreach ($qida->result() as $rowb ) {
+					
+					$str .= $rowb->authors_surname . ' ' . $rowb->authors_name . "<br/>"; 
+					
+				}
+				
+				$authb[$rowa->literature_id] = $str;
+				
+				
+			}
+			
+			
+		}
+		
+		$this->data['lit_asc_fields']['authors']['array_data'] = $authb;	
+
+
+	// Lit_desc authors
+		$authc = array();
+		
+		foreach ($this->data['lit_desc']->result() as $rowa) {
+			
+			$qidi = $this->amodel->get_a_for_l($rowa->literature_id);	
+
+			if ($qidi->num_rows() > 0) {
+				
+				$str = '';
+				foreach ($qida->result() as $rowb ) {
+					
+					$str .= $rowb->authors_surname . ' ' . $rowb->authors_name . "<br/>"; 
+					
+				}
+				
+				$authc[$rowa->literature_id] = $str;
+				
+				
+			}
+			
+			
+		}
+		
+		$this->data['lit_desc_fields']['authors']['array_data'] = $authc;
+
+	
+	// Year_desc authors  -- There is no "Year_asc" because the normal one is order by year_asc
+		$authd = array();
+		
+		foreach ($this->data['year_desc']->result() as $rowa) {
+			
+			$qidj = $this->amodel->get_a_for_l($rowa->literature_id);	
+
+			if ($qidj->num_rows() > 0) {
+				
+				$str = '';
+				foreach ($qida->result() as $rowb ) {
+					
+					$str .= $rowb->authors_surname . ' ' . $rowb->authors_name . "<br/>"; 
+					
+				}
+				
+				$authd[$rowa->literature_id] = $str;
+				
+				
+			}
+			
+			
+		}
+		
+		$this->data['year_desc_fields']['authors']['array_data'] = $authd;
+
+	
+	// Journal_asc authors
+		$authe = array();
+		
+		foreach ($this->data['source_asc']->result() as $rowa) {
+			
+			$qidk = $this->amodel->get_a_for_l($rowa->literature_id);	
+
+			if ($qidk->num_rows() > 0) {
+				
+				$str = '';
+				foreach ($qida->result() as $rowb ) {
+					
+					$str .= $rowb->authors_surname . ' ' . $rowb->authors_name . "<br/>"; 
+					
+				}
+				
+				$authe[$rowa->literature_id] = $str;
+				
+				
+			}
+			
+			
+		}
+		
+		$this->data['source_asc_fields']['authors']['array_data'] = $authe;
+
+
+	// Journal_desc authors
+		$authf = array();
+		
+		foreach ($this->data['source_desc']->result() as $rowa) {
+			
+			$qidl = $this->amodel->get_a_for_l($rowa->literature_id);	
+
+			if ($qidl->num_rows() > 0) {
+				
+				$str = '';
+				foreach ($qida->result() as $rowb ) {
+					
+					$str .= $rowb->authors_surname . ' ' . $rowb->authors_name . "<br/>"; 
+					
+				}
+				
+				$authf[$rowa->literature_id] = $str;
+				
+				
+			}
+			
+			
+		}
+		
+		$this->data['source_desc_fields']['authors']['array_data'] = $authf;
+
+
+
 		// Action "all_literature" is chosen
 		$this->data['action'] = 'all_literature';
 
